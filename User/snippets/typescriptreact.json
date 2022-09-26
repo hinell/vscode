@@ -1,0 +1,223 @@
+{
+	/*
+		// Place your snippets for TypeScript here. Each snippet is defined under a snippet name and has a prefix, body and 
+		// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+		// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+		// same ids are connected.
+		// Example:
+		"Print to console": {
+			"prefix": "log",
+			"body": [
+				"console.log('$1');",
+				"$2"
+			],
+			"description": "Log output to console"
+		}
+	*/
+		"console.log": {
+			"prefix": "log",
+			"body": [
+				"console.log($1)$0"
+			],
+			"description": "Log output to console"
+		},
+		"IIFE": {
+			"prefix":"func.i",
+			"body": [
+				"(function ($2) {$3})($1)",
+				"$4"
+			],
+			"description": "Immediate function invocation"		
+		},
+		"Function": {
+			"prefix":"func",
+			"body": [
+				"function ($1) {$2}$0"],
+			"description": "func() {...} - Function expression"
+		},
+		"Function async": {
+			"prefix":"func.async",
+			"body": [
+				"async function ($1) {$2}$0"],
+			"description": "func() {...} - Function expression"
+		},
+		"Function short": {
+			"prefix":"func =>",
+			"body": [
+				"($1) => {$2}$0"],
+			"description": "() => {...} - Function expression"
+		},
+	
+		"----": {
+			"prefix": "---<"
+			,"body": ["--------------< $1 >--------------", "$2"]
+			,"description": "Insert comment block header"
+		},
+		"class": {
+			"prefix": "class"
+			,"body": [
+				"class ${1:name} {",
+				"\t\"constructor\": typeof $1",
+				"\tconstructor(${2:param}) {",
+					"\t\t$2$3",
+				"\t}",
+				"\t${4:methodName}(${5:param}) {",
+				"\t\treturn $5$6",
+				"\t}",
+				"$0",
+				"}",
+			]
+			,"description": "class ... { constructor } "
+		},
+		"class extends": {
+			"prefix": "class.ext"
+			,"body": [
+				"class ${1:name} extends ${2:name} {",
+				"\t\"constructor\": typeof $1",
+				"\tconstructor (${3:param}) {",
+					"\t\tsuper($4)",
+					"\t\t$3$5",
+				"\t}",
+				"\t${6:methodName}(${7:param}) {",
+				"\t\treturn $7$8",
+				"\t}",
+				"$0",
+				"}",
+			]
+			,"description": "class ... extends ... { constructor } "
+		},
+		"class react component": {
+			"prefix": "class.rct.component"
+			,"body": [
+				"export class ${1:name} extends Component {",
+				"\t\"constructor\": typeof $1",
+				"\tconstructor (props) {",
+					"\t\tsuper(props)",
+					"\t\t$2$3",
+				"\t}",
+				"\t${4:methodName}(${5:param}) {",
+				"\t\treturn $6$7",
+				"\t}",
+				"\trender($8) {",
+				"\t\treturn $9$10",
+				"\t}",
+				"$0",
+				"}",
+			]
+			,"description": "React class component"
+		},
+		"array reduce": {
+			"prefix": "arr.reduce",
+			"body": [
+				"${1:array}.reduce(function (c, n, i, arr) {",
+				"\treturn ${2:c}",		
+				"})$0"
+			],
+			"description": "arr.reduce(function (){....}"
+		},
+		"array reduce =>": {
+			"prefix": "arr.reduce =>",
+			"body": [
+				"${1:array}.reduce((c, n, i, arr) => {",
+				"\treturn ${2:c}",		
+				"}$0"
+			],
+			"description": "arr.reduce(() => {....}"
+		},
+		"array forEach": {
+			"prefix": "arr.forEach",
+			"body": [
+				"${array}.forEach(function (${e}, i, arr) {",
+				"\t${e}${body}",
+				"})",
+				"$0"
+			],
+			"description": "arr.reduce(function (){....}"
+		},
+		"array forEach =>": {
+			"prefix": "arr.forEach =>",
+			"body": [
+				"${array}.forEach((${e}, i, arr) => {",
+				"\t${e}${body}",
+				"})",
+				"$0"
+			],
+			"description": "arr.forEach(() => {....}"
+		},
+		"array map": {
+			"prefix": "arr.map",
+			"body": [
+				"${array} = ${array}.map(function (${e}, i, arr) {",
+				"\t${e}${body}",
+				"})",
+				"$0"
+			],
+			"description": "arr.map(function () {....}"
+		},
+		"array map =>": {
+			"prefix": "arr.map =>",
+			"body": [
+				"${array}.map((${e}, i, arr) => {",
+				"\t${e}${body}",
+				"})",
+				"$0"
+			],
+			"description": "arr.map(() => {....}"
+		},
+		"tests test": {
+			"prefix": "tests.test",
+			"body": [
+				"${testType}(`${testName}`, function (${done}) {",
+				"\t${body}",
+				"})",
+				"$0"
+			],
+			"description": "insert describe(..., fun () { it(..) })"
+		},
+		"tests suit": {
+			"prefix": "tests.suit",
+			"body": [
+				"describe(`${testsName}`, function () {",
+				"\tit(`${testName}`, function (done) {",
+				"\t\t${body}",
+				"\t})",
+				"})",
+				"$0"
+			],
+			"description": "insert describe(..., fun () { it(..) })"
+		},
+		"webpack import": {
+			"prefix":"webpack.import",
+			"body": [
+				"await import(/* webpackChunkName: \"${1:chunkname}\" */ `$2${1:chunkname}`)",
+				"$3"
+			],
+			"description": "Immediate function invocation"		
+		},
+		"typescript directive": {
+			"prefix": "ts.directive",
+			"body": [
+				"/// <reference path=\"$1\" />",
+				"$0"
+			],
+			"description": "Log output to console"
+		},
+		"throw":  {
+			"prefix": "throw",
+			"body": [
+				"throw new ${Error}(`${message}`)$0"
+			],
+			"description": "Insert throw new Error(...)"
+		},
+		"if.throw":  {
+			"prefix": "if.throw",
+			"body": [
+				"if (${condition}) {",
+				"\tthrow new Error(`${error}`)",
+				"}$0"
+			],
+			"description": "if (...) { throw ... }"
+		}
+	}
+
+	

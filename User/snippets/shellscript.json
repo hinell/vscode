@@ -1,0 +1,543 @@
+{
+  "shell.new": {
+    "prefix": "shell.new",
+    "description": "New shell script",
+    "body": [
+      "${#shebang}",
+      "${meta.head}",
+      "${zsh.warning}"
+    ]
+  },
+  "#": {
+    "prefix": "#shebang",
+    "body": [
+      "#!/usr/bin/env ${bash}"
+    ],
+    "description": "Shebang line at the top of the script"
+  },
+  "debug": {
+    "prefix": "debug",
+    "body": [
+      "set -vx # debug-start",
+      ":${1:${TM_SELECTED_TEXT}}",
+      "set +vx # debug-end"
+    ],
+    "description": "Debug variable set -x/+x"
+  },
+  "log.error": {
+    "prefix": "log.error",
+    "body": [
+      "# Use 2> error.log to read the output of the command",
+      "echo ${1:errorMessage} > /dev/stderr;"
+    ],
+    "description": "Report error to the stderr"
+  },
+  "match.if": {
+    "prefix": "if",
+    "body": [
+      "# https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions",
+      "if [[ $1 ${2|-d,-f,==,!=,>,<,=~|} $3 ]];",
+      "then",
+      "\t# BASH_REMATCH for the regexp",
+      "\t$3$0",
+      "fi"
+    ],
+    "description": "Insert if (..) then ..."
+  },
+  "match.if.command.exists": {
+    "prefix": "if.exists",
+    "description": "If a given command exists do",
+    "body": [
+      "type ${1:command} &> /dev/null ${2|&&,\\|\\||} {",
+      "\t$0",
+      "} # $1 check end"
+    ]
+  },
+  "match.if.file": {
+    "prefix": "if.file",
+    "body": [
+      "# https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions",
+      "if [[ ${1|-a,-b,-c,-d,-e,-f,-h,-p,-r,-s,-t,-w,-x,-L,-N|} ${2} ]];",
+      "then",
+      "\t# BASH_REMATCH for the regexp",
+      "\t$3",
+      "fi"
+    ],
+    "description": "Check if file or dir exists"
+  },
+  "match.if.file.older": {
+    "prefix": "if.file.older",
+    "body": [
+      "# True if $1 exists and is older than the other",
+      "if [[ ${1:file1} -ot ${2:file2} ]];",
+      "then",
+      "\t$3",
+      "fi"
+    ],
+    "description": "If file is older"
+  },
+  "match.if.file.newer": {
+    "prefix": "if.file.newer",
+    "body": [
+      "# True if $1 exists and is newer than the other",
+      "if [[ ${1:file1} -nt ${2:file2} ]];",
+      "then",
+      "\t$3",
+      "fi"
+    ],
+    "description": "If file is newer"
+  },
+  "match.if.variable": {
+    "prefix": "if.var",
+    "body": [
+      "# https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions",
+      "if [[ ${1|-z,-n,-v|} $2 ]];",
+      "then",
+      "\t# BASH_REMATCH for the regexp",
+      "\t$3",
+      "fi"
+    ],
+    "description": "Check if var is set"
+  },
+  "match.if.num": {
+    "prefix": "if.num",
+    "body": [
+      "# https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions",
+      "if [[ ${1:\\$?} ${2|-eq,-ne,-lt,-le,-gt,-ge|} $3 ]];",
+      "then",
+      "\t# BASH_REMATCH for the regexp",
+      "\t$3$0",
+      "fi"
+    ],
+    "description": "Check if some number is equal, less, great etc..."
+  },
+  "match.if.str": {
+    "prefix": "if.str",
+    "body": [
+      "if [[ \"${1:Arg1}\" ${2|-n,-z,=,==,!=,<,>|} \"${3:Arg2}\" ]]",
+      "then",
+      "\t# BASH_REMATCH for the regexp",
+      "    ${4:echo true}",
+      "else",
+      "    ${5:echo false}",
+      "fi",
+      ""
+    ],
+    "description": "If string"
+  },
+  "match.if.shorthand": {
+    "prefix": "if.shorthand",
+    "body": [
+      "[[ ${1:condition} ]] && ${2:echo true} || ${3:echo false}"
+    ],
+    "description": "Insert [[ ... ]] && ... || ..."
+  },
+  "match.if.else": {
+    "prefix": "if.else",
+    "body": [
+      "if [[ $1 ]];",
+      "then",
+      "\t$3",
+      "\t:",
+      "else",
+      "\t$4",
+      "\t:",
+      "fi"
+    ],
+    "description": "Insert if (..) then ..."
+  },
+  "match.if.yesno": {
+    "prefix": "if.yesno",
+    "body": [
+      "echo \"Would like to make a choice? (Y/n)\"",
+      "if read -sr -N 1; [[ \\${REPLY} =~ [yY$'\\n'] ]];",
+      "then",
+      "  echo true",
+      "else",
+      "  echo false",
+      "fi"
+    ],
+    "description": "match.if.yesno"
+  },
+  "match.if.yesno.zsh": {
+    "prefix": "if.yesno.zsh",
+    "body": [
+      "# Only for zsh",
+      "echo \"${1:Would like to make a choice}? (Y/n)\"",
+      "if read -qs;",
+      "then",
+      "  ${2:echo true}",
+      "else",
+      "  ${3:echo false}",
+      "fi"
+    ],
+    "description": "Zsh only version of yesno"
+  },
+  "match.switch": {
+    "prefix": "switch",
+    "body": [
+      "case ${1:word} in",
+      "#\t(pattern);& # <- if match execute next commands",
+      "\t(${1:*}) ${2:echo \"matches everything\"} ;;",
+      "\tswitch.stub$0",
+      "esac"
+    ],
+    "description": "case ... in ...) ... ;; - Quick case statement."
+  },
+  "match.switch.stub": {
+    "prefix": "switch.stub",
+    "body": [
+      "(${1:stub${TM_LINE_INDEX}})",
+      "\t# TODO: ${2:Finish this command}",
+      "\techo \"\\$0: $1 is unimplemented!\"$0",
+      ";;"
+    ],
+    "description": "Inserts a stub for the case () in ... statement. Quck case match template."
+  },
+  "match.if.shell.bash": {
+    "prefix": "if.shell.bash",
+    "description": "Detect if we are in bash",
+    "body": [
+      "# if bash",
+      "type readarray &> /dev/null && {",
+      "\tlocal ${1:arg_if_bash}=${2:value};",
+      "};"
+    ]
+  },
+  "match.options": {
+    "prefix": "options",
+    "body": [
+      "local OPTERR=0;",
+      "local ARGV=(\"\" ${1:\\$@})",
+      "",
+      "# Colon indicates that param requires a value",
+      "while getopts '${2:vf:}' flag \\${ARGV[@]}; do",
+      "\t# OPTIND - Option index",
+      "\t# OPTARG - Option argument",
+      "\tcase \\$flag in",
+      "\t\t(v) echo \"v1.0.0\" ;;",
+      "\t\t(f)",
+      "\t\t    echo \"Flag -f specified file: \\${OPTARG}\";",
+      "\t\t;;",
+      "\t\t('?')",
+      "\t\t    echo \"\\$0: Unexpected flags \\${ARGV[\\$OPTIND]}\";",
+      "\t\t    break;",
+      "\t\t;;",
+      "\tesac",
+      "done",
+      "unset OPTARG;",
+      "unset OPTIND;"
+    ],
+    "description": "Specify options to match"
+  },
+  "function.doc.param": {
+    "prefix": "fn@p",
+    "body": [
+      "# @param \\$${name} - ${description}"
+    ],
+    "description": "#@param ..."
+  },
+  "function.doc.param.rest": {
+    "prefix": "fn@pr",
+    "body": [
+      "# @param $...- Rest of arguments"
+    ],
+    "description": "#@param $... - ..."
+  },
+  "function.doc.summary": {
+    "prefix": "fn@s",
+    "body": [
+      "# @summary ${description}"
+    ],
+    "description": "#@summary ..."
+  },
+  "function.doc.description": {
+    "prefix": "fn@d",
+    "body": [
+      "# @description ${description}"
+    ],
+    "description": "#@description ..."
+  },
+  "function.doc.example": {
+    "prefix": "fn@u",
+    "body": [
+      "# @usage `\\$ ${description}`"
+    ],
+    "description": "#@usage ..."
+  },
+  "function.doc.return": {
+    "prefix": "fn@r",
+    "body": [
+      "# @return - ${description}"
+    ],
+    "description": "#@return ..."
+  },
+  "function.doc": {
+    "prefix": "fn@",
+    "body": [
+      "#fn@s${1}",
+      "#${2|fn@p,fn@pr,fn@d,fn@r,fn@d|}",
+      "#${3|fn@p,fn@pr,fn@d,fn@r,fn@d|}",
+    ],
+    "description": "#@xyz ..."
+  },
+  "function": {
+    "prefix": "fn",
+    "body": [
+      "# ----------------------------------------------------------------$1",
+      "# @summary ${8:I'm tasked with ...}",
+      "# @usage  $ $1",
+      "# @param \\$${arg0} -",
+      "# @param \\$${arg1} -",
+      "# @param \\$@\t- Rest of arguments",
+      "${1}()",
+      "{",
+      "\tlocal -n ${var0}=\\${1:? \\$'\\n'\"\\$0: $1: ${arg0} is missing\"};",
+      "\tlocal    ${var1}=\\${2:? \\$'\\n'\"\\$0: $1: ${arg1} is missing\"};",
+      "\t$arg0$0",
+      "} # $1 end"
+    ],
+    "description": "@param  fn(){ local ... }"
+  },
+  "function.cli.arguments": {
+    "prefix": "fn.cli.arguments",
+    "description": "Put cli script arguments into an array called 'arguments'",
+    "body": [
+      "# Put arguments of the script to the array",
+      "# Use it like a reference, via argument inside cli:",
+      "# set +o nounset",
+      "# set +o errexit",
+      "# local -n argv=\\$1",
+      "# local -i argc=\\$2",
+      "declare -a arguments=();",
+      "for name; do arguments+=(\"\\$name\"); done;",
+      "${1:cli} arguments \\$(( \\${#arguments[*]} - 1))"
+    ]
+  },
+  "script.if.sourced": {
+    "description": "Export function to a user shell (invoke it in .zsh/.bashrc)",
+    "prefix": "script.if.sourced",
+    "body": [
+      "$0shell.name # TODO: DON'T FORGET TO PROVIDE SHELL DETECTION FUNCTION: ",
+      "# ----------------------------------------------------------main-function-export",
+      "if [[ \\${BASH_SOURCE[0]} != \\$0 ]];",
+      "then",
+      "# Run commands if script was sourced${2}",
+      "\t${1::}",
+      "fi",
+      "$0"
+    ]
+  },
+  "function.export": {
+    "description": "Export function to a user shell (invoke it in .zsh/.bashrc)",
+    "prefix": "fn.export",
+    "body": [
+      "# ----------------------------------------------------------main-function-export",
+      "if [[ \\${BASH_SOURCE[0]} != \\$0 ]]; then",
+      "\t# Alias the exported function, if necessary",
+      "\tEXPORT_NAME=\"${1:export_as_name}\"",
+      "\teval \"\\$EXPORT_NAME(){ ${2:${TM_SELECTED_TEXT:invoke_as}} \\\"\\$@\\\";}\" &> /dev/null",
+      "\t# NOTE: THIS AIN'T GONNA SUPPORT ZSH because of its backward icompatibility with bash",
+      "\t# Exports for Bash sourcing",
+      "\ttype readarray &> /dev/null && eval \"export -f \\$EXPORT_NAME\";",
+      "else",
+      "\t${2} \"\\$@\"",
+      "fi"
+    ]
+  },
+  "array.log": {
+    "prefix": "arr.log",
+    "body": [
+      "${1|declare,typeset|} -p ${2:arrayName}; # prints content of the array"
+    ],
+    "description": "Logs content of the array by declare built-in"
+  },
+  "array.length.log": {
+    "prefix": "arr.length.log",
+    "body": [
+      "echo \"$1.length = \\${#${1:arrayName}[@]}\""
+    ],
+    "description": "Logs content of the array by declare built-in"
+  },
+  "array.for.in": {
+    "prefix": "arr.for.in",
+    "body": [
+      "# WARNING: THIS IS NOT CROSS-PLATFORM ITERATOR: ZSH WILL FAIL",
+      "local ${4:value};",
+      "for key in ${2:\\${!$3[*]\\}}; do",
+      "\t${4:value}=\\${${3:array}[\\$key]};",
+      "\techo \\$$4$0",
+      "done;"
+    ],
+    "description": "for ... in ...; (cross-platform)"
+  },
+  "array.for": {
+    "prefix": "arr.for",
+    "description": "for(i; i++...); (cross-platform)",
+    "body": [
+      "local -i i len=\\${#${2:${TM_SELECTED_TEXT:array}}[@]};",
+      "for ((i=0; i <= len; i++)); do",
+      "\tlocal ${3:value}=\\${$2[\\$i]}",
+      "\t$0",
+      "done;"
+    ]
+  },
+  "array.while": {
+    "prefix": "arr.while",
+    "body": [
+      "while $1; do",
+      "    $3;",
+      "done;"
+    ],
+    "description": "while ...; do ...; done"
+  },
+  "array.until": {
+    "prefix": "arr.until",
+    "body": [
+      "until $1; do",
+      "    $3;",
+      "done;"
+    ],
+    "description": "untill ...; do ...; done"
+  },
+  "array.join": {
+    "prefix": "arr.join",
+    "body": [
+      "IFS=${1:\\$'\\n'} ${3:output}=\"\\${${2:inputarra}[*]}\";",
+      "$0"
+    ],
+    "description": "(a b c) -> a\nb\nc"
+  },
+  "string.split": {
+    "prefix": "string.split",
+    "description": "Split string by a delimiter and assign values to an array. Non-portable.",
+    "body": [
+      "readarray -t -d '${1|\\n,\\|,:,\\,|}' ${3:output} <<<${2:input}"
+    ]
+  },
+  "object": {
+    "prefix": "object",
+    "description": "Declare associative array ([key1]=foo [key2]=bar)",
+    "body": [
+      "local -${1:arrayName}=()"
+    ]
+  },
+  "object.assign": {
+    "prefix": "object.assign",
+    "description": "Assign value to a key of the associative array e.g. array+=([key1]=foo [key2]=bar)",
+    "body": [
+      "${1:${TM_SELECTED_TEXT:array}}+=([${2:key}]=${3:value}$4);$0"
+    ]
+  },
+  "number.assign": {
+    "prefix": "num.assign",
+    "description": "Assign value to a key of the associative array e.g. array+=([key1]=foo [key2]=bar)",
+    "body": [
+      "${1:${TM_SELECTED_TEXT:array}}=$(($3));$0"
+    ]
+  },
+  "system.log.cat": {
+    "prefix": "log.cat.",
+    "description": "Multi-line log: cat << ....",
+    "body": [
+      "# DEPRECATED: use multiple echo calls instead",
+      "cat <<-${1:EOL}${2: | commandToPieTo}",
+      "${3:multi lilne message}",
+      "$1"
+    ]
+  },
+  "system.log.printf": {
+    "prefix": "log.printf",
+    "description": "Multi-line log: printf ...",
+    "body": [
+      "printf '  \\e[1m%s\\e[0m\\n\\t%s\\n\\n'\\",
+      "\t\"${1:Term}\"\\",
+      "\t\"${2:Defintion of the term}${0}\"\\",
+      "\t\"\""
+    ]
+  },
+  "shell.name": {
+    "prefix": "shell.name",
+    "description": "DEPRECATED: use if.shell !!! Detect shell (zsh/bash) for cross-shell scripting",
+    "body": [
+      "# DEPRECATED, use if.shell.{bash,zsh}"
+    ]
+  },
+  "shell.completions.register": {
+    "prefix": "bash.complete.reg",
+    "description": "Insert competion registration command",
+    "body": [
+      "\tcomlete -F ${function_name}"
+    ]
+  },
+  "shell.cursor.pos.at": {
+    "prefix": "shell.cursor.pos.at",
+    "description": "Get cursor position via $ROW $COL",
+    "body": [
+      "#------------------------------------------------------------shell.cursor.pos.at",
+      "# @summary Get a cursor position int \\$ROW and \\$COL variables",
+      "# @usage",
+      "# \\$ shell.cursor.pos.at",
+      "# \\$ echo $ROW $COL",
+      "shell.cursor.pos.at()",
+      "{",
+      "\t\t\techo -en '\\e[6n';",
+      "\t\t\tread -s -d '[';",
+      "\tIFS=';' read -s -d 'R' ROW COL;",
+      "}$0"
+    ]
+  },
+  "shell.input.read": {
+    "prefix": "shell.input.read",
+    "description": "Read user input silently. Intended for while loops",
+    "body": [
+      "#---------------------------------------------------------------shell.input.read",
+      "# @summary A crossplatform function to read enter|up|down keypresses from stdin",
+      "# @description Use it in a while loop to extract currently pressed key",
+      "# @usage $ echo $(shell.input.read) # => enter|up|down",
+      "# @return - Integer",
+      "type shell.input.read    &> /dev/null || shell.input.read()",
+      "{",
+      "\tlocal SILENT_FLAG=\\${1:-'-s'};",
+      "\tkey=\"\";",
+      "\t[[ `shell.name` == 'bash'  ]] && read \\$SILENT_FLAG -n3 key 2>/dev/null >&2;",
+      "\t[[ `shell.name` == 'zsh'   ]] &&\\",
+      "\t{",
+      "\t\tread \\$SILENT_FLAG -k1 k0 2>/dev/null >&2;",
+      "\t\t# NASTY BUG! Dor't forget to keep the `[[` from next char",
+      "\t\t[[ \"\\$k0\" = \\$'\\n'    ]] && echo enter && return 0;",
+      "\t\tread \\$SILENT_FLAG -k2 k1 2>/dev/null >&2;",
+      "\t\tkey=\\$k0\\$k1",
+      "\t}",
+      "\t# [[ \\${key[1]} = \\$'\\n'   ]] && echo enter;",
+      "\t[[ \\$key      = \\$'\\e[A' ]] && echo up;",
+      "\t[[ \\$key      = \\$'\\e[B' ]] && echo down; ",
+      "\t[[ \\$key      = \"\"      ]] && echo enter;",
+      "}"
+    ]
+  },
+  "zsh.warning": {
+    "prefix": "zsh.warning",
+    "description": "Encourage to avoid using zsh",
+    "body": [
+      "# DO NOT USE ZSH WARNGING",
+      "type autoload   &> /dev/null && {",
+      "\techo '\\e[31;1mWARNING:\\e[0m \\e[1mDO NOT SOURCE THIS SCRIPT IN ZSH! \\e[0m';",
+      "\techo '   It looks like you are trying to source and run \\e[3m${1:this script}\\e[23m in ZSH.';",
+      "\techo '   You should probably do not do this because it is hard to write a portable zsh code:';",
+      "\techo '    ZSH breaks backwards compatibility beyond any reasonable extends.';",
+      "\techo '    ZSH breaks array indexing forcing you to fuck around with KSH_ZERO_SUBSCRIPT bullshit.';",
+      "\techo '    ZSH breaks string replacement in parameter expansion!';",
+      "\techo '    ZSH breaks nameRefs!';",
+      "\techo '    ZSH breaks pipes and named pipes, introduces unncesary aliases!';",
+      "\techo '    ZSH is simply fucked up (including its documentation).';",
+      "\tif [[ \\${BASH_SOURCE[0]} != \\$0 ]];",
+      "\tthen",
+      "\t\treturn",
+      "\telse",
+      "\t\texit",
+      "\tfi",
+      "};"
+    ]
+  }
+}

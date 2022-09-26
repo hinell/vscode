@@ -1,0 +1,483 @@
+{
+  "cpp.new": {
+    "prefix": "cpp.new",
+    "isFileTemplate": true,
+    "body": [
+      "${1:meta.head}",
+      "",
+      "#pragma once",
+      "",
+      "import.utils${2}",
+      "import.funcs${3}",
+      "import.sys.io${4}",
+      "import.sys.io.fs${5}",
+      "import.sys.io.str${6}",
+      "",
+      "import.strings${7}",
+      "import.containers${8}",
+      "import.cstdint${9}",
+      "",
+      "#include ${10:libraryTargetName}_export.h",
+      "//#include ${TM_FILENAME_BASE}.h",
+      "",
+      "${20|main,class.new|}"
+    ],
+    "description": "cpp.new"
+  },
+  "import.utils": {
+    "prefix": "import.utils",
+    "body": [
+      "#include <cstddef>",
+      "#include <utility>",
+      "#include <type_traits> // Type support, RTTI",
+      "#include <typeindex>   // Provides ids of types;",
+      "template <class T1, class T2> using  Pair = std::pair<T1,T2>;"
+    ],
+    "description": "import.utils"
+  },
+  "import.sys.io": {
+    "prefix": "import.sys.io",
+    "body": [
+      "#include <iosfwd>",
+      "#include <iostream>",
+      "using std::cin;",
+      "using std::ostream;",
+      "using std::cout;",
+      "using std::cerr;",
+      "using std::clog;"
+    ],
+    "description": "import.sys.io"
+  },
+  "import.sys.io.fstreams": {
+  "prefix": "import.sys.io.fstreams",
+  "body": [
+    "#include <fstream>",
+    "",
+    "using Filebuf   = std::filebuf  ;",
+    "using Wfilebuf  = std::wfilebuf ;",
+    "",
+    "using Ifstream  = std::ifstream ;",
+    "using Wifstream = std::wifstream;",
+    "",
+    "using Ofstream  = std::ofstream ;",
+    "using Wofstream = std::wofstream;",
+    "",
+    "using Fstream   = std::fstream  ;",
+    "using Wfstream  = std::wfstream ;"
+  ],
+  "description": "import.sys.io.fs"
+},
+  "import.sys.io.str": {
+    "prefix": "import.sys.io.str",
+    "body": [
+      "#include <sstream>"
+    ],
+    "description": "import.sys.io.str"
+  },
+  "import.containers": {
+    "prefix": "import.containers",
+    "description": "Improt STL containers",
+    "body": [
+      "// Containers ",
+      "#include <initializer_list>",
+      "#include <vector>",
+      "#include <array>",
+      "#include <forward_list>",
+      "#include <tuple>",
+      "",
+      "#include <map>",
+      "#include <set>",
+      "#include <unordered_set>",
+      "",
+      "template <class T, std::size_t N> using Array       = std::array<T, N>;",
+      "template <class T, class A = std::allocator<T>>       using Vector      = std::vector<T, A>;",
+      "template <class T, class A = std::allocator<T>>       using ForwardList = std::forward_list<T,A>;"
+    ]
+  },
+  "import.funcs": {
+    "prefix": "import.funcs",
+    "body": [
+      "#include <functional>",
+      "template <class T> using     Hash      = std::hash<T>;",
+      "template <class R> using     Function  = std::function<R>;",
+      "// Function<void(int, int)> fn();$0"
+    ],
+    "description": "import.funcs"
+  },
+  "import.strings": {
+    "prefix": "import.strings",
+    "body": [
+      "#include <string>",
+      "#include <string_view>",
+      "using     U8String  = std::string;",
+      "using     U16String = std::u16string;",
+      "using     WString   = std::wstring;",
+      "",
+      "// Only for C++17",
+      "//TODO: Fix string views",
+      "//using     U8StringView  = std::string_view;",
+      "//using     U16StringView = std::u16string_view;",
+      "//using     WStringView   = std::wstring_view;",
+      ""
+    ],
+    "description": "import.strings"
+  },
+  "import.cstdint": {
+    "prefix": "import.cstdint",
+    "description": "Import numbers header",
+    "body": [
+      "#include <cfloat>    // Fixed width types",
+      "#include <cstdint>   // Fixed width types",
+      "",
+      "using Int8    = std::int8_t;",
+      "using Int16   = std::int16_t;",
+      "using Int32   = std::int32_t;",
+      "using Int64   = std::int64_t;",
+      "using IntMax  = std::intmax_t;",
+      "using IntPtr  = std::intptr_t;",
+      "using UInt8   = std::uint8_t;",
+      "using UInt16  = std::uint16_t;",
+      "using UInt32  = std::uint32_t;",
+      "using UInt64  = std::uint64_t;",
+      "using UIntMax = std::intmax_t;",
+      "using UIntPtr = std::intptr_t;"
+    ]
+  },
+  "preprocessor.if": {
+    "prefix": "prep.if",
+    "description": "#define preprocessor",
+    "body": [
+      "# Add expression for evaluation",
+      "#if ${1:_VERSION >= 5000} && ${2:defined(HAS_WAR)}",
+      "\t#define SOMEVAR$0",
+      "#endif"
+    ]
+  },
+  "preprocessor.def": {
+    "prefix": "prep.def",
+    "description": "#define preprocessor",
+    "body": [
+      "#define ${1:<IDENTIFIER>}"
+    ]
+  },
+  "preprocessor.def.fn": {
+    "prefix": "prep.def.fn",
+    "description": "#define preprocessor",
+    "body": [
+      "// '#'  - turns argument into a string",
+      "// '##' - concatenates a strings",
+      "#define ${1/(.*)/${1:/upcase}/}(${arg}) ${arg}"
+    ]
+  },
+  "preprocessor.if.def": {
+    "prefix": "prep.if.def",
+    "description": "#If preprocessor",
+    "body": [
+      "#$if ${3:!}defined(${2:IDENTIFIER})",
+      "\t#define SOMEVAR$0",
+      "#endif"
+    ]
+  },
+  "preprocessor.if.lang.ver": {
+    "prefix": "prep.if.lang.ver",
+    "body": [
+      "#if __cplusplus >= ${1|201103L,201402L,201703L,202002L|} || (defined(_MSVC_LANG) && _MSVC_LANG >= $1)",
+      "\t$5",
+      "#else",
+      "\t$0",
+      "#endif"
+    ],
+    "description": "prep.if.lang"
+  },
+  "preprocessor.if.cpp": {
+    "prefix": "prep.if.cpp",
+    "body": [
+      "#ifdef __cplusplus",
+      "extern \"C\" {",
+      "#endif",
+      "",
+      "$1",
+      "",
+      "#ifdef __cplusplus",
+      "}",
+      "#endif"
+    ],
+    "description": "preprocessor.if.def.cpp"
+  },
+  "preprocessor.if.os.win": {
+    "prefix": "prep.if.os.win",
+    "body": [
+      "#if defined(__WIN32__)    \\",
+      "  || defined(WIN32)       \\",
+      "  || defined(_WIN32)      \\",
+      "  || defined(__CYGWIN__)  \\",
+      "  || defined(__MINGW32__) \\",
+      "  || defined(__MINGW64__) \\",
+      "  || defined(__BORLANDC__)",
+      "",
+      "  # define OS_WINDOWS",
+      "#endif",
+      "",
+      "#if defined(OS_WINDOWS)",
+      "  // Do something$1",
+      "#endif"
+    ],
+    "description": "preprocessor.if.os.win"
+  },
+  "system.log.manipulators": {
+    "prefix": "log.manipulators",
+    "description": "Add input/output string manipulators ",
+    "body": [
+      "TODO:FINISH"
+    ]
+  },
+  "system.log": {
+    "prefix": "log",
+    "description": "Include extenal header exposing shared library interface",
+    "body": [
+      "std::cout << \"${message}\" << std::endl;"
+    ]
+  },
+  "system.bench": {
+    "prefix": "system.bench",
+    "description": "Benchmark performance",
+    "body": [
+      "#include <chrono>",
+      "using HRTimePoint     = std::chrono::time_point<std::chrono::high_resolution_clock>;",
+      "using HRClock         = std::chrono::high_resolution_clock;",
+      "using HRClockDuration = std::chrono::duration;",
+      "HRTimePoint hrsStart HRClock::now();",
+      "${1:${TM_SELECTED_TEXT:Benchmark expressions}};",
+      "HRTimePoint hrsEnd HRClock::now();",
+      "HRClockDuration<double> diff = end - start;",
+      "cout << \"Benchmark test result: \" << diff.count() << \"\n\";${0}"
+    ]
+  },
+  "import": {
+    "prefix": "import",
+    "description": "Include extenal header exposing shared library interface",
+    "body": [
+      "#include ${nameOrPath}"
+    ]
+  },
+  "import.cmake.export": {
+    "prefix": "import.cmake.export",
+    "description": "Include Cmake-generated header (see generate_export_header)",
+    "body": [
+      "#include ${libraryTargetName}_export.h"
+    ]
+  },
+  "match.switch": {
+    "prefix": "match.switch",
+    "description": "Switching constants",
+    "body": [
+      "switch (${2:expression}) statement",
+      "{",
+      "\tcase ${4:CONSTANT_EXPRESSION}:",
+      "\t\t${5:break};",
+      "\tdefault: ${0:std::cout << \"Default case\" << std::endl; };",
+      "",
+      "}"
+    ]
+  },
+  "main": {
+    "prefix": "main",
+    "description": "Add main function",
+    "body": [
+      "#include <iostream>",
+      "#define IDENTIFIER \"Hello dear, I'm your program\"",
+      "",
+      "using std::cout;",
+      "int main(int argc, char* argv[], char* env[])",
+      "{",
+      "\tcout << ${1:IDENTIFIER};",
+      "\treturn 0;",
+      "}"
+    ]
+  },
+  "fn": {
+    "prefix": "fn",
+    "description": "Add function",
+    "body": [
+      "${1:void} ${2:fn}(${3:T} ${4:var}) {",
+      "\t$4;",
+      "\t//$1 ret($0);",
+      "\t// return $1",
+      "}"
+    ]
+  },
+  "fn.cb": {
+    "prefix": "fn.cb",
+    "description": "C++ style callback function",
+    "body": [
+      "auto ${1:callback} = [$4${2| , =, var, var..., var var(), &, this, *this /* C++17 */, ...var init, &...var init|}] (${10:auto arg1}, ${11: auto arg2}) ${12:-> TReturn} {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "type.get.of": {
+    "prefix": "type.get.of",
+    "description": "Get type dynamically by evaluating an existing one",
+    "body": [
+      "decltype(${entityOrExpression});"
+    ]
+  },
+  "type.log": {
+    "prefix": "type.log",
+    "body": [
+      "cout << \"Type of the ${1:typeName} is: \" << typeid(${1}).name() << \"\\n\";"
+    ],
+    "description": "type.log"
+  },
+  "type.new": {
+    "prefix": "type.new",
+    "description": "Add typedef (type alias) declaraion",
+    "body": [
+      "typedef ${type} ${name};"
+    ]
+  },
+  "type.fn.new": {
+    "prefix": "type.fn.new",
+    "description": "Add typedef (type alias) declaraion for a function",
+    "body": [
+      "typedef ${returnType} (*${name})(${arg1} ${val1});"
+    ]
+  },
+  "verctor.for": {
+    "prefix": "verctor.for",
+    "description": "Evaluate a vector or any iterable",
+    "body": [
+      "for (auto it = ${1}${2|->,.|}begin(); it != ${1}${2}end(); it++)",
+      "{",
+      "\t${0}",
+      "}"
+    ]
+  },
+  "class.inherit": {
+    "prefix": "class.inherit",
+    "description": "Class inheritance signature",
+    "body": [
+      ": ${1:virtual} ${3| ,public,private,protected|} ${2:Object}"
+    ]
+  },
+  "class.decl.method": {
+    "prefix": "class.decl.method",
+    "body": [
+      "${2|virtual,static|} ${3:void} ${4:fn}(${5:T} ${6:varname});",
+      "",
+      "$3 ${10:Base}::$4($5 $7){",
+      "    cout << $7 << std::endl;$0",
+      "    return $3;",
+      "}"
+    ],
+    "description": "class.decl.method"
+  },
+  "class.impl.method": {
+    "prefix": "class.impl.method",
+    "body": [
+      "$3 ${10:Base}::$4($5 $7){",
+      "    cout << $7 << std::endl;$0",
+      "    return $3;",
+      "}"
+    ],
+    "description": "class.impl.method"
+  },
+  "class.decl.new": {
+    "prefix": "class.decl.new",
+    "body": [
+      "/**",
+      " * @brief I'm $1",
+      " * ",
+      " */",
+      "class${2| ,exported|}${3:SubClass} ${4:class.inherit} {",
+      "",
+      "private:",
+      "        ${7:T property;}",
+      "",
+      "public:",
+      "",
+      "        /**",
+      "         * @brief I'm not a real constructor and I'm inteded for pointer reference",
+      "         * @return void",
+      "         */",
+      "        void constructor(){}",
+      "",
+      "        class ${3}_;",
+      "        std::unique_ptr<$3_> ${3/(.*)/${1:/downcase}/}_;",
+      "",
+      "        //If members are constant or referenced you have to init via initializer list",
+      "        explicit $3($9 $10)//: Base($8)",
+      "        ~$3();",
+      "",
+      "        ${20:class.decl.method}",
+      "};"
+    ],
+    "description": "class.decl.new"
+  },
+  "class.impl.new": {
+    "prefix": "class.impl.new",
+    "body": [
+      "class ${3:SubClass} ${4:class.inherit} {",
+      "",
+      "private:",
+      "        ${7:T property;}",
+      "",
+      "public:",
+      "",
+      "        /**",
+      "         * @brief I'm not a real constructor and I'm inteded for pointer reference",
+      "         * @return void",
+      "         */",
+      "        void constructor(){}",
+      "",
+      "        //If members are constant or referenced you have to init via initializer list",
+      "        explicit ${3/^((.*)::(.*))/${3}/}($9 $10)/*: Base($8) */",
+      "        {",
+      "            $0",
+      "        }",
+      "        ~${3/^((.*)::(.*))/${3}/}();",
+      "",
+      "        ${20:class.impl.method}",
+      "};"
+    ],
+    "description": "class.impl.new"
+  },
+  "class.impl.method.C.lang": {
+    "prefix": "class.impl.method.C.lang",
+    "body": [
+      "extern \"C\" ${4:returnType} ${1}_${3:method}(${1:ClassName}* ${2}, ${T} ${var1}, ${T2} ${var2})",
+      "{",
+      "    return ${2}->${3}(${var1}, ${var2});",
+      "}"
+    ],
+    "description": "class.impl.method.C.lang"
+  },
+  "class.instantiate": {
+    "prefix": "class.instantiate",
+    "body": [
+      "\t${1}*\t$2 = new ${1:Foo}();",
+      "\t${7:R}\t${8:out} = $2->${4:method}(${5:var}, ${6:var2});",
+      "\t\t\t${10|log,debug|}$0",
+      "\t\tdelete $2"
+    ],
+    "description": "class.instantiate"
+  },
+  "exceptions.try": {
+    "prefix": "try",
+    "body": [
+      "try",
+      "{",
+      "    ${1:throw};",
+      "}",
+      "catch (const std::${2|logic_error,domain_error,invalid_argument,length_error,out_of_range,runtime_error,range_error,overflow_error,underflow_error|}& e)",
+      "{",
+      "    std::cout << e.what();$3",
+      "}",
+      "catch(){",
+      "    std::cout << \"Something was thrown!\" << std::endl;$0",
+      "}",
+      ""
+    ],
+    "description": "exceptions.try"
+  }
+}

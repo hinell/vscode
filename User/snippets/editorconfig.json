@@ -1,0 +1,20 @@
+{
+	"editorconfig.new": {
+		"description": "Insert editorconfig settings",
+		"prefix": "editorconfig.new",
+		"isFileTemplate": true,
+		"body": [
+			 "# https://editorconfig.org/"
+			,"root                      = ${1:true}$0"
+			,"[${2|*,src/*.{js\\,ts},*.{bash\\,sh\\,zsh},{package.json\\,.travis.yml}|}]"
+			,"indent_style              = ${3|tab,space|}"
+			,"#indent_size               = ${4:4} # For space indent style"
+			,"#tab_width                 = ${5:2} # For tab   indent style"
+			,"end_of_line               = ${6|lf,crlf|}"
+			,"charset                   = ${7|utf-8,utf-8-bom,latin1,utf-16be,utf-16le|}"
+			,"trim_trailing_whitespace  = ${8:true}"
+			,"insert_final_newline      = ${9|false,true|}"
+		]
+
+	}
+}

@@ -1,0 +1,67 @@
+{
+	// Place your snippets for html here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will
+	// be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"SVG": {
+		"prefix": "svg",
+		"body": [
+			 	"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
+			,	"<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"${1:350}px\" height=\"${2:150}px\" vieport=\"0 0 $1 $2\">"
+			,	"\t$0"
+			, 	"</svg>"
+		],
+		"description": "SVG doctype head"
+	},
+	"list definitions":{
+		"prefix": "list.defs"
+		,"description": "List defitions"
+		,"body": [
+			 "<dl>"
+			,"\tlist.defs.def$1"
+			,"</dl>"
+		]
+	},
+	"list definitions def":{
+		"prefix": "list.defs.def"
+		,"description": "A defintion"
+		,"body": [
+			  "<dt>${1:Knowledge}</dt>"
+			 ,"<dd>${2|The only defense against the world is a thorough knowledge of it. - John Locke,No man’s knowledge here can go beyond his experience - John Locke|}</dd>"
+		]
+	}
+	
+	,"img": {
+		"prefix": "img",
+		"body": [
+			"<img",
+			"  clsas=\"\"",
+			"  alt=\"${2:}\"",
+			"  src=\"${1:<url>}\"",
+			"  srcset=\"$1\"",
+			"  ${3;sizes=\"(max-height: 420px) 1024px\"} <!-- The size of the viewport -->",
+			"  height=\"${4:512px}\"",
+			"  width=\"${5:512px}\"",
+			"  usemap=\"${6:#mapName}\"",
+			"  crossorigin=\"${7|anonymous,use-credentials|}\"",
+			"  loading=${8|eager,lazy|}",
+			"  decoding=${9|auto,sync,async|}",
+			"  referrerpolicy=${10|no-referrer,no-referrer-when-downgrade,origin,origin-when-cross-origin,same-origin,strict-origin,strict-origin-when-cross-origin,unsafe-url|}",
+			"/>",
+			"  "
+		],
+		"description": "img"
+	}
+}
+

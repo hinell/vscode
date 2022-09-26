@@ -1,0 +1,121 @@
+{
+  "comment": {
+    "prefix": "comment",
+    "description": "Inset standard HTML comment",
+    "body": [
+      "<!-- $1 -->"
+    ]
+  },
+  "badge.shields": {
+    "prefix": "badge.shields",
+    "body": [
+      "![${1:label}](https://img.shields.io/badge/-$1-100000?style=flat-square&logo=${2:$1})"
+    ],
+    "description": "badge.shields"
+  },
+  "link": {
+    "prefix": "link",
+    "body": [
+      "[${2:$TM_SELECTED_TEXT}](${1:href})$0"
+    ],
+    "description": "Inset link"
+  },
+  "link.html": {
+    "prefix": "link.html",
+    "body": [
+      "<a href=\"${1:href}\">${0:$TM_SELECTED_TEXT}</a>"
+    ],
+    "description": "Inset link"
+  },
+  "link.img": {
+    "prefix": "link.img",
+    "body": [
+      "[![${0:Link label}](${1:<imgUrl>})](${2:<targetUrl>})"
+    ],
+    "description": "Inset link image"
+  },
+  "link.img.html": {
+    "prefix": "link.img.html",
+    "body": [
+      "<img height=\"${1:14}\" src=\"${2:data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDMyMCAxODAiIHdpZHRoPSIzMjBweCIgaGVpZ2h0PSIxODBweCI+CiAgPGcgc3Ryb2tlPSIjZmY4YTNhIiBmaWxsPSJ0cmFuc3BhcmVudCIgc3Ryb2tlLXdpZHRoPSIzcHgiID4KICAgIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMTciIGhlaWdodD0iMTc3IiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxsaW5lIHgxPSIxIiB5MT0iMSIgeDI9IjMxOSIgeTI9IjE3OSIvPgogICAgPGxpbmUgeDE9IjEiIHkxPSIxNzkiIHgyPSIzMTkiIHkyPSIxIi8+CiAgPC9nPgo8ZGl2IHhtbG5zPSIiLz48L3N2Zz4K}\" />$0"
+    ],
+    "description": "Inset link image"
+  },
+  "link.reference": {
+    "prefix": "link.ref",
+    "body": [
+      "[$2]$0",
+      "[$2]: ${1:https://example.com}"
+    ],
+    "description": "Inset reference link"
+  },
+  "doc.toc": {
+    "prefix": "doc.toc",
+    "description": "Table Of Content",
+    "body": [
+      "* [${1:Menu 0}](${2:#link-name})",
+      "* [${3:Menu 1}](${4:#link-name})",
+      "* [${5:Menu 2}](${6:#link-name})",
+      "",
+      "<center>• • •</center>"
+    ]
+  },
+  "doc.disclaimer.support": {
+    "description": "No support or maintance notice. Intend",
+    "prefix": "doc.disclaimer.support",
+    "body": [
+      "${1:##} Support status",
+      "No guarantee, support or maintanance until paid."
+    ]
+  },
+  "list.definitions": {
+    "prefix": "list.defs",
+    "description": "List defitions",
+    "body": [
+      "<dl>",
+      "\tlist.defs.def$1",
+      "</dl>"
+    ]
+  },
+  "list.definitions.def": {
+    "prefix": "list.defs.def",
+    "description": "A defintion",
+    "body": [
+      "<dt>${1:Knowledge}</dt>",
+      "<dd>${2|The only defense against the world is a thorough knowledge of it. - John Locke,No man’s knowledge here can go beyond his experience - John Locke|}</dd>"
+    ]
+  },
+  "readme.new": {
+    "prefix": "readme.new",
+    "isFileTemplate": true,
+    "body": [
+      "# CONTINUE: [Sep 06,2022] Create basic README template",
+      "# ${README} "
+    ],
+    "description": "New Markdown document"
+  },
+  "code": {
+    "prefix": "```",
+    "body": [
+      "```${1| ,bash,js,css,html,cpp,c,cmake|}",
+      "\t$0",
+      "```"
+    ],
+    "description": "code"
+  },
+  "img": {
+    "prefix": "img",
+    "body": [
+      "![${1:label}](${2:<href>})"
+    ],
+    "description": "img"
+  },
+  "github.quote": {
+    "prefix": "github.quote",
+    "body": [
+      "<!-- Works only in github -->$0",
+      "> **${1|Warning,Note|}** ${2:Message}"
+    ],
+    "description": "github.warn"
+  },
+}

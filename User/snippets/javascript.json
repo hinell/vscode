@@ -1,0 +1,178 @@
+{
+  "class constructor": {
+    "description": "class constructor({ ... })",
+    "prefix": "class.c",
+    "body": [
+      "static options = {}",
+      "constructor(${1:foo}, ${2:bar}, options, ${3|C,ctx,local|}) {",
+      "\tsuper($4)",
+      "\tthis.C       = Object.assign({},  $3 || {});",
+      "\tthis.options = Object.assign({}, this.constructor.options, options || {});",
+      "\tthis.${1}    = ${1};",
+      "\tthis.${2}    = ${2};",
+      "} // CONSTRUCTOR END"
+    ]
+  },
+  "class method normal parameters": {
+    "description": "class method() with normal parameters",
+    "prefix": "class.m",
+    "body": [
+      "",
+      "//------------------------------------------------------------------------------",
+      "${1:methodName}(${2:param0}, ${3:param1}) {",
+      "\tthis.${3:param1} = ${3:param1}$5",
+      "\tthis.${2:param0} = ${2:param0}$4",
+      "\t$0return this",
+      "} // $1 end"
+    ]
+  },
+  "class method destructive": {
+    "description": "class method() with slow destructive {param, ...} parameters",
+    "prefix": "class.m.d",
+    "body": [
+      "",
+      "//------------------------------------------------------------------------------",
+      "${1:methodName}({ ${2:param0}, ${3:param1} }) {",
+      "\tthis.${3:param1} = ${3:param1}$5",
+      "\tthis.${2:param0} = ${2:param0}$4",
+      "\t$0return this",
+      "}"
+    ]
+  },
+  "class property deprecate": {
+    "description": "Deprecate property",
+    "prefix": "class:p:deprecate",
+    "body": [
+      "",
+      "//------------------------------------------------------------------------------",
+      "// TODO:REMOVE",
+      "// ${2:property} property is DEPRECATED",
+      "Object.defineProperty(${1:targetObject}, `${2:property}`, {",
+      "    writable    : false,",
+      "    enumerable  : false,",
+      "    configurable: true,",
+      "    get(){ throw new Error(`${2:property} field is deprecated`) },",
+      "    set(){ this.revision }",
+      "})"
+    ]
+  },
+  "array reduce": {
+    "description": "arr:reduce(function (){....}",
+    "prefix": "arr:reduce",
+    "body": [
+      "${1:array}.reduce(function (${c}, n, i, ${1:array}) {",
+      "\tlet ${varName} = ${c}$0",
+      "\treturn ${c}",
+      "})"
+    ]
+  },
+  "array reduce =>": {
+    "description": "arr:reduce(() => {....}",
+    "prefix": "arr:reduce =>",
+    "body": [
+      "${1:array}.reduce(${c}, n, i, ${1:array}) => {",
+      "\tlet ${varName} = ${c}$0",
+      "\treturn ${c}",
+      "}"
+    ]
+  },
+  "array forEach": {
+    "prefix": "arr.forEach",
+    "description": "arr.forEach(function (){....}",
+    "body": [
+      "${array}.forEach(function (${e}, i, ${array}) {",
+      "\t${e}${body}",
+      "})",
+      "$0"
+    ]
+  },
+  "array forEach =>": {
+    "prefix": "arr.forEach",
+    "body": [],
+    "description": "arr:map(function () {....}"
+  },
+  "array map fn =>": {
+    "prefix": "arr.map.fn",
+    "body": [
+      "${array}.map((${e}, i, ${array}) => {",
+      "\tlet ${varName} = ${e}$0",
+      "\treturn ${varName}",
+      "})"
+    ],
+    "description": "arr:map(() => {....}"
+  },
+  "tests test": {
+    "prefix": "tests.test",
+    "body": [
+      "${testType}(`${testName}`, function (${done}) {",
+      "\t${body}$0",
+      "})"
+    ],
+    "description": "insert describe(..., fun () { it(..) })"
+  },
+  "tests suit": {
+    "prefix": "tests.suit",
+    "body": [
+      "describe(`${testsName}`, function () {",
+      "\tit(`${testName}`, function (done) {",
+      "\t\t${body}$0",
+      "\t})",
+      "})"
+    ],
+    "description": "insert describe(..., fun () { it(..) })"
+  },
+  "import webpack": {
+    "prefix": "import:webpack",
+    "body": [
+      "await import(/* webpackChunkName: \"${1:chunkname}\" */ `$2${1:chunkname}`)",
+      "$3"
+    ],
+    "description": "Immediate function invocation"
+  },
+  "typescript directive": {
+    "prefix": "ts.directive",
+    "body": [
+      "/// <reference path=\"$1\" />",
+      "$0"
+    ],
+    "description": "Log output to console"
+  },
+  "throw": {
+    "prefix": "throw",
+    "body": [
+      "throw new ${1|this.constructor.IATE,TypeError,Error|}(",
+      "\t`$3 is ${2|missing,expected|}!`",
+      ")"
+    ],
+    "description": "Insert throw new Error(...)"
+  },
+  "match.if.throw": {
+    "prefix": "if.throw",
+    "body": [
+      "if (!(${1:$TM_SELECTED_TEXT}))",
+      "{",
+      "\tthrow${2}",
+      "}$0"
+    ],
+    "description": "if (...) { throw ... }"
+  },
+  "match.if.constructor.throw": {
+    "prefix": "if.constructor.throw",
+    "body": [
+      "if (!(new Object(${1:$TM_SELECTED_TEXT}).constructor === ${2}))",
+      "{",
+      "\tthrow${3}",
+      "}$0"
+    ],
+    "description": "if (Object(...) != ) { throw ... }"
+  },
+  "match.if.case": {
+    "description": "case: ... break;",
+    "prefix": "if.case",
+    "body": [
+      "case ${1}:",
+      "${2}",
+      "break;$0"
+    ]
+  }
+}

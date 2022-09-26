@@ -1,0 +1,258 @@
+{
+    "editor.tabCompletion": "off",
+    "editor.snippetSuggestions": "top",
+    "editor.multiCursorModifier": "ctrlCmd",
+    
+    "editor.tokenColorCustomizations": {
+        "strings": "#d1955d",
+        "numbers": "#4dc079",
+        "functions": "#ffffffce",
+        "textMateRules": [
+            {
+                "name": "Punctuation"
+                ,"scope": [
+                    "punctuation.terminator",
+                    "punctuation.terminator",
+                    "punctuation.definition.block"
+                ]
+                ,"settings": {
+                    "foreground": "#ffffff5e"
+                }
+            }
+        ],
+        "[Material Theme Darker High Contrast]": {
+            "comments": "#7ea863",
+            
+        }
+    },
+
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets"    : true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis" : true,
+
+    // "terminal.integrated.shell.windows": "E:\\Programs\\git\\bin\\bash.exe",
+    // "terminal.integrated.shellArgs.windows":["--no-cd", "--command=usr/bin/bash.exe", "-l", "-i"],
+    "terminal.integrated.fontSize": 12,
+
+    "jetbrainsKeymap.promptV3Features": true,
+    
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.includeLanguages": {
+        "nunjucks": "html",
+    },
+    "workbench.sideBar.location": "right",
+    "workbench.statusBar.visible": true,
+    
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+    
+    "breadcrumbs.enabled": true,
+    
+
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.enablePreview": false,
+    "todo-tree.highlights.defaultHighlight": {
+        // "icon": "todo-green",
+        "iconColour" : "#fff",
+        "type": "tag",
+        "foreground": "#151515",
+        "background": "#fff",
+        "opacity"   : "0%"
+    },
+    "todo-tree.general.tags": [
+        "CONTINUE:",
+        "TODO:",
+        "BUG:",
+        "DEBUG:",
+        "PERF:",
+        "REVIEW:",
+        "IMPL:",
+        "DPRCT:",
+        "[ ]",
+        "[x]",
+        "BUG"
+    ],
+    "todo-tree.highlights.customHighlight": {
+        "CONTINUE:": {
+            "icon": "tasklist",
+            "type": "tag",
+            "foreground": "#ffda08"
+        },  
+        "TODO:": {
+            "icon": "tasklist",
+            "type": "tag",
+            "foreground": "#96bb7c"
+        },  
+        "BUG:": {
+            "icon": "bug",
+            "type": "tag",
+            "foreground": "#e84a5f"
+        },
+        "DEBUG:": {
+            "icon": "tools",
+            "type": "tag",
+            "foreground": "#ffffff"
+        },
+        "PERF:": {
+            "icon": "flame",
+            "type": "tag",
+            "foreground": "#fb7813"
+        },
+        "REVIEW:": {
+            "icon": "eye",
+            "type": "tag",
+            "foreground": "#01a9b4",
+            "background": "#fff",
+            "opacity"   : "100%"
+        },
+        "IMPL:": {
+            "icon": "ruby",
+            "type": "tag",
+            "foreground": "#fb7813"
+        },
+        "DPRCT:": {
+            "icon": "trashcan",
+            "type": "tag",
+            "foreground": "#e84a5f"
+        },
+        "REMOVE:": {
+            "icon": "trashcan",
+            "type": "tag",
+            "foreground": "#e84a5f"
+        }
+    },
+    "todo-tree.tree.showScanModeButton": false,
+    "indentRainbow.colors": [
+        "rgba(16,16,16,0.1)",
+        "rgba(16,16,16,0.2)",
+        "rgba(16,16,16,0.3)",
+        "rgba(16,16,16,0.4)",
+        "rgba(16,16,16,0.5)",
+        "rgba(16,16,16,0.6)",
+        "rgba(16,16,16,0.7)",
+        "rgba(16,16,16,0.8)",
+        "rgba(16,16,16,0.9)",
+        "rgba(16,16,16,1.0)"
+        ],
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.autoSave": "off",
+    "indentRainbow.errorColor": "rgba(256,0,0,0)",
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": false,
+    "workbench.list.openMode": "doubleClick",
+    "typescript.format.enable": false,
+    "workbench.colorCustomizations": {
+        "activityBarBadge.background": "#FF7042",
+        "list.activeSelectionForeground": "#FF7042",
+        "list.inactiveSelectionForeground": "#FF7042",
+        "list.highlightForeground": "#FF7042",
+        "scrollbarSlider.activeBackground": "#FF704250",
+        "editorSuggestWidget.highlightForeground": "#FF7042",
+        "textLink.foreground": "#FF7042",
+        "progressBar.background": "#FF7042",
+        "pickerGroup.foreground": "#FF7042",
+        "tab.activeBorder": "#FF7042",
+        "notificationLink.foreground": "#FF7042",
+        "editorWidget.resizeBorder": "#FF7042",
+        "editorWidget.border": "#FF7042",
+        "settings.modifiedItemIndicator": "#FF7042",
+        "settings.headerForeground": "#FF7042",
+        "panelTitle.activeBorder": "#FF7042",
+        "breadcrumb.activeSelectionForeground": "#FF7042",
+        "menu.selectionForeground": "#FF7042",
+        "menubar.selectionForeground": "#FF7042",
+        "[Material Theme Darker High Contrast]": {}
+    },
+    "material-icon-theme.folders.color": "#42a5f5",
+    "material-icon-theme.activeIconPack": "angular",
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "eslint.alwaysShowStatus": true,
+    // "typescript.experimental.useSeparateSyntaxServer": true,
+    "files.watcherExclude": {
+        "**/build/**": true,
+        "**/build.*/**": true,
+        "**/dist/**": true,
+        "**/node_modules/**": true,
+        "**/.venv/**": true,
+        "**/.git/**": true,
+        "**/.github/**": true,
+        "**/.vscode/**": true,
+    },
+    "js/ts.implicitProjectConfig.experimentalDecorators": true,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // "colorHelper.disableGpu": 1,
+    // "colorHelper.disableShadow": true,
+    // "colorHelper.disableTransparent": true,
+    "git.ignoreMissingGitWarning": true,
+    // "git.path": "E:\\Programs\\Git\\mingw64\\bin\\git.exe",
+    "editor.fontFamily": "\"JetBrains Mono\", Consolas, 'Courier New', monospace",
+    "json.maxItemsComputed": 65536,
+    "editor.maxTokenizationLineLength": 1500000,
+    "editor.columnSelection": false,
+    "editor.unfoldOnClickAfterEndOfLine": true,
+    "vsicons.presets.hideExplorerArrows": true,
+    "tslint.alwaysShowRuleFailuresAsWarnings": false,
+    "eslint.format.enable": true,
+    "editor.autoIndent": "keep",
+    "editor.foldingStrategy": "auto",
+    "cmake.configureOnOpen": true,
+    "window.menuBarVisibility": "toggle",
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+
+    "editor.fontSize": 13,
+    "editor.lineHeight": 12,
+    "window.title": "${dirty}${rootName}${separator}${activeEditorShort} - ${appName}",
+    "window.autoDetectHighContrast": false,
+    "editor.minimap.maxColumn": 100,
+    "editor.rulers": [
+        80, 100
+    ],
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+
+    "editor.minimap.enabled": false,
+    "git.autoRepositoryDetection": "subFolders",
+    "terminal.external.osxExec": "Terminal.appvs code integrated terminal",
+    "terminal.external.linuxExec": "konsole",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    
+    "editor.bracketPairColorization.enabled": false,
+    "editor.guides.bracketPairs": "active",
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "workbench.colorTheme": "SynthWave '84",
+    "[cmake]": {
+        "diffEditor.maxFileSize": 50
+        
+    }
+    ,"cmake.configureOnEdit": false,
+    "workbench.iconTheme": "eq-material-theme-icons-ocean",
+
+
+    "C_Cpp.dimInactiveRegions": false,
+    "C_Cpp.vcFormat.space.groupSquareBrackets": false,
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "dotnetAcquisitionExtension.existingDotnetPath":[
+        {
+            "extensionId": "josetr.cmake-language-support-vscode"
+            ,"path": "/usr/bin/dotnet"
+        }
+        
+    ],
+    "editor.stickyScroll.enabled": true,
+    "window.zoomLevel": 2,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}

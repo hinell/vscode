@@ -1,0 +1,181 @@
+{
+  "help": {
+    "description": "These are snippets common to TypeScript and JavaScript and ECMA Scripts",
+    "prefix": "",
+    "scope": "typescript,javascript",
+    "body": ""
+  },
+  "debugger": {
+    "description": "debugger",
+    "prefix": "dbg",
+    "scope": "typescript,javascript",
+    "body": [
+      "debugger"
+    ]
+  },
+  "perf bench": {
+    "prefix": "perf.bench",
+    "scope": "typescript,javascript",
+    "body": [
+      "console.time(`${1:label}`);",
+      "${2:code}",
+      "console.timeEnd(`${1}`);"
+    ],
+    "description": "Benchmark code"
+  },
+  "performance log": {
+    "prefix": "perf.log",
+    "body": [
+      "import {",
+      "\tperformance as perf,",
+      "\tPerformanceMeasure,",
+      "\tPerformanceObserver",
+      "} from 'node:perf_hooks';",
+      "",
+      "// Log performance measures",
+      "var perfObserver = new PerformanceObserver(",
+      "    (items, observer) => {",
+      "      let entries = Array.from(items.getEntries());",
+      "      for (let i = 0; i < entries.length; i++) {",
+      "        const entry = entries[i];",
+      "        console.log(entry.name, ` took `, entry.duration, ` ms`)",
+      "        ",
+      "      }",
+      "    });",
+      "    perfObserver.observe({ entryTypes: [\"${|measure, mark, node, gc, function, http2, http|}\"] })",
+      "    ${10:perf.measure}"
+    ],
+    "description": "Use PerformanceObserver to log added entries"
+  },
+  "perf measure": {
+    "prefix": "perf.measure",
+    "body": [
+      "let m${5::PerformanceMeasure};",
+      "    perf.mark(\"${2}\");",
+      "    ${6:setTimeout()}",
+      "    perf.mark(\"${3}\");",
+      "m = perf.measure(\"${4:${2:start} to ${3:end}}\", \"$2\", \"$3\");",
+      "    console.log(\"${4} took: \", m.duration, \"ms\");",
+      "",
+      "//  perf.clearMarks();",
+      "//  perf.clearMeasures();"
+    ],
+    "description": "Measure time between two events"
+  },
+  "match if defined": {
+    "prefix": "if.defined",
+    "scope": "typescript,javascript",
+    "body": [
+      "if(typeof ${TM_SELECTED_TEXT:${1| ,instance,window,globalThis|}} ${2|!==,==`|} \"undefined\") {",
+      "  $0",
+      "}"
+    ],
+    "description": "match.if.defined"
+  },
+  "JSDoc Func return": {
+    "prefix": "@return",
+    "scope": "typescript,javascript",
+    "body": [
+      "* @returns {${1:object}} - ${3:bar}"
+    ],
+    "description": "@returns ..."
+  },
+  "JSDoc Func param": {
+    "prefix": "@param",
+    "scope": "typescript,javascript",
+    "body": [
+      "* @param {${2:object}} ${1} - ${3:bar}"
+    ],
+    "description": " @param {...} ... - ..."
+  },
+  "JSDoc Func params": {
+    "prefix": "@params",
+    "scope": "typescript,javascript",
+    "body": [
+      "* @param {Object} ${1:foo} -",
+      "* @param {${3:Object}} ${1}.${2:bar} - Object parameter",
+      "* @param {${5:Object}} ${4:baz} -",
+      "@return${0}"
+    ],
+    "description": " @param ... @param ... "
+  },
+  "JSDoc Object define": {
+    "prefix": "@def",
+    "scope": "typescript,javascript",
+    "body": [
+      "* @typedef  {Object} ${1:XYZ} -",
+      "* @property {string} ${2:foo} -",
+      "* @property {string} ${3:bar} -",
+      "* @property {string} ${4:baz} -"
+    ],
+    "description": "@typedef {...} ... - "
+  },
+  "JSDoc TypeDef": {
+    "prefix": "@typedef",
+    "scope": "typescript,javascript",
+    "body": [
+      "@def"
+    ],
+    "description": "See JSDoc Object define"
+  },
+  "function.iife": {
+    "description": "(function(){...})()",
+    "prefix": "fn.iife",
+    "scope": "typescript,javascript",
+    "body": [
+      "(function ($1, $2) {",
+      "\tconsole.log(${1/(.*):(.*)/${1}/}, ${2/(.*):(.*)/${1}/});$0",
+      "})(${1/(.*):(.*)/${1}/}, ${2/(.*):(.*)/${1}/});"
+    ]
+  },
+  "function": {
+    "description": "let fn() {...} - expression",
+    "prefix": "fn",
+    "scope": "typescript,javascript",
+    "body": [
+      "",
+      "//---------------------------------------------------------------${2}",
+      "${1|let,var|} ${2:${TM_SELECTED_TEXT:name}} = ${3:fn.cb}"
+    ],
+  },
+  "function callback": {
+    "description": "fn() {...} - expression",
+    "prefix": "fn.cb",
+    "scope": "typescript,javascript",
+    "body": [
+      "${3|void,async, |} function (${4})",
+      "\t{",
+      "\t\tconsole.log(${4/^(.*):(.*)$/${1}/i});$0",
+      "\t}"
+    ],
+  },
+  "function short": {
+    "description": "() => {...} - expression",
+    "prefix": "fn.=>",
+    "body": [
+      "($1) => {$2}$0"
+    ],
+  },
+  "class new": {
+    "description": "class extends <name> { ... } ",
+    "prefix": "class.new",
+    "scope": "typescript,javascript",
+    "body": [
+      "",
+      "//--------------------------------------------------------------${3|----,--------,------------|}${2}",
+      "${1|let,var|} ${2:name} = class extends ${4:Object}",
+      "{",
+      "\tclass.c$0",
+      "\tclass.m.d",
+      "\tclass.m",
+      "}"
+    ]
+  },
+  "string html tags remove": {
+    "prefix": "str.html.tags.remove",
+    "description": "Strip html tags from a string",
+    "body": [
+      "${1:targetString}.replace(/<[^>]*>/gi, ``)$0"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "target": {
+    "prefix": "target",
+    "body": [
+      ".PHONY: ${1:all}",
+      "${1} : ${2:dependecies}",
+      "    ${command}"
+    ],
+    "description": "target"
+  }
+}

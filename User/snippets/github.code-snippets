@@ -1,0 +1,65 @@
+{
+  "github.funding.yaml": {
+    "description": "You can configure your sponsor button by editing a FUNDING.yml",
+    "scope": "yml",
+    "isFileTemplate": true,
+    "prefix": "github.funding.yml",
+    "body": [
+      "# https://docs.github.com/en/github/administering-a-repository/displaying-a-sponsor-button-in-your-repository",
+      "custom: [ 'hpaypal.me/biteofpie']"
+    ]
+  },
+  "github.workflow.new": {
+    "prefix": "github.workflow.new",
+    "scope": "yaml",
+    "isFileTemplate": true,
+    "body": [
+      "name: ${1:default-workflow}",
+      "on:",
+      "  # Trigger worfklow when branch or tags are pushed",
+      "  push:",
+      "    branches:",
+      "      - ${2:main}",
+      "      - '${3:releases/**}'",
+      "",
+      "    tags:",
+      "      - ${4|v[0-9].*,**|}",
+      "jobs:",
+      "    github.workflow.job.new${10}"
+    ],
+    "description": "github.workflow.new"
+  },
+  "github.workflow.job.new": {
+    "prefix": "github.workflow.job.new",
+    "scope": "yaml",
+    "body": [
+      "${1:default}:",
+      "  runs-on: ${2|ubuntu-latest,macos-latest,[ubuntu-latest\\,macos-latest],windows-latest|}",
+      "  steps:",
+      "    - name: Check out repository",
+      "      uses: actions/checkout@v3",
+      "    - name: Setup NodeJS",
+      "      uses: actions/setup-node@v3",
+      "      with:",
+      "        node-version: ${5|latest,18,16,14|}",
+      "    - run: npm run i",
+      "    - run: npm run build",
+      "    - run: ${0:npm run test}"
+    ],
+    "description": "github.workflow.job.new"
+  },
+  "gitignore": {
+    "description": "Default dirs to ignore",
+    "scope": "gitignore",
+    "prefix": "gitignore.default",
+    "body": [
+      "test*",
+      "test/*",
+      "",
+      "build/",
+      "dist/",
+      ".build/",
+      ".dist/"
+    ]
+  }
+}

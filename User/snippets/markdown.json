@@ -34,20 +34,13 @@
     ],
     "description": "Inset link image"
   },
-  "link.img.html": {
-    "prefix": "link.img.html",
-    "body": [
-      "<img height=\"${1:14}\" src=\"${2:data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDMyMCAxODAiIHdpZHRoPSIzMjBweCIgaGVpZ2h0PSIxODBweCI+CiAgPGcgc3Ryb2tlPSIjZmY4YTNhIiBmaWxsPSJ0cmFuc3BhcmVudCIgc3Ryb2tlLXdpZHRoPSIzcHgiID4KICAgIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMTciIGhlaWdodD0iMTc3IiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxsaW5lIHgxPSIxIiB5MT0iMSIgeDI9IjMxOSIgeTI9IjE3OSIvPgogICAgPGxpbmUgeDE9IjEiIHkxPSIxNzkiIHgyPSIzMTkiIHkyPSIxIi8+CiAgPC9nPgo8ZGl2IHhtbG5zPSIiLz48L3N2Zz4K}\" />$0"
-    ],
-    "description": "Inset link image"
-  },
   "link.reference": {
     "prefix": "link.ref",
     "body": [
-      "[$2]$0",
-      "[$2]: ${1:https://example.com}"
+      "[${1:${SELECTION}}]$0",
+      "[${1:${SELECTION}}]: ${2:https://example.com}"
     ],
-    "description": "Inset reference link"
+    "description": "Inset reference link [](...)"
   },
   "doc.toc": {
     "prefix": "doc.toc",
@@ -110,6 +103,13 @@
     ],
     "description": "img"
   },
+  "img.html": {
+    "prefix": "img.html",
+    "body": [
+      "<img height=\"${1:14}\" src=\"${2:data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDMyMCAxODAiIHdpZHRoPSIzMjBweCIgaGVpZ2h0PSIxODBweCI+CiAgPGcgc3Ryb2tlPSIjZmY4YTNhIiBmaWxsPSJ0cmFuc3BhcmVudCIgc3Ryb2tlLXdpZHRoPSIzcHgiID4KICAgIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMTciIGhlaWdodD0iMTc3IiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxsaW5lIHgxPSIxIiB5MT0iMSIgeDI9IjMxOSIgeTI9IjE3OSIvPgogICAgPGxpbmUgeDE9IjEiIHkxPSIxNzkiIHgyPSIzMTkiIHkyPSIxIi8+CiAgPC9nPgo8ZGl2IHhtbG5zPSIiLz48L3N2Zz4K}\" />$0"
+    ],
+    "description": "Inset link image"
+  },
   "github.quote": {
     "prefix": "github.quote",
     "body": [
@@ -117,5 +117,17 @@
       "> **${1|Warning,Note|}** ${2:Message}"
     ],
     "description": "github.warn"
-  },
+	},
+	"details.html": {
+		"prefix": "details",
+		"body": [
+			"<details>",
+			"    <summary>${2:${SELECTION:Summary text}}</summary>",
+			"    <p>",
+      "        ${3:Content}",
+      "    </p>",
+			"</details>"
+		],
+		"description": "Add details tags"
+	}
 }

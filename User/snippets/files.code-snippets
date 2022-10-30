@@ -1,31 +1,65 @@
 {
-	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
-	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
-	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
-	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
-	// Placeholders with the same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"scope": "javascript,typescript",
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-	".eslintrc.cjs": {
-		"prefix": ".eslintrc.cjs",
-		"isFileTemplate": true,
-		"body": [
-			"module.exports = {",
-			"  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],",
-			"  parser: '@typescript-eslint/parser',",
-			"  plugins: ['@typescript-eslint'],",
-			"  root: true,",
-			"}"
-		],
-		"description": ".eslintrc.cjs"
-	}
+  ".eslintrc.json": {
+    "prefix": ".eslintrc.json",
+    "scope": "json",
+    "isFileTemplate": true,
+    "body": [
+      "{",
+      "     \"root\"   : true",
+      "    ,\"files\"  : [",
+      "          \"src/**/*.{tsx,jsx,js,ts}\"",
+      "         ,\"packages/**/*.{tsx,jsx,js,ts}\"",
+      "     ]",
+      "    ,\"ignorePatterns\": []",
+      "    ,\"extends\": [",
+      "         \"eslint:recommended\"",
+      "        ,\"plugin:@typescript-eslint/recommended\"",
+      "        ,\"plugin:@typescript-eslint/recommended-requiring-type-checking\"",
+      "    ]",
+      "    ,\"parser\" :  \"@typescript-eslint/parser\"",
+      "    ,\"plugins\": [",
+      "        \"@typescript-eslint\"",
+      "    ]",
+      "    ,\"parserOptions\": {",
+      "         \"ecmaVersion\": 6",
+      "        ,\"sourceType\" : \"module\"",
+      "        ,\"project\"    : [ \"./tsconfig.json\" ]",
+      "    }",
+      "    ,\"rules\": {",
+      "         \"@typescript-eslint/naming-convention\": \"warn\"",
+      "        ,\"@typescript-eslint/semi\": \"warn\"",
+      "        ,\"curly\": \"warn\"",
+      "        ,\"eqeqeq\": \"warn\"",
+      "        ,\"no-throw-literal\": \"warn\"",
+      "        ,\"semi\": \"off\"",
+      "        ,\"camelcase\": \"error\"",
+      "        ,\"comma-style\": [ \"error\", \"first\" ]",
+      "    }",
+      "}",
+      ""
+    ],
+    "description": ".eslintrc.json"
+  },
+  "nodemon.config.new": {
+    "scope": "json",
+    "prefix": "nodemon.json",
+    "isFileTemplate": true,
+    "body": [
+      "$0//nodemon.json",
+      "// https://github.com/remy/nodemon#config-files",
+      "// https://github.com/remy/nodemon/blob/master/doc/sample-nodemon.md",
+      "{",
+      "\t\"restartable\": \"rs\",",
+      "\t\"verbose\"    : ${1|true,false|},",
+      "\t\"watch\"      : [\"${2|./dist,./src,/build|}\"],",
+      "\t\"ignore\"     : [\"${3:.git}\"],",
+      "\t\"execMap\"    : {",
+      "\t\t\"${4:js}\"    : \"${5:node}\"",
+      "\t},",
+      "\t\"ext\"        : \"${7:js,jsx,json,ts,tsx}${8:,css,scss,less}\",",
+      "\t\"stdout\"     : true",
+      "}"
+    ],
+    "description": "Produce nodemon config stub. Use it inside package.json or in separate nodemon.config"
+  }
 }

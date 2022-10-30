@@ -1,4 +1,4 @@
-{
+  {
   "cmake.docs.public": {
     "description": "",
     "prefix": "cmake.docs.public",
@@ -43,7 +43,7 @@
     "description": "Debug variables",
     "body": [
       "message(\"$TM_FILENAME--------------------------------------DEBUG\")",
-      "cmake_print_variables(${1:${TM_SELECTED_TEXT}})",
+      "cmake_print_variables(${1:${TM_SELECTED_TEXT}})"
     ]
   },
   "debug.target": {
@@ -449,7 +449,7 @@
       "#----------------------------------------------------------------------$1",
       "add_executable(${1:targetName} ${2| ,EXCLUDE_FROM_ALL|} ${3:sourceFile})",
       "target.exec.properties.set${4:#$1}",
-      "target.attribs${5:#$1}",
+      "target.attribs${5:#$1}"
     ],
     "description": "New executable"
   },
@@ -647,24 +647,33 @@
   },
   "target.option": {
     "description": "Create an option for build-configuration",
-    "prefix": "target.option",
+    "prefix": "option",
     "body": [
-      "option(${1:usePrefixedName} \"${2:Description}\" ${3| ,ON,OFF|})"
+      "option(${1:OPTIONNAME} \"${2:Description}\" ${3| ,ON,OFF|})"
     ]
   },
   "target.option.depends": {
     "description": "Create an option for build-configuration",
     "prefix": "option.depends",
     "body": [
-      "option_depends(${1:${TM_SELECTED_TEXT:OptionName}} \"${3:description}\" ${4|TRUE,FALSE|} \"${5:NOT DEPEND;DEPENDENCY}\" ${7| ,ON,OFF|})"
+      "option_depends(${1:${TM_SELECTED_TEXT:OPTIONNAME}} \"${3:description}\" ${4|TRUE,FALSE|} \"${5:NOT DEPEND;DEPENDENCY}\" ${7| ,ON,OFF|})"
     ]
   },
   "target.option.advanced": {
     "description": "Create an option for build-configuration",
-    "prefix": "target.option",
+    "prefix": "option.advanced",
     "body": [
-      "mark_as_advanced(${1| ,CLEAR,FORCE|} ${2:OptionName} )"
+      "option(${1:OPTIONNAME} \"${2:Description}\" ${3| ,ON,OFF|})",
+      "mark_as_advanced(${4| ,CLEAR,FORCE|} ${1} )"
     ]
+  },
+  "target.option.multiple": {
+    "prefix": "option.multiple",
+    "body": [
+      "set(${1:OPTIONNAME} ${3|DEFAULT_VALUE|} CACHE STRING \"${2:Option description}\")",
+      "set_property(CACHE $1 PROPERTY STRINGS $3 ${8:OTHERVALUE} ${9:OTHERVALUE})"
+    ],
+    "description": "target.option.multiple"
   },
   "target.compile.options": {
     "description": "Create an option for build-configuration",
@@ -748,6 +757,7 @@
       "\t#COMPONENT ${4}",
       "\t#NAMESPACE \"${10:\\${PROJECT_NAME\\}::}\"",
       "\tDESTINATION \"${11:target.install.destination}-\\${PROJECT_VERSION_MAJOR}/cmake/\"",
+      "\tINCLUDES DESTINATION \"${14:target.install.destination}-\\${PROJECT_VERSION_MAJOR}/cmake/\"",
       ")",
       "# Install *Targets.cmake to <binary_dir>",
       "#\t<prefix>/<platform_dir>/<group_name>-<version>/<group_name>Targets.cmake",

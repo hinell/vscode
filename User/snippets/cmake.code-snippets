@@ -222,8 +222,8 @@
     ],
     "description": "cmake.preset.linux.new"
   },
-  "cmake.preset.base.new": {
-    "prefix": "cmake.preset.base.new",
+  "cmake.preset.new": {
+    "prefix": "cmake.preset.new",
     "description": "Cmake preset create new",
     "scope": "json",
     "isFileTemplate": true,
@@ -271,29 +271,29 @@
     "body": "${1|Unix Makefiles,Ninja Multi-Config,Ninja,Watcom WMake,CodeBlocks - Ninja,CodeBlocks - Unix Makefiles,CodeLite - Ninja,CodeLite - Unix Makefiles,Eclipse CDT4 - Ninja,Eclipse CDT4 - Unix Makefiles,Kate - Ninja,Kate - Unix Makefiles,Sublime Text 2 - Ninja,Sublime Text 2 - Unix Makefiles,Xcode,Visual Studio 14 2015,Visual Studio 15 2017,Visual Studio 16 2019,Visual Studio 17 2022|}"
   },
   "cmake.preset.config.new": {
-    "scope":"json",
+    "scope": "json",
     "prefix": "cmake.preset.config.new",
     "body": [
       "{",
-      "     \"name\"         : \"${1:common}\"",
-      "   , \"hidden\"       : ${2|false,true|}",
-      "   , \"displayName\"  : \"${1/(.*)/${1:/capitalize}/} configuration\"",
-      "   , \"inherits\"     : [ \"${3:common}\" ]",
-      "   , \"description\"  : \"${5:TODO: Add description}\"",
-      "   , \"generator\"    : \"${7:cmake.generators}\"",
-      "   , \"toolchainFile\": \"${8:<path/tolchain.cmake>}\"",
-      "   , \"architecture\" : {",
-      "    \"value\"   : \"${12|x64,Win32,ARM,ARM64|}\",",
-      "    \"strategy\": \"external\"",
-      "   }",
-      "  ,\"toolset\": {",
-      "    \"value\"   : \"${12:platformName}\",",
-      "    \"strategy\": \"external\"",
-      "   }",
+      "    \"name\"         : \"${1:common}\"",
+      "  , \"hidden\"       : ${2|false,true|}",
+      "  , \"displayName\"  : \"${1/(.*)/${1:/capitalize}/} configuration\"",
+      "  , \"inherits\"     : [ ${3:\"common\"} ]",
+      "  , \"description\"  : \"${5:TODO: Add description}\"",
+      "  , \"generator\"    : \"${7:cmake.generators}\"",
+      "  , \"toolchainFile\": \"${8:<path/tolchain.cmake>}\"",
+      "  , \"architecture\" : {",
+      "     \"value\"   : \"${12|x64,Win32,ARM,ARM64|}\"",
+      "    ,\"strategy\": \"external\"",
+      "  }",
+      "  , \"toolset\"      : {",
+      "     \"value\"   : \"${12:platformName}\",",
+      "     \"strategy\": \"external\"",
+      "  }",
       "  , \"binaryDir\"     : \"\\${sourceDir}${16:/packages}/.build/\"",
       "  , \"installDir\"    : \"\\${sourceDir}${16}/.dist/\"",
       "  , \"cacheVariables\": {",
-      "    \"CMAKE_MODULE_PATH\": { \"value\": \"\\${sourceDir}/cmake\" ,\"type\": \"PATH\" }",
+      "      \"CMAKE_MODULE_PATH\": { \"value\": \"\\${sourceDir}/cmake\" ,\"type\": \"PATH\" }",
       "  }",
       "  ${17:preset.condition}",
       "  ,\"environment\" : {",
@@ -301,7 +301,7 @@
       "    , \"CXX\"                          : \"/usr/bin/${21|clang++,g++|}\"",
       "    , \"CMAKE_INSTALL_MODE\"           : \"${23|COPY,SYMLINK,SYMLINK_OR_COPY|}\"",
       "    , \"CMAKE_EXPORT_COMPILE_COMMANDS\": \"ON\"",
-      "    , \"LDFLAGS\"                      : \"-fuse-ld=lld\"",
+      "    , \"LDFLAGS\"                      : \"-fuse-ld=${24|mold,lld|}\"",
       "  }",
       "}",
       ""
@@ -309,7 +309,7 @@
     "description": "cmake.preset.config.new"
   },
   "cmake.preset.build.new": {
-    "scope":"json",
+    "scope": "json",
     "prefix": "cmake.preset.build.new",
     "body": [
       "{",
@@ -335,7 +335,7 @@
     "description": "cmake.preset.build.new"
   },
   "cmake.preset.test.new": {
-    "scope":"json",
+    "scope": "json",
     "prefix": "cmake.preset.test.new",
     "body": [
       "{",
@@ -368,7 +368,7 @@
     "description": "cmake.preset.test.new"
   },
   "cmake.preset.package.new": {
-    "scope":"json",
+    "scope": "json",
     "prefix": "cmake.preset.package.new",
     "body": [
       "{",

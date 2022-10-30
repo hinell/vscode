@@ -56,20 +56,18 @@
         "type": "tag",
         "foreground": "#151515",
         "background": "#fff",
-        "opacity"   : "0%"
+        "opacity"   : 0.1
     },
     "todo-tree.general.tags": [
         "CONTINUE:",
         "TODO:",
-        "BUG:",
+        "BUG",
         "DEBUG:",
         "PERF:",
         "REVIEW:",
         "IMPL:",
         "DPRCT:",
-        "[ ]",
-        "[x]",
-        "BUG"
+        "REMOVE:"
     ],
     "todo-tree.highlights.customHighlight": {
         "CONTINUE:": {
@@ -102,7 +100,7 @@
             "type": "tag",
             "foreground": "#01a9b4",
             "background": "#fff",
-            "opacity"   : "100%"
+            "opacity"   : 1
         },
         "IMPL:": {
             "icon": "ruby",
@@ -110,12 +108,12 @@
             "foreground": "#fb7813"
         },
         "DPRCT:": {
-            "icon": "trashcan",
+            "icon": "trash",
             "type": "tag",
             "foreground": "#e84a5f"
         },
         "REMOVE:": {
-            "icon": "trashcan",
+            "icon": "trash",
             "type": "tag",
             "foreground": "#e84a5f"
         }
@@ -172,14 +170,16 @@
     "eslint.alwaysShowStatus": true,
     // "typescript.experimental.useSeparateSyntaxServer": true,
     "files.watcherExclude": {
-        "**/build/**": true,
-        "**/build.*/**": true,
-        "**/dist/**": true,
-        "**/node_modules/**": true,
-        "**/.venv/**": true,
+        "**/.build/**": true,
+        "**/.dist/**": true,
         "**/.git/**": true,
         "**/.github/**": true,
+        "**/.venv/**": true,
         "**/.vscode/**": true,
+        "**/*.log": true,
+        "**/build/**": true,
+        "**/dist/**": true,
+        "**/node_modules/**": true
     },
     "js/ts.implicitProjectConfig.experimentalDecorators": true,
     "[html]": {
@@ -202,9 +202,7 @@
     "tslint.alwaysShowRuleFailuresAsWarnings": false,
     "eslint.format.enable": true,
     "editor.autoIndent": "keep",
-    "editor.foldingStrategy": "auto",
     "cmake.configureOnOpen": true,
-    "window.menuBarVisibility": "toggle",
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
 
     "editor.fontSize": 13,
@@ -229,7 +227,6 @@
     "editor.bracketPairColorization.enabled": false,
     "editor.guides.bracketPairs": "active",
     "editor.unicodeHighlight.ambiguousCharacters": false,
-    "workbench.colorTheme": "SynthWave '84",
     "[cmake]": {
         "diffEditor.maxFileSize": 50
         
@@ -254,5 +251,15 @@
     "window.zoomLevel": 2,
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
-    }
+    },
+    "vsicons.presets.tsOfficial": true,
+    "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "window.menuBarVisibility": "toggle",
+    "workbench.editor.untitled.hint": "hidden",
+    "todo-tree.general.statusBar": "total",
+    "todo-tree.general.statusBarClickBehaviour": "cycle",
+    "todo-tree.highlights.enabled": true,
+    "todo-tree.filtering.passGlobsToRipgrep": false,
+    "todo-tree.tree.buttons.export": true,
+    "todo-tree.tree.buttons.groupBySubTag": true
 }

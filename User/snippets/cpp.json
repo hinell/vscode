@@ -48,25 +48,46 @@
     ],
     "description": "import.sys.io"
   },
+  "import.sys.io.openmode": {
+    "prefix": "sys.io.openmode",
+    "body": [
+      "std::ios::${1|app,binary,in,out,trunc,ate|}$0"
+    ],
+    "description": "import.sys.io.fs"
+  },
+  "import.sys.io.format.flags": {
+    "prefix": "sys.io.fmt.flags",
+    "body": [
+      "std::ios::${2|dec,oct,hex,basefield,left,right,internal,adjustfield,scientific,fixed,floatfield,boolalpha,showbase,showpoint,showpos,skipws,unitbuf,uppercase|}$0"
+    ],
+    "description": "import.sys.io.fs"
+  },
+  "import.sys.io.format": {
+    "prefix": "import.sys.io.fstreams",
+    "body": [
+      "${1:${TM_SELECTED_TEXT}}.setf(${2:sys.io.fmt.flags})"
+    ],
+    "description": ""
+  },
   "import.sys.io.fstreams": {
-  "prefix": "import.sys.io.fstreams",
-  "body": [
-    "#include <fstream>",
-    "",
-    "using Filebuf   = std::filebuf  ;",
-    "using Wfilebuf  = std::wfilebuf ;",
-    "",
-    "using Ifstream  = std::ifstream ;",
-    "using Wifstream = std::wifstream;",
-    "",
-    "using Ofstream  = std::ofstream ;",
-    "using Wofstream = std::wofstream;",
-    "",
-    "using Fstream   = std::fstream  ;",
-    "using Wfstream  = std::wfstream ;"
-  ],
-  "description": "import.sys.io.fs"
-},
+    "prefix": "import.sys.io.fstreams",
+    "body": [
+      "#include <fstream>",
+      "",
+      "using Filebuf   = std::filebuf  ;",
+      "using Wfilebuf  = std::wfilebuf ;",
+      "",
+      "using Ifstream  = std::ifstream ;",
+      "using Wifstream = std::wifstream;",
+      "",
+      "using Ofstream  = std::ofstream ;",
+      "using Wofstream = std::wofstream;",
+      "",
+      "using Fstream   = std::fstream  ;",
+      "using Wfstream  = std::wfstream ;"
+    ],
+    "description": "import.sys.io.fs"
+  },
   "import.sys.io.str": {
     "prefix": "import.sys.io.str",
     "body": [
@@ -363,14 +384,14 @@
   "class.decl.method": {
     "prefix": "class.decl.method",
     "body": [
-      "${2|virtual,static|} ${3:void} ${4:fn}(${5:T} ${6:varname});",
+      "${2|virtual,static|} ${3:void} ${4:fn}(${5:T varname});",
       "",
-      "$3 ${10:Base}::$4($5 $7){",
-      "    cout << $7 << std::endl;$0",
-      "    return $3;",
+      "$3 ${10:Base}::$4($5){",
+      "    cout << ${5/(.*) (.*)/${2}/} << std::endl;$0",
+      "    return $3();",
       "}"
     ],
-    "description": "class.decl.method"
+    "description": "Class method declare + defintion"
   },
   "class.impl.method": {
     "prefix": "class.impl.method",

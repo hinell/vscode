@@ -1,1 +1,5 @@
-TODO: [Sep 04,2022] Finish this readme!
+# HINEll: Snippets
+
+
+---
+> Friday, November 11, 2022

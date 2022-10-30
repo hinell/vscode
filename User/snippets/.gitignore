@@ -17,4 +17,4 @@ test/
 build/
 dist/
 .build/
-.dist/
+.dist/snippets.get.raw.error.log

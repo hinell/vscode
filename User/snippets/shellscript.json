@@ -8,13 +8,6 @@
       "${zsh.warning}"
     ]
   },
-  "#": {
-    "prefix": "#shebang",
-    "body": [
-      "#!/usr/bin/env ${bash}"
-    ],
-    "description": "Shebang line at the top of the script"
-  },
   "debug": {
     "prefix": "debug",
     "body": [
@@ -163,7 +156,7 @@
     "prefix": "if.yesno.zsh",
     "body": [
       "# Only for zsh",
-      "echo \"${1:Would like to make a choice}? (Y/n)\"",
+      "echo \"${1:Would like to make a choice}? (y/N)\"",
       "if read -qs;",
       "then",
       "  ${2:echo true}",
@@ -172,6 +165,43 @@
       "fi"
     ],
     "description": "Zsh only version of yesno"
+  },
+  "match.if.reg.zsh": {
+    "prefix": "match.if.reg.zsh",
+    "body": [
+      "# See zsh/regex module",
+      "setopt REMATCH_PCRE",
+      "${2:pattern}=$'${1:regexp}'",
+      "if [[ \"${3:input}\" =~ ${2} ]];",
+      "then",
+      "\tdeclare -p MATCH",
+      "\tdeclare -p match",
+      "    $0",
+      "fi",
+      "unsetopt REMATCH_PCRE"
+    ],
+    "description": "match.if.reg.zsh"
+  },
+  "match.if.dialog.menu": {
+    "prefix": "if.whiptail.menu",
+    "body": [
+      "local ${1:OTUPUT}=${2:default};",
+      "\t$1=$(whiptail --menu \\",
+      "\t\t'${4:Select an entry}' 20 40 10 \\",
+      "\t\t${2}     \"${2}\" \\",
+      "\t\t${6:entry2}   \"${5:entry2}\"",
+      "\t\t3>&1 1>&2 2>&3",
+      "\t)",
+      "echo ${1}"
+    ],
+    "description": "if.whiptail.menu"
+  },
+  "match.if.path.same": {
+    "prefix": "if.path.same",
+    "body": [
+      "[[ \"${1:$(pwd)}\" == \"${2:path}\"  ]] ${3|&& echo true,|| echo false|}"
+    ],
+    "description": "match if path same"
   },
   "match.switch": {
     "prefix": "switch",
@@ -456,6 +486,21 @@
       "\t\"\""
     ]
   },
+  "sys.file.fifo.new": {
+    "prefix": "sys.fifo.new",
+    "body": [
+      "# Make pipe & special p[ipe] file",
+      "${1:TEMP_FIFO}=\"${TM_SELECTED_TEXT:${2|$(mktemp),/tmp/testpipe|}}\"",
+      "mkfifo \\$$1; ",
+      "mknod \\$$1 p;",
+      "",
+      "echo \"Hello\\!\" > \\$$1;",
+      "cat \\$$1",
+      "",
+      "rm -i \\$$1"
+    ],
+    "description": "sys.file.fifo.new"
+  },
   "shell.name": {
     "prefix": "shell.name",
     "description": "DEPRECATED: use if.shell !!! Detect shell (zsh/bash) for cross-shell scripting",
@@ -516,8 +561,8 @@
       "}"
     ]
   },
-  "zsh.warning": {
-    "prefix": "zsh.warning",
+  "log.warning.zsh": {
+    "prefix": "log.warning.zsh",
     "description": "Encourage to avoid using zsh",
     "body": [
       "# DO NOT USE ZSH WARNGING",
@@ -539,5 +584,16 @@
       "\tfi",
       "};"
     ]
+  },
+  "var.tie.zsh": {
+    "prefix": "var.tie.zsh",
+    "body": [
+      "typeset -T ${1:var} ${2:$1Arr}=( ${3:foo bar bazz} );",
+      "print \\${${1}}",
+      "print -l \\${${2}[@]}",
+      "",
+      ""
+    ],
+    "description": "Var declaration of a pair of vars that contain ; separated list and array"
   }
 }

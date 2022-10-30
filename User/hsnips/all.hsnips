@@ -15,9 +15,7 @@
 
 global
     
-    console.log(`GLOBAL SCRIPT IS RUN`)
     function ctxmatcher (scope,name,c) {
-        console.log("matcher -> ", name);
         let v = c.scopes.some(txCntx => txCntx.startsWith(scope));
         return v
     };
@@ -38,11 +36,9 @@ global
         if(this[name] !== null){
             this[name] = ctxmatcher.bind(this, scope, name)
         }
-        console.log(name);
     };
-    console.log(`GLOBAL SCRIPT IS RUN`)
     // Use it like:
-    // context shell(context)
+    // context javascript(context)
     // snippet ... 
     // endsnippet
 

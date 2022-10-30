@@ -17,8 +17,8 @@
     "isFileTemplate": true,
     "body": [
       "CompileFlags:",
-      "  CompilationDatabase: ${1:./build}"
+      "  CompilationDatabase: ${1:./build}" 
     ],
-    "description": ".clangd.new"
+    "description":. ".clangd.new"
   }
 }

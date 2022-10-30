@@ -421,7 +421,7 @@
     },
     {
         "key": "ctrl+w",
-        "command": "editor.action.smartSelect.expand",
+        "command": "-editor.action.smartSelect.expand",
         "when": "editorTextFocus"
     },
     {

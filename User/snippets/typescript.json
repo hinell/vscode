@@ -16,136 +16,41 @@
     "description": "<reference path ... >"
   },
   "declaration import custom": {
-    "prefix": "import.custom",
+    "prefix": "modules.import.custom",
     "description": "Import non-modules, like .css, .txt etc",
     "body": [
+      "// Put this only into declaration files!",
       "// The following should be put into d.ts",
       "// And imported or referenced as usual modula",
       "// Fixes imports of non-modules",
       "// See https://github.com/microsoft/TypeScript/issues/2709",
-      "declare module '*.${1|txt,css,scss,svg,png,jpg|}';",
+      "declare module '*.${1|txt,css,scss,svg,png,jpg|}';"
     ]
   },
-  "class constructor": {
-    "description": "class constructor({ ... })",
-    "prefix": "class.c",
+"declaration modules require custom ": {
+  "prefix": "modules.require.custom ",
+  "body": [
+    "// Put this only into declaration files!",
+    "declare var require: {",
+    "  <T>(path: string): T;",
+    "  (paths: string[], callback: (...modules: any[]) => void): void;",
+    "  ensure: (",
+    "    paths: string[],",
+    "    callback: (require: <T>(path: string) => T) => void",
+    "  ) => void;",
+    "};"
+  ],
+  "description": "declaration require custom "
+},
+  "array.eval": {
+    "prefix": "arr.eval",
     "body": [
-      "context: any;",
-      "options: any;",
-      "C: any;",
-      "${1};",
-      "${2};",
-      "constructor(${1:foo}, ${2:bar}, options?: any, ${3:ctx}?:any) {",
-      "\t//super($0)",
-      "\tthis.C       = Object.assign({},  $3 || {});",
-      "\tthis.options = Object.assign({}, options || {});",
-      "\tthis.${4}    = ${4};",
-      "\tthis.${5}    = ${5};",
-      "} // CONSTRUCTOR END"
-    ]
-  },
-  "class method normal parameters": {
-    "description": "class method() with normal parameters",
-    "prefix": "class:m",
-    "body": [
-      "",
-      "//------------------------------------------------------------------------------",
-      "${1:methodName}(${2:param0}, ${3:param1})",
-      "{",
-      "\tthis.${3:param1} = ${3:param1}$5",
-      "\tthis.${2:param0} = ${2:param0}$4",
-      "\t$0return this",
-      "} // $1 end"
-    ]
-  },
-  "class method destructive": {
-    "description": "class method() with slow destructive {param, ...} parameters",
-    "prefix": "class:m:d",
-    "body": [
-      "",
-      "//------------------------------------------------------------------------------",
-      "${1:methodName}({ ${2:param0}, ${3:param1} })",
-      "{",
-      "\tthis.${3:param1} = ${3:param1}$5",
-      "\tthis.${2:param0} = ${2:param0}$4",
-      "\t$0return this",
-      "} // $1 end"
-    ]
-  },
-  "class property deprecate": {
-    "description": "Deprecate property",
-    "prefix": "class:p:deprecate",
-    "body": [
-      "",
-      "//------------------------------------------------------------------------------",
-      "// TODO:REMOVE",
-      "// ${2:property} property is DEPRECATED",
-      "Object.defineProperty(${1:targetObject}, `${2:property}`, {",
-      "    writable    : false,",
-      "    enumerable  : false,",
-      "    configurable: true,",
-      "    get(){ throw new Error(`${2:property} field is deprecated`) },",
-      "    set(){ this.revision }",
-      "})"
-    ]
-  },
-  "array reduce": {
-    "prefix": "arr.reduce",
-    "body": [
-      "${1:array}.reduce(function (c, n, i, arr) {",
-      "\treturn ${2:c}",
-      "})$0"
+      "${1:${TM_SELECTED_TEXT:array}}.${2|forEach,map|}(${3:function} (${5:v: any}, ${6:i: number}, ${7:arr: Array<any>})${4| , => |}{",
+      "\t\tconsole.log(${5/(.*):(.*)/${1}/});$0",
+      "\t\treturn ${5/(.*):(.*)/${1}/}",
+      "\t});"
     ],
-    "description": "arr.reduce(function (){....}"
-  },
-  "array reduce =>": {
-    "prefix": "arr.reduce =>",
-    "body": [
-      "${1:array}.reduce((c, n, i, arr) => {",
-      "\treturn ${2:c}",
-      "}$0"
-    ],
-    "description": "arr.reduce(() => {....}"
-  },
-  "array forEach": {
-    "prefix": "arr.forEach",
-    "body": [
-      "${array}.forEach(function (${e}, i, arr) {",
-      "\t${e}${body}",
-      "})",
-      "$0"
-    ],
-    "description": "arr.reduce(function (){....}"
-  },
-  "array forEach =>": {
-    "prefix": "arr.forEach =>",
-    "body": [
-      "${array}.forEach((${e}, i, arr) => {",
-      "\t${e}${body}",
-      "})",
-      "$0"
-    ],
-    "description": "arr.forEach(() => {....}"
-  },
-  "array map": {
-    "prefix": "arr.map",
-    "body": [
-      "${array} = ${array}.map(function (${e}, i, arr) {",
-      "\t${e}${body}",
-      "})",
-      "$0"
-    ],
-    "description": "arr.map(function () {....}"
-  },
-  "array map =>": {
-    "prefix": "arr.map =>",
-    "body": [
-      "${array} = ${array}.map((${e}, i, arr) => {",
-      "\t${e}${body}",
-      "})",
-      "$0"
-    ],
-    "description": "arr.map(() => {....}"
+    "description": "array.eval"
   },
   "tests test": {
     "prefix": "tests.test",
@@ -168,65 +73,5 @@
       "$0"
     ],
     "description": "insert describe(..., fun () { it(..) })"
-  },
-  "webpack import": {
-    "prefix": "webpack.import",
-    "body": [
-      "await import(/* webpackChunkName: \"${1:chunkname}\" */ `$2${1:chunkname}`)",
-      "$3"
-    ],
-    "description": "Immediate function invocation"
-  },
-  "throw": {
-    "prefix": "throw",
-    "body": [
-      "throw new ${Error}(`${message}`)$0"
-    ],
-    "description": "Insert throw new Error(...)"
-  },
-  "if.throw": {
-    "prefix": "if.throw",
-    "body": [
-      "if (${1:${TM_SELECTED_TEXT}})",
-      "{",
-      "\tthrow new ${2|this.constructor.IATE,TypeError,Error|}(`${ErrorName}`)",
-      "}$0"
-    ],
-    "description": "if (...) { throw ... }"
-  },
-  "JSDoc Func return": {
-    "prefix": "jsdoc:fn:return",
-    "body": [
-      "* @returns {${1:object}} - ${3:bar}"
-    ],
-    "description": "@returns ..."
-  },
-  "JSDoc Func param": {
-    "prefix": "jsdoc:fn:param",
-    "body": [
-      "* @param {${2:object}} ${1} - ${3:bar}"
-    ],
-    "description": " @param {...} ... - ..."
-  },
-  "JSDoc Func params": {
-    "prefix": "jsdoc:fn:params",
-    "body": [
-      "* @param {Object} ${1:foo} -",
-      "* @param {${3:Object}} ${1}.${2:bar} - Object parameter",
-      "* @param {${5:Object}} ${4:baz} -",
-      "jsdoc:fn:return${0}"
-    ],
-    "description": " @param ... @param ... "
-  },
-  "JSDoc Object props": {
-    "prefix": "jsdoc:obj:def",
-    "body": [
-      "* @typedef  {Object} ${1:XYZ} -",
-      "* @property {string} ${2:foo} -",
-      "* @property {string} ${3:bar} -",
-      "* @property {string} ${4:baz} -",
-      "jsdoc:fn:return${0}"
-    ],
-    "description": "@typedef {...} ... - "
   }
 }

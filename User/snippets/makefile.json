@@ -1,0 +1,99 @@
+{
+  "log": {
+    "prefix": "log",
+    "body": [
+      "$(${2|info,warning|} \"${1:Message}\")$0"
+    ],
+    "description": "Print info / warning / error"
+  },
+  "error": {
+    "prefix": "error",
+    "body": [
+      "$(error \"${1:Message}\")$0"
+    ],
+    "description": "Print info / warning / error"
+  },
+  "debug": {
+    "prefix": "debug",
+    "body": [
+      "$(${2|info|} \"${1:Message}\")$0"
+    ],
+    "description": "Print debug message"
+  },
+  "var": {
+    "prefix": "var",
+    "body": [
+      "${3:export }${1:varname} ?=${2:value}"
+    ],
+    "description": "Declare a var"
+  },
+  "var.define": {
+    "prefix": "var.d",
+    "body": [
+      "define ${1:name}",
+      "$0",
+      "endef",
+      "",
+      "\\$($1)"
+    ],
+    "description": "var.define"
+  },
+"var function": {
+  "prefix": "var.fn",
+  "body": [
+    "${1:fn} = $(1) $(2)",
+    "${2:output} = $(call ${1},a,b)",
+    "",
+    "$(info $(${2}))"
+  ],
+  "description": "var function inline"
+},
+  "target new": {
+    "prefix": "target.n",
+    "body": [
+      ".PHONY: $4",
+      ".ONESHELL:",
+      "${4:OUT}:${3:IN}",
+      "\t$0"
+    ],
+    "description": "target new "
+  },
+  "target clean": {
+    "prefix": "target.clean",
+    "body": [
+      ".ONESHELL:",
+      ".PHONY:",
+      "clean:",
+      "\trm -v main a.out main.out",
+      "\trm -v *.o *.so *.gch",
+      "\trm -v -i *.d",
+      "\t[[ -d $(BUILDPATH) ]] && rm -v -rd $(BUILDPATH)",
+      ""
+    ],
+    "description": "target clean"
+  },
+  "list subst": {
+    "prefix": "list.subst",
+    "body": [
+      "$(patsubst ${1:match_pattern %},${2:replace_pattern %,${3:list}})"
+    ],
+    "description": "Substitute a pattern by replace pattern a list of strings"
+  },
+  "import module": {
+    "prefix": "imp",
+    "body": [
+      "# put - before command to ignore erors",
+      "include ${2:depends.mk}"
+    ],
+    "description": "import module as global"
+  },
+  "match.if.empty": {
+    "prefix": "if.empty",
+    "body": [
+      "ifeq ($(${1:VARNAME}),)",
+      "log$2",
+      "endif"
+    ],
+    "description": "match.if.empty"
+  }
+}

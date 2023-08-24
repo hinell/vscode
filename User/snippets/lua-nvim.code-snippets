@@ -1,0 +1,191 @@
+{
+  "vim api log": {
+    "prefix": "vim.api.log",
+    "body": [
+      "vim.api.nvim_echo({",
+      "  { \"${1:text\\n}\", \"${4|Normal,WarningMsg,ErrorMsg,MoreMsg|}\" }",
+      "  $6",
+      "}, ${10:true}, { ${11: verbose = false } } )",
+      ""
+    ],
+    "description": "Log"
+  },
+  "vim log not": {
+    "prefix": "vim.log.not",
+    "body": [
+      "vim.notify(\"${1:Message}\", vim.log.levels.${3|DEBUG,ERROR,INFO,TRACE,WARN,OFF|})"
+    ],
+    "description": "Log notify"
+  },
+  "vim log debug": {
+    "prefix": "debug.print",
+    "body": [
+      "print((\"debug: %s: ${1}\"):format(debug.getinfo(1).source${3}))",
+      "print(vim.inspect(${1}${2}))"
+    ],
+    "description": "print debug log"
+  },
+  "vim log debug trace": {
+    "prefix": "debug.trace",
+    "body": [
+      "debug.trace(${1:1, }\"debug: ${2:message}\")"
+    ],
+    "description": "print debug trace log"
+  },
+  "vim log debug": {
+    "prefix": "debug",
+    "body": [
+      "print(vim.inspect(${5}))"
+    ],
+    "description": "print inspect log"
+  },
+  "vim buf pos": {
+    "prefix": "vim.buf.pos",
+    "body": [
+      "-- Use getpos() for current selection",
+      "local row, col = unpack(vim.api.nvim_win_get_cursor(0))",
+      "$0"
+    ],
+    "description": "Buffer: get current position"
+
+  },
+  "vim api feedkeys": {
+    "prefix": "vim.api.feedkeys",
+    "body": [
+      "key_${1:ESC} = vim.api.nvim_replace_termcodes(\"${2:<ESC>}\", true, false, true)",
+      "vim.api.nvim_feedkeys(M.key_${1}, \"${5|n,v,x,s,c|}\", false)",
+      "$0"
+    ],
+    "description": "Api: feedkeys"
+  },
+  "vim api autocmd aliass": {
+    "prefix": "au.alias",
+    "body": [
+      "local augroup = vim.api.nvim_create_augroup",
+      "local auclear = vim.api.nvim_clear_autocmds",
+      "local autocmd = vim.api.nvim_create_autocmd",
+      "local usercmd = vim.api.nvim_create_user_command"
+    ],
+    "description": "Aliases for autocmd and augroup"
+  },
+  "vim autocmd": {
+    "description": "Api: new autocmd command",
+    "prefix": "vim.au",
+    "body": [
+      "au.alias${1}",
+      "augroup(\"${7:MyAugroup}\", { clear = true })",
+      "autocmd({",
+      "\t\t\"${5|VimEnter,WinEnter,BufEnter,BufAdd,BufNew,BufNewFile,BufRead,FileType,LspAttach,LspDetach|}\"",
+      "\t},{",
+      "\t\tpattern  = \"*\",",
+      "\t\tonce     = false,",
+      "\t\tgroup    = \"${7}\",",
+      "\t\tcallback = function(auEvent${5})",
+      "\t\t\tlocal bufnr = auEvent${5}.buf$0",
+      "\t\t\tauclear({ group = \"${7}\" })",
+      "\t\tend",
+      "})"
+    ]
+  },
+  "vim buf line set": {
+    "prefix": "buf.line.set",
+    "body": [
+      "vim.fn.setbufline(${1:vim.fn.bufname()}, ${2:1}, \"${3:text}\")"
+    ],
+    "description": "Buffer: set line to text"
+  },
+  "vim map ext": {
+    "prefix": "vim.map.ext",
+    "body": [
+      "vim.tbl_extend(\"${1|error,keep,force|}\", ${2}, ${3})"
+    ],
+    "description": "Std: extend map"
+  },
+  "vim arr ext": {
+    "prefix": "vim.arr.ext",
+    "body": [
+      "local ${1:output} = vim.list_extend(${2}, ${3})"
+    ],
+    "description": "Std: extend array"
+  },
+  "vim arr map": {
+    "prefix": "vim.arr.map",
+    "description": "Std: map values to another set",
+    "body": [
+      "vim.tbl_map(function(${3:item})",
+      "\t${4:output} = ${3}",
+      "\treturn ${4}${5}",
+      "end, ${2:array})"
+    ]
+  },
+  "vim string split": {
+    "prefix": "vim.str.split",
+    "scope": "lua",
+    "description": "Std: split string into array",
+    "body": [
+      "${3:output} = vim.split(${1:input}, \"${2:,}\")"
+    ]
+  },
+  "vim api timer": {
+    "prefix": "vim.uv.defer",
+    "body": [
+      "local timer = vim.uv.new_timer()",
+      "timer:start(${1:timeout ms}, ${2:repeat ms}, vim.schedule_wrap(function()",
+      "\t${0}",
+      "\ttimer:stop()",
+      "\ttimer:close()",
+      "end))",
+      ""
+    ],
+    "description": "Api: new uv.new_timer ... to postpone function execution"
+  },
+  "vim api defer": {
+    "prefix": "vim.defer",
+    "body": [
+      "vim.defer_fn(function()",
+      "\t${5:print(\"postponed!\")}",
+      "end, ${1:timeout ms})"
+    ],
+    "description": "Api: defer function call"
+  },
+  "vim plug ft add": {
+    "prefix": "vim.ft.add",
+    "body": [
+      "vim.filetype.add({",
+      "\textension = {",
+      "\t\t[\"${2:extensionName}\"] = function(path, bufnr)",
+      "\t\t\t-- set up file specific configs here",
+      "\t\t\tvim.opt_local.binary = false",
+      "\t\t\tvim.opt_local.filetype = \"json\"",
+      "\t\t\tvim.opt_local.formatprg = \"clang-format --assume-filename=.json\"",
+      "\t\t\t$0",
+      "\t\tend",
+      "\t}",
+      "\t, filename = {",
+      "\t}",
+      "\t, pattern = {",
+      "\t}",
+      "})"
+    ],
+    "description": "Add new filetype"
+  },
+  "vim match if version": {
+    "prefix": "if.ver",
+    "body": [
+      "if vim.fn.has(\"nvim-${1|0.9.0,10.0.0|}\") then",
+      "\t$0",
+      "end"
+    ],
+    "description": "Match: check nvim version"
+  },
+  "vim match validate": {
+    "prefix": "vim.valid",
+    "body": [
+      "-- last parameter: true to make nil valid ",
+      "vim.validate({",
+      "\t${1:optName} = { ${1}${2}, \"${3|table,string,number,boolean,function,nil,thread,userdata|}\", ${5|false,true|} }",
+      "})"
+    ],
+    "description": "Validate map of values"
+  }
+}

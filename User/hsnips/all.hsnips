@@ -1,0 +1,82 @@
+# Full documentations: https://github.com/draivin/hsnips
+
+#------------------------------------------------------------------Snippet-local
+# Snippet FLAGS:
+# A - Expand prefix upon match, don't wait for [TAB]
+# i - Expand prefix in the middle of the prefix
+# w - Expand prefix if the prefix has a punctuation chars: comms, dots etc.
+# b - Expand prefix if only the prefix is the only word on the line
+#     (dubious?, non-regexp snips)
+# M - Expand prefix on multiple lines
+
+#-----------------------------------------------------------------Snippet-global
+# TODO: Write on global snippet: https://github.com/draivin/hsnips#snippets-file
+# Generates contex matches for languages
+
+global
+    
+    function ctxmatcher (scope,name,c) {
+        let v = c.scopes.some(txCntx => txCntx.startsWith(scope));
+        return v
+    };
+    
+    let langs = [
+          [ "source.js"         , "javascript"    ]
+        , [ "source.ts"         , "typescript"    ]
+        , [ "source.shell"      , "shell"         ]
+        , [ "source.c"          , "clang"         ]
+        , [ "source.cpp"        , "cpp"           ]
+        , [ "source.py"         , "py"            ]
+        , [ "source.batchfile"  , "batch"         ]
+        , [ "text.html.markdown", "md"            ]
+    ];
+
+    for (let i=0; i < langs.length - 1; i++) {
+        let [ scope, name ] = langs[i];
+        if(this[name] !== null){
+            this[name] = ctxmatcher.bind(this, scope, name)
+        }
+    };
+    // Use it like:
+    // context javascript(context)
+    // snippet ... 
+    // endsnippet
+
+endglobal
+
+#------------------------------------------------------------------------testing
+context javascript(context)
+snippet hsnip.test.js "Test scope" Wi
+    JS
+endsnippet
+
+
+context typescript(context)
+snippet hsnip.test.ts "Test scope" Wi
+    TS
+endsnippet
+
+snippet meta.box "Box" A
+``rv = '┌' + '─'.repeat(t[0].length + 4) + '┐'``
+│ $1 │
+``rv = '└' + '─'.repeat(t[0].length + 4) + '┘'``
+endsnippet
+
+
+#-------------------------------------------------------------------------meta.-
+snippet `meta.-` "Insert a H1 comment header" w
+$1``
+let _1 = t[0] || '';
+``$2``
+
+let _2 = (t[1] ? '' : '').replace(/\s/g,`-`);
+    rv = '-'.repeat(80 - _1.length - _2.length) + _2``
+
+endsnippet
+
+
+snippet xtest "Issue!" w
+$1 
+`` rv = '$1 length is ' + (t[0] || '').length + '$2 length is' + (t[1] || '').length``
+$2
+endsnippet

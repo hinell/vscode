@@ -1,0 +1,192 @@
+{
+  "meta.license.bsd": {
+    "prefix": "meta.license.bsd",
+    "body": [
+      "${BLOCK_COMMENT_START}",
+      "${1:Program name and summary}",
+      " Copyright (C) ${CURRENT_YEAR}-${2:YEAR} Alex A. Davronov <al.neodim@gmail.com>",
+      " ",
+      " Redistribution and use in source and binary forms, with or without",
+      " modification, are permitted provided that the following conditions are met:",
+      " ",
+      " 1.Redistributions of source code must retain the above copyright notice,",
+      "   this list of conditions, and the following disclaimer.",
+      " ",
+      " 2.Redistributions in binary form must reproduce the above copyright notice,",
+      "   this list of conditions, and the following disclaimer in the documentation",
+      "   provided with the distribution.",
+      " ",
+      " This software is provided \"as is\" and without any warranty, express or",
+      " implied. In no event shall the authors be liable for any damages arising from",
+      " the use of this software.",
+      "${BLOCK_COMMENT_END}"
+    ],
+    "description": "Audacious license"
+  },
+  "meta.license.fossil": {
+    "prefix": "meta.license.fossil",
+    "body": [
+        "FOSSIL | Fair Open-Source Software [International] License v1.0.2",
+        "${1:Program name and summary}",
+        "Copyright (C) ${CURRENT_YEAR}-${2:YEAR} Alex A. Davronov <al.neodim@gmail.com> ",
+        "",
+        "Redistribution and (re)use of this Source or Binary Code (produced from such),",
+        "regardless of the carrier, with or without modification, is permitted free of",
+        "charge provided that the following conditions are met:",
+        "",
+        "    1.  Redistributions of this Source or Binary Code (linked or embeddded)",
+        "        are used for non-commercial, non-profiting, and peaceful purposes",
+        "        (e.g. use for personal, academic, or researching purposes",
+        "        or as part of non-commercial software).",
+        "",
+        "    2.  Redistributions of this Source or Binary Code retain copyright and",
+        "        liability notices, this list of conditions, and the following",
+        "        disclaimer.",
+        "",
+        "    3.  Redistributions of this Source or Binary Code make entire license",
+        "        visible prominently and clearly to the user's eyes either within",
+        "        redistributions' documentation or at the user's request.",
+        "",
+        "Failure to meet the said conditions terminates unconditionally your",
+        "rights and permissions granted by this Copyright notice and makes you eligible",
+        "for prosecution, lawsuit or any other legal actions or proceedings that might",
+        "be taken against you under an appropritate law of a country of your or license ",
+        "holder's residence or International law (if applicable).",
+        "",
+        "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR",
+        "IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,",
+        "FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE",
+        "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+        "LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING",
+        "FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER",
+        "DEALINGS IN THE SOFTWARE."
+    ],
+    "description": "BSD-inspired, FOSSIL license."
+  },
+  "meta.license.fossil.disclaimer": {
+    "prefix": "meta.license.fossil.disclaimer",
+    "description": "Audacious-inspired license. Disclaimer - full version.",
+    "body": [
+      "${LINE_COMMENT} TODO: Add THICK border around this license notice",
+      "${LINE_COMMENT} ${1:Program name and summary}",
+      "${LINE_COMMENT} Copyright (C) ${CURRENT_YEAR}-${2:YEAR} Alex A. Davronov <al.neodim@gmail.com>",
+      "${LINE_COMMENT} See LICENSE file or comment at the top of the main file",
+      "${LINE_COMMENT} provided along with the source code for additional info",
+      "${LINE_COMMENT} ",
+      "${LINE_COMMENT} THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR",
+      "${LINE_COMMENT} IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,",
+      "${LINE_COMMENT} FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE",
+      "${LINE_COMMENT} AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      "${LINE_COMMENT} LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,",
+      "${LINE_COMMENT} OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE",
+      "${LINE_COMMENT} SOFTWARE."
+    ]
+  },
+  "meta.license.audacios-line.disclaimer.short": {
+    "prefix": "meta.license.audacios-line.disclaimer.short",
+    "description": "Audacious-inspired license. Disclaimer - short version.",
+    "body": [
+      "${1:Program name and summary}",
+      "See LICENSE file (or comment at the top of the files)",
+      "provided along with the source code for additional info",
+      "Copyright (C) ${CURRENT_YEAR}-${3:YEAR} Alex A. Davronov <al.neodim@gmail.com>",
+      "Learn more about script here https://github.com/hinel${0}"
+    ]
+  },
+  "meta.license.gpl2": {
+    "prefix": "meta.license.gpl2",
+    "body": [
+      "${BLOCK_COMMENT_START}",
+      " License       : GPL-2.0 (the full text can be found in LICENSE file)",
+      " License URL   : https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
+      " ",
+      " ${1:Program name and summary}",
+      " Copyright (C) ${CURRENT_YEAR}-${3:YEAR} Alex A. Davronov <al.neodim@gmail.com>",
+      " This program is free software; you can redistribute it and/or",
+      " modify it under the terms of the GNU General Public License",
+      " as published by the Free Software Foundation; either version 2",
+      " of the License, or (at your option) any later version.",
+      " ",
+      " This program is distributed in the hope that it will be useful,",
+      " but WITHOUT ANY WARRANTY; without even the implied warranty of",
+      " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
+      " GNU General Public License for more details.",
+      " ",
+      " You should have received a copy of the GNU General Public License",
+      " along with this program; if not, write to the Free Software",
+      " Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.",
+      "${BLOCK_COMMENT_END}"
+    ],
+    "description": "License legal notice"
+  },
+  "meta.license.gpl2.cli": {
+    "prefix": "meta.license.gpl2.cli",
+    "body": [
+      "${1:Program name and summary}",
+      "Copyright (C) ${CURRENT_YEAR}-${2:YEAR} Alex A. Davronov <al.neodim@gmail.com>",
+      "This program comes with ABSOLUTELY NO WARRANTY; for details type $ ${1} -h.",
+      "This is free software, and you are welcome to redistribute it",
+      "under certain conditions;"
+    ],
+    "description": "License disclaimer of liability notice."
+  },
+  "meta.license.mit": {
+    "prefix": "meta.license.mit",
+    "body": [
+      "${BLOCK_COMMENT_START}",
+      " License       : MIT License",
+      " License URL   : https://opensource.org/licenses/MIT",
+      " Copyright (C) ${CURRENT_YEAR}-${2:YEAR} Alex A. Davronov <al.neodim@gmail.com>",
+      " ",
+      " Permission is hereby granted, free of charge, to any person obtaining a copy",
+      " of this software and associated documentation files (the \"Software\"), to deal",
+      " in the Software without restriction, including without limitation the rights",
+      " to use, copy, modify, merge, publish, distribute, sublicense, and/or sell",
+      " copies of the Software, and to permit persons to whom the Software is",
+      " furnished to do so, subject to the following conditions:",
+      " ",
+      " The above copyright notice and this permission notice shall be included in all",
+      " copies or substantial portions of the Software.",
+      " ",
+      " THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR",
+      " IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,",
+      " FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE",
+      " AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      " LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,",
+      " OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE",
+      " SOFTWARE.",
+      "${BLOCK_COMMENT_END}"
+    ],
+    "description": "License legal notice"
+  },
+  "meta.license.gpl3": {
+    "prefix": "meta.license.gpl3",
+    "body": [
+      "${BLOCK_COMMENT_START}",
+      " License       : GPL-3.0 (the full text can be found in LICENSE file)",
+      " License URL   : https://www.gnu.org/licenses/gpl-3.0.en.html",
+      " ${1:Program name and summary}",
+      " Copyright (C) ${CURRENT_YEAR}-${2:YEAR} Alex A. Davronov <al.neodim@gmail.com>",
+      " ",
+      " This program is free software: you can redistribute it and/or modify",
+      " it under the terms of the GNU General Public License as published by",
+      " the Free Software Foundation, either version 3 of the License, or",
+      " (at your option) any later version.",
+      " ",
+      " This program is distributed in the hope that it will be useful,",
+      " but WITHOUT ANY WARRANTY; without even the implied warranty of",
+      " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
+      " GNU General Public License for more details.",
+      " ",
+      " You should have received a copy of the GNU General Public License",
+      " along with this program.  If not, see <https://www.gnu.org/licenses/>.",
+      "${BLOCK_COMMENT_END}"
+    ],
+    "description": "License legal notice"
+  },
+  "meta.license.certificate.of.origin": {
+    "prefix": "meta.origin.certificate",
+    "description": "Certificate of origin",
+    "body": "TODO, see https://developercertificate.org/"
+  }
+}

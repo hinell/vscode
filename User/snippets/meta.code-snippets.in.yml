@@ -1,0 +1,416 @@
+---
+"#shebang":
+  prefix: "#!"
+  isFileTemplate: true
+  body:
+  - "#!/usr/bin/env ${1|zsh,bash,node,sh|}"
+  - meta.header$0
+  description: Scripting file header
+meta.h1:
+  prefix: meta.h1
+  body:
+  - "${LINE_COMMENT}$2---------------------------------------------------------------------${1:${TM_SELECTED_TEXT}}"
+  - "$0"
+  description: Insert a H1 comment header
+meta.h2:
+  prefix: meta.h2
+  body:
+  - ''
+  - "${LINE_COMMENT} ${1:${TM_SELECTED_TEXT}}"
+  - "${LINE_COMMENT}-------------------------------------"
+  - "$0"
+  description: Insert a H2 comment header
+meta.p.guillemets:
+  prefix: meta.p.guillemets
+  description: Insert a chevrons (guillemets)
+  body:
+  - "«${1:${TM_SELECTED_TEXT}}»"
+meta.modified:
+  prefix: meta.lm
+  body:
+  - "${LINE_COMMENT} Last-Modified : ${CURRENT_MONTH_NAME} ${CURRENT_DATE}, ${CURRENT_YEAR}"
+  description: Last-modified entry for meta.header
+meta.header:
+  prefix: meta.head
+  body:
+  - "${LINE_COMMENT} Title.......: ${0}${1}"
+  - "${LINE_COMMENT} Summary.....: ${2:TODO: Add summary.}"
+  - "${LINE_COMMENT} Version.....: ${5:1.0.0}"
+  - "${LINE_COMMENT} Created.....: ${3:${CURRENT_MONTH_NAME} ${CURRENT_DATE}, ${CURRENT_YEAR}
+    }"
+  - "${LINE_COMMENT} Authors.....: Alex A. Davronov <al.neodim@gmail.com> (${CURRENT_YEAR}-)"
+  - "${LINE_COMMENT} Repository..: ${4|N/A,https://github.com/,https://gitlab.com/,https://bitbucket.org/|}"
+  - "${LINE_COMMENT} Description.: ${6:TODO: Add description.}"
+  - "${LINE_COMMENT} Usage.......: ${7:TODO: Add usage.}"
+  description: Insert documents' header (versin, desc, license, usage)
+meta.license.audacious:
+  prefix: meta.license.aud
+  body:
+  - "${BLOCK_COMMENT_START}"
+  - "${1:Program name and summary}"
+  - " Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov <al.neodim@gmail.com>"
+  - " "
+  - " Redistribution and use in source and binary forms, with or without"
+  - " modification, are permitted provided that the following conditions are met:"
+  - " "
+  - " 1.Redistributions of source code must retain the above copyright notice,"
+  - "   this list of conditions, and the following disclaimer."
+  - " "
+  - " 2.Redistributions in binary form must reproduce the above copyright notice,"
+  - "   this list of conditions, and the following disclaimer in the documentation"
+  - "   provided with the distribution."
+  - " "
+  - ' This software is provided "as is" and without any warranty, express or'
+  - " implied. In no event shall the authors be liable for any damages arising from"
+  - " the use of this software."
+  - "${BLOCK_COMMENT_END}"
+  description: Audacious license
+meta.license.custom:
+  prefix: meta.license.custom
+  body:
+  - "${BLOCK_COMMENT_START}"
+  - FOSSIL | Fair Open-Source Software International License v1.0.2
+  - "${1:Program name and summary}"
+  - 'Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov <al.neodim@gmail.com> '
+  - ''
+  - Redistribution and (re)use of this Source or Binary Code (produced from such),
+  - regardless of the carrier, with or without modification, is permitted free of
+  - 'charge provided that the following conditions are met:'
+  - ''
+  - "\t1.\tRedistributions of this Source or Binary Code (linked or embeddded)"
+  - "\t\tare used for non-commercial, non-profiting, and peaceful purposes"
+  - "\t\t(e.g. use for personal, academic, or researching purposes"
+  - "\t\tor as part of non-commercial software)."
+  - ''
+  - "\t2.\tRedistributions of this Source or Binary Code retain copyright and"
+  - "\t\tliability notices, this list of conditions, and the following"
+  - "\t\tdisclaimer."
+  - ''
+  - "\t3.\tRedistributions of this Source or Binary Code make entire license"
+  - "\t\tvisible prominently and clearly to the user's eyes either within"
+  - "\t\tredistributions' documentation or at the user's request."
+  - ''
+  - Failure to meet the said conditions terminates unconditionally your
+  - rights and permissions granted by this Copyright notice and makes you eligible
+  - for prosecution, lawsuit or any other legal actions or proceedings that might
+  - 'be taken against you under an appropritate law of a country of your or license '
+  - holder's residence or International law (if applicable).
+  - ''
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  - FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  - DEALINGS IN THE SOFTWARE.
+  - "${BLOCK_COMMENT_END}"
+  description: BSD-inspired, FOSSIL license.
+meta.license.custom.disclaimer:
+  prefix: meta.license.custom.disclaimer
+  description: Audacious-inspired license. Disclaimer - full version.
+  body:
+  - "${LINE_COMMENT} TODO: Add THICK border around this license notice"
+  - "${LINE_COMMENT} ${1:Program name and summary}"
+  - "${LINE_COMMENT} Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov
+    <al.neodim@gmail.com>"
+  - "${LINE_COMMENT} See LICENSE file or comment at the top of the main file"
+  - "${LINE_COMMENT} provided along with the source code for additional info"
+  - "${LINE_COMMENT} "
+  - ${LINE_COMMENT} THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR
+  - "${LINE_COMMENT} IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,"
+  - "${LINE_COMMENT} FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+    SHALL THE"
+  - "${LINE_COMMENT} AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+    OR OTHER"
+  - "${LINE_COMMENT} LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+    ARISING FROM,"
+  - "${LINE_COMMENT} OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE"
+  - "${LINE_COMMENT} SOFTWARE."
+meta.license.custom.disclaimer.short:
+  prefix: meta.license.custom.disclaimer.short
+  description: Audacious-inspired license. Disclaimer - short version.
+  body:
+  - "${1:Program name and summary}"
+  - See LICENSE file (or comment at the top of the files)
+  - provided along with the source code for additional info
+  - Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov <al.neodim@gmail.com>
+  - Learn more about script here https://github.com/hinell$2
+meta.license.gpl2:
+  prefix: meta.license.gpl2
+  body:
+  - "${BLOCK_COMMENT_START}"
+  - " License       : GPL-2.0 (the full text can be found in LICENSE file)"
+  - " License URL   : https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"
+  - " "
+  - " ${1:Program name and summary}"
+  - " Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov <al.neodim@gmail.com>"
+  - " This program is free software; you can redistribute it and/or"
+  - " modify it under the terms of the GNU General Public License"
+  - " as published by the Free Software Foundation; either version 2"
+  - " of the License, or (at your option) any later version."
+  - " "
+  - " This program is distributed in the hope that it will be useful,"
+  - " but WITHOUT ANY WARRANTY; without even the implied warranty of"
+  - " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
+  - " GNU General Public License for more details."
+  - " "
+  - " You should have received a copy of the GNU General Public License"
+  - " along with this program; if not, write to the Free Software"
+  - " Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA."
+  - "${BLOCK_COMMENT_END}"
+  description: License legal notice
+meta.license.gpl2.cli:
+  prefix: meta.license.gpl2.cli
+  body:
+  - "${1:Program name and summary}"
+  - Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov <al.neodim@gmail.com>
+  - This program comes with ABSOLUTELY NO WARRANTY; for details type `command -h'.
+  - This is free software, and you are welcome to redistribute it
+  - under certain conditions; type `command -h' for details.
+  description: License disclaimer of liability notice.
+meta.license.mit:
+  prefix: meta.license.mit
+  body:
+  - "${BLOCK_COMMENT_START}"
+  - " License       : MIT License"
+  - " License URL   : https://opensource.org/licenses/MIT"
+  - " "
+  - " Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov <al.neodim@gmail.com>"
+  - " "
+  - " Permission is hereby granted, free of charge, to any person obtaining a copy"
+  - ' of this software and associated documentation files (the "Software"), to deal'
+  - " in the Software without restriction, including without limitation the rights"
+  - " to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+  - " copies of the Software, and to permit persons to whom the Software is"
+  - " furnished to do so, subject to the following conditions:"
+  - " "
+  - " The above copyright notice and this permission notice shall be included in all"
+  - " copies or substantial portions of the Software."
+  - " "
+  - ' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR'
+  - " IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,"
+  - " FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE"
+  - " AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+  - " LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,"
+  - " OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE"
+  - " SOFTWARE."
+  - "${BLOCK_COMMENT_END}"
+  description: License legal notice
+meta.license.gpl3:
+  prefix: meta.license.gpl3
+  body:
+  - "${BLOCK_COMMENT_START}"
+  - " License       : GPL-3.0 (the full text can be found in LICENSE file)"
+  - " License URL   : https://www.gnu.org/licenses/gpl-3.0.en.html"
+  - " ${1:Program name and summary}"
+  - " Copyright (C) ${YearRange:${CURRENT_YEAR}-} Alex A. Davronov <al.neodim@gmail.com>"
+  - " "
+  - " This program is free software: you can redistribute it and/or modify"
+  - " it under the terms of the GNU General Public License as published by"
+  - " the Free Software Foundation, either version 3 of the License, or"
+  - " (at your option) any later version."
+  - " "
+  - " This program is distributed in the hope that it will be useful,"
+  - " but WITHOUT ANY WARRANTY; without even the implied warranty of"
+  - " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
+  - " GNU General Public License for more details."
+  - " "
+  - " You should have received a copy of the GNU General Public License"
+  - " along with this program.  If not, see <https://www.gnu.org/licenses/>."
+  - "${BLOCK_COMMENT_END}"
+  description: License legal notice
+meta.license.certificate.of.origin:
+  description: Certificate of origin
+  prefix: meta.origin.certificate
+  body: TODO, see https://developercertificate.org/
+meta.ending.quote:
+  prefix: meta.quote
+  body:
+  - "${LINE_COMMENT} ${1|From the End comes The Beginning! - Seneca,Something ends\\,
+    something begins! - Anonymous,Good luck\\, and happy coding!,Ars longa\\, vita
+    brevis! - Hippocrates  of Kos,I prefer nothing\\, unless it is true! - Socrates\\,
+    Phaedrus,The disgrace begins when a man writes not well\\, but badly. - Socrates\\,
+    Phaedrus,I've wrote things you people wouldn't believe...,I've coded things\\,
+    you people\\, wouldn't believe!,Less is more - Chilon of Sparta,Practice geometry!-
+    Hippocrates of Chios|}"
+  description: Lovely quote!
+meta.date:
+  prefix: meta.date
+  body:
+  - "${CURRENT_MONTH_NAME} ${CURRENT_DATE}, ${CURRENT_YEAR}"
+  description: Lovely quote!
+meta.workflow.continue:
+  description: 'Put a CONTINUE: comment on where to continue next day'
+  prefix: meta.continue
+  body:
+  - "$LINE_COMMENT CONTINUE: (${CURRENT_MONTH_NAME} ${CURRENT_DATE}, ${CURRENT_YEAR})
+    ${1}"
+meta.hypersnippets.flags:
+  prefix: hsnip.flags
+  scope: hsnips
+  description: Flags for the snippet
+  body: "${1|w,A,i,b,M|}"
+meta.hypersnippets.help:
+  prefix: hsnip.help
+  scope: hsnips
+  description: Help for defintion
+  body:
+  - "# Full documentations: https://github.com/draivin/hsnips"
+  - "# TODO: Write on global snippet: https://github.com/draivin/hsnips#snippets-file"
+  - "#---------------------------------------------------------------------------Help"
+  - "# Snippet FLAGS:"
+  - "# A - Expand upon match, don't wait for [TAB]"
+  - "# i - Expand in the middle of the prefix"
+  - "# w - Expand if the prefix has a punctuation chars: comms, dots etc."
+  - "# b - Expand if only the prefix is the only word on the line"
+  - "#     (dubious?, non-regexp snips)"
+  - "# M - Expands if snippet regexp matches multiple lines"
+  - "#-------------------------------------------------------------------------------"
+  - "# VARIABLES that can be used inside"
+  - "# rv   - Output string"
+  - "# t    - Array of strings on tabstops"
+  - "# W    - Currently opened workspace URI"
+  - "# path - Document"
+  - "# "
+  - "$0"
+meta.hyperscrippets.new:
+  prefix: hsnip.new
+  scope: hsnips
+  description: New hypersnippet SNIPPET defintion
+  body:
+  - "#---------------------------------------------------------------------${2}-${1}"
+  - "${3:context fn(context)}"
+  - snippet ${4|prefix,`regexp`|} "${5:description}" ${6:hsnip.flags}
+  - "\t$0"
+  - endsnippet
+meta.hyperscrippets.global:
+  prefix: hsnip.global
+  scope: hsnips
+meta.todo:
+  prefix: todo
+  description: Insert user-defined todo commentt
+  body:
+  - "${1|CONTINUE,TODO,BUG,DEBUG,PERF,REVIEW,IMPL,DPRCT,REMOVE|}: ${3:[${4:$CURRENT_MONTH_NAME
+    $CURRENT_DATE, $CURRENT_YEAR}]} ${2:Description}"
+meta.texmate.placeholder.transform:
+  prefix: texmate.ph.transform
+  body:
+  - "\\${${1:1}/${3:(.*)}/\\${1:/${2|upcase,downcase,capitalize,camelcase,pascalcase|}}/}$0"
+  description: TexMate placeholder transform
+meta.texmate.placeholder.boolean:
+  prefix: texmate.ph.boolean
+  body:
+  - "${${1:1}|true,false|}"
+  description: TexMate placeholder boolean
+meta.texmate.vars.date:
+  prefix: texmate.vars.date
+  body:
+  - "\\${${1|CURRENT_YEAR,CURRENT_YEAR_SHORT,CURRENT_MONTH,CURRENT_DATE,CURRENT_HOUR,CURRENT_MINUTE,CURRENT_SECOND,CURRENT_DAY_NAME,CURRENT_DAY_NAME_SHORT,CURRENT_MONTH_NAME,CURRENT_MONTH_NAME_SHORT,CURRENT_SECONDS_UNIX|}}"
+  description: TexMate placeholder boolean
+meta.texmate.vars.misc:
+  prefix: texmate.vars.misc
+  body:
+  - "\\${${1|RANDOM,RANDOM_HEX,UUID|}}"
+  description: TexMate placeholder boolean
+meta.texmate.vars.editor:
+  prefix: texmate.vars.editor
+  body:
+  - "\\${${1|SELECTION,CLIPBOARD,TM_SELECTED_TEXT,TM_CURRENT_LINE,TM_CURRENT_WORD,TM_LINE_INDEX,TM_LINE_NUMBER,TM_FILENAME,TM_FILENAME_BASE,TM_DIRECTORY,TM_FILEPATH,RELATIVE_FILEPATH,CURSOR_INDEX,CURSOR_NUMBER|}}"
+  description: TexMate placeholder boolean
+meta.semver.regex:
+  prefix: meta.semver.regex
+  body:
+  - "^([1-9][0-9]*)\\\\.([1-9][0-9]*)\\\\.([1-9][0-9]*)(-(([0-9][0-9]|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\\\\.([0-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\\\\+([0-9a-zA-Z-]+(\\\\.[0-9a-zA-Z-]+)*))?$"
+  description: meta.semver.regex
+term.string.fg.rgb:
+  prefix: term.string.fg.rbg
+  description: ANSI RGB color code
+  body: "\\x1B[;38;2;${1:R};${2:G};${3:B}m${4:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.rgb.yellow:
+  prefix: term.string.fg.rbg.yellow
+  description: ANSI RGB color code
+  body: "\\x1B[;38;2;255;200;0m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.black:
+  prefix: term.string.fg.black
+  body: "\\x1B[30m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.red:
+  prefix: term.string.fg.red
+  body: "\\x1B[31m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.green:
+  prefix: term.string.fg.green
+  body: "\\x1B[32m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.brown:
+  prefix: term.string.fg.brown
+  body: "\\x1B[33m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.blue:
+  prefix: term.string.fg.blue
+  body: "\\x1B[34m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.magenta:
+  prefix: term.string.fg.magenta
+  body: "\\x1B[35m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.fg.cyan:
+  prefix: term.string.fg.cyan
+  body: "\\x1B[36m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.rgb:
+  prefix: term.string.bg.rbg
+  description: ANSI RGB color code
+  body: "\\x1B[;48;2;${1:R};${2:G};${3:B}m${4:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.black:
+  prefix: term.string.bg.black
+  body: "\\x1B[40m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.red:
+  prefix: term.string.bg.red
+  body: "\\x1B[41m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.green:
+  prefix: term.string.bg.green
+  body: "\\x1B[42m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.brown:
+  prefix: term.string.bg.brown
+  body: "\\x1B[43m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.blue:
+  prefix: term.string.bg.blue
+  body: "\\x1B[44m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.magenta:
+  prefix: term.string.bg.magenta
+  body: "\\x1B[45m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bg.cyan:
+  prefix: term.string.bg.cyan
+  body: "\\x1B[46m${1:${TM_SELECTED_TEXT}} \\x1B[0m$0"
+term.string.bold:
+  prefix: term.string.bold
+  description: Bold mode
+  body: "\\x1B[1m${1:${TM_SELECTED_TEXT}} \\x1B[22m"
+term.string.dim:
+  prefix: term.string.dim
+  description: Dim/faint mode
+  body: "\\x1B[2m${1:${TM_SELECTED_TEXT}} \\x1B[22m"
+term.string.italic:
+  prefix: term.string.italic
+  description: Italic mode
+  body: "\\x1B[3m${1:${TM_SELECTED_TEXT}}\\x1B[23m"
+term.string.underline:
+  prefix: term.string.underline
+  description: Underline mode
+  body: "\\x1B[4m${1:${TM_SELECTED_TEXT}}\\x1B[24m"
+term.string.inverse:
+  prefix: term.string.inverse
+  description: Inverse/reverse mode
+  body: "\\x1B[7m${1:${TM_SELECTED_TEXT}}\\x1B[27m"
+term.string.hidden:
+  prefix: term.string.hidden
+  description: Hidden/invisible mode
+  body: "\\x1B[8m${1:${TM_SELECTED_TEXT}}\\x1B[28m"
+term.string.strike:
+  prefix: term.string.strike
+  description: Strikethrough mode
+  body: "\\x1B[9m${1:${TM_SELECTED_TEXT}}\\x1B[29m"
+test.snippet:
+  prefix: test.snippet
+  description:
+  body:
+    - 'workspace.openTextDocument({'
+    - '    content : "Lorem impsum",'
+    - '    language: "javascript"'
+    - '});'

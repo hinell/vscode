@@ -1,0 +1,60 @@
+{
+  "github.funding.yaml": {
+    "description": "You can configure your sponsor button by editing a FUNDING.yml",
+    "scope": "yml",
+    "isFileTemplate": true,
+    "prefix": "gh.funding.yml",
+    "body": [
+        "github: hinell",
+        "custom: [\"https://www.paypal.me/biteofpie\" PayPal.com]"
+    ]
+  },
+  "github.workflow.new": {
+    "prefix": "gh.workflow.new",
+    "scope": "yaml",
+    "isFileTemplate": true,
+    "body": [
+      "name: ${1:default-workflow}",
+      "on:",
+      "  # Trigger worfklow when branch or tags are pushed",
+      "  push:",
+      "    branches:",
+      "      - ${2:main}",
+      "      - '${3:release/**}'",
+      "",
+      "    tags:",
+      "      - ${4|v[0-9].*,**|}",
+      "jobs:",
+      "    gh.workflow.job.new${10}"
+    ],
+    "description": "Github CI workflow: new"
+  },
+  "github.workflow.job.new": {
+    "prefix": "gh.workflow.job.new",
+    "scope": "yaml",
+    "body": [
+      "${1:default}:",
+      "  runs-on: ${2|ubuntu-latest,macos-latest,[ubuntu-latest\\,macos-latest],windows-latest|}",
+      "  steps:",
+      "    - name: Check out repository",
+      "      uses: actions/checkout@v3",
+      "      gh.workflow.job.nodejs.new$0"
+    ],
+    "description": "Github CI workflow: new job"
+  },
+  "github.workflow.job.nodejs.new": {
+    "prefix": "gh.workflow.job.nodejs",
+    "scope": "yaml",
+    "body": [
+      "${1:default}:",
+      "    - name: Setup NodeJS",
+      "      uses: actions/setup-node@v3",
+      "      with:",
+      "        node-version: ${5|latest,18,16,14|}",
+      "    - run: npm run i",
+      "    - run: npm run build",
+      "    - run: ${0:npm run test}"
+    ],
+    "description": "Github CI workflow: new nodejs job"
+  }
+}

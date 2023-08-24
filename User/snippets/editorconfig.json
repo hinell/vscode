@@ -1,0 +1,38 @@
+{
+    "base new": {
+		"description": "Insert basic editorconfig",
+		"prefix": "config.new",
+		"isFileTemplate": true,
+		"body": [
+            "# https://editorconfig.org/",
+            "",
+            "root                      = ${1:true}$0",
+            "[*]",
+            "end_of_line               = ${2|lf,crlf|}",
+            "insert_final_newline      = ${3|true, false|}",
+            "trim_trailing_whitespace  = ${4:true}",
+            "charset                   = ${5|utf-8,utf-8-bom,latin1,utf-16be,utf-16le|}",
+            "",
+            "[${10|src/*.{js\\,ts},*.{bash\\,sh\\,zsh},{package.json}|}]",
+            "indent_style              = ${11|tab,space|}",
+            "#indent_size               = ${12:4}",
+            "tab_width                 = ${13:4}",
+            "",
+            "[**/*.md]",
+            "trim_trailing_whitespace  = ${4:false}"
+        ]
+    },
+    "config new": {
+		"description": "Insert editorconfig for specific pattern",
+		"prefix": "config.glob.new",
+		"isFileTemplate": false,
+		"body": [
+            "[${10|src/*.{js\\,ts},*.{bash\\,sh\\,zsh},{package.json}|}]",
+            "indent_style              = ${11|tab,space|}",
+            "#indent_size               = ${12:4}",
+            "# For tab   indent style",
+            "tab_width                 = ${13:4}",
+            "$0"
+        ]
+    }
+}

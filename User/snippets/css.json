@@ -1,0 +1,111 @@
+{
+    "@media all and (max-width: ...)": {
+        "description": "Insert media keyword",
+        "prefix": "@media:all:mx",
+        "body": [
+            "@media all and (max-width: ${1:720}px) {",
+            "\t$2",
+            "}$0"
+        ]
+    },
+    "css.h1": {
+        "prefix": "css.h1",
+        "body": [
+            "${BLOCK_COMMENT_START}------------------------------------------------------------------------ ${1:${TM_SELECTED_TEXT}}${BLOCK_COMMENT_END}",
+            "$0"
+        ],
+        "description": "Insert a H1 comment header"
+    },
+    "css.h2": {
+        "prefix": "css.h2",
+        "body": [
+            "",
+            "${BLOCK_COMMENT_START} ${1:${TM_SELECTED_TEXT}}",
+            "--------------------------------${BLOCK_COMMENT_END}",
+            "$0"
+        ],
+        "description": "Insert a H2 comment header"
+    },
+    "document.mz": {
+        "prefix": "document.mz",
+        "body": [
+            "/* This is deprecated in all major browsers! */",
+            "@-moz-document",
+            "    ${1|regexp,url-prefix,domain,media-document|}(\"${2:file:.*}\"),",
+            "    ${4|regexp,url-prefix,domain,media-document|}(\"${5:file:.*}\")",
+            "",
+            "{",
+            "    $0",
+            "}"
+        ],
+        "description": "document.mz"
+    },
+    "user.css": {
+        "prefix": "user.css.header",
+        "description": "Userstyle UserCss header",
+        "body": [
+            "/* ==UserStyle==",
+            "@name         ${1:UserStyleName}",
+            "@namespace    ${2:https://github.com/hinell/user-css}",
+            "@homepageURL  ${3:https://github.com/hinell/user-css}",
+            "@supportURL   ${3}/issues",
+            "@updateURL    https://github.com/hinell/user-css/${4:userstyles}/${1}/${5:$1.user.css}",
+            "@version      ${10:1.0.0}",
+            "@license      ${11|NO-REDISTRIBUTION,FOSSIL|}",
+            "@description  ${12:A user style for TODO: add description}",
+            "@author       Hinell <neodim@gmail.com> (https://github.com/hinell)",
+            "user.css.var${0}",
+            "==/UserStyle== */"
+        ]
+    },
+    "user.css.var": {
+        "prefix": "user.css.var",
+        "description": "",
+        "body": [
+            "See: https://github.com/openstyles/stylus/wiki/Writing-UserCSS#var",
+            "@var ${1|text,checkbox,color,number|} ${2:param} \"${3:label}\" \"${4:value}\"",
+            "@var select ${6:param} \"${7:Paragraph font}\" {",
+            "    \"${8:option}$\":\"${9:value}\"",
+            "}",
+            "@var range ${10:param} \"${11:Image size}\" [ ${12} ]",
+            "",
+            "var(--$2)",
+            "var(--$6)",
+            "var(--$10)"
+        ]
+    },
+    "button assistant": {
+        "prefix": "assitant",
+        "body": [
+            "html {",
+            "    height: 100%;",
+            "    background-color: green;",
+            "}",
+            "",
+            "#assistant {",
+            "    background-image: url(\"https://cdn.discordapp.com/attachments/1008571080300052482/1089515064874254336/duarte_Call_center_realistic_3d_woman_smiling_03e9b119-b77f-4ff2-8933-1685148d8053.png?ex=65ad0379&is=659a8e79&hm=297754959be591daf57dabd043e9eec016f97a182657a6841578a0677a442614&\");",
+            "    background-image: url(\"https://cdn.discordapp.com/attachments/1072899954525356072/1104430757386137831/gigliotti.tech_call_center_real_man_attendant_516664aa-f774-456c-a303-d0ec3cbe9257.png?ex=65b5224b&is=65a2ad4b&hm=d6be28159266a0fb053c0c06b2847e0614a2bf2f9ca9da29802af8e29e037340&\");",
+            "    background-origin: border-box;",
+            "    background-repeat: no-repeat;",
+            "    background-size: 127px;",
+            "    background-position: 0 -64px;",
+            "    height: 64px;",
+            "    width: 64px;",
+            "    border-radius: 60px;",
+            "    position: absolute;",
+            "    bottom: 0;",
+            "    right: 0;",
+            "    cursor: pointer;",
+            "    box-shadow: 0 0 10px yellow;",
+            "    will-change: box-shadow;",
+            "    transition: box-shadow 256ms;",
+            "}",
+            "",
+            "",
+            "#assistant:active {",
+            "    box-shadow: 0 0 10px red;",
+            "}"
+        ],
+        "description": "button assistant"
+    }
+}

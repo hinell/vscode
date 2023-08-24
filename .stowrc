@@ -1,0 +1,6 @@
+--target=$HOME/.config/Code/
+--ignore=preview.png
+--ignore=README.md
+--ignore=.stowrc
+--ignore=.git
+--ignore=hinell-extensions.txt

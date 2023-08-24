@@ -1,0 +1,30 @@
+{
+  "lex.new":{
+    "prefix": "lex.new",
+    "isFileTemplate": true,
+    "body": [
+      "/* meta.head$1",
+      "*/",
+      "/* For full docs see https://www.genivia.com/doc/reflex/html/#reflex */",
+      "/* Generate a main function to scan data from stdin */",
+      "%option main",
+      "%option bison bison-bridge bison-cc noyywrap",
+      "%option graphs-file=lexer.gv",
+      "",
+      "%top{",
+      "  #include <iostream>",
+      "}",
+      "%xstate INITIAL",
+      "${10:def} ${11:RegExPattern}",
+      "",
+      "%%",
+      "",
+      "<INITIAL>{$10} out() << ${12\"Hello!\"} <<std::endl; return 0",
+      ". /* Do nothing */",
+      "<<EOL>> out() << \"End of file\" <<std::endl; return 0 ",
+      "",
+      "%%",
+      "$0"
+    ]
+  }
+}

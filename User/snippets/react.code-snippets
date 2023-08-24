@@ -1,0 +1,66 @@
+{
+  "class constructor": {
+    "prefix": "class.c",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact",
+    "body": [
+      "",
+      "state: { value: any }",
+      "${3};",
+      "${4};",
+      "${5}",
+      "constructor(${3:props: any}, ${4:arg1: string}, ${5:options?: any}) {",
+      "\tsuper($3)",
+      "\t${5/options.*/class.opt.set/}${6}",
+      "\tthis.state = {};",
+      "\tthis.state.value = \"[state value]\"",
+      "\tconsole.log(${3/^(.*):(.*)/${1}/});$0",
+      "\tconsole.log(${4/^(.*):(.*)/${1}/});",
+      "} // DEFAULT CONSTRUCTOR END",
+      ""
+    ],
+    "description": "Class constructor: react component"
+  },
+  "class members": {
+    "prefix": "class.members",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact",
+    "body": [
+      "${10|class.c,class.m,class.react.members|}"
+    ],
+    "description": "Class members: react"
+  },
+  "class react members": {
+    "prefix": "class.react.members",
+    "body": [
+      "componentDidMount(){",
+      "\t$1",
+      "}",
+      "",
+      "componentWillUnmount(){",
+      "",
+      "}",
+      "",
+      "// just before shouldComponentUpdate. Use with care.",
+      "getDerivedStateFromProps(nextProps){",
+      "",
+      "}",
+      "",
+      "// render(). Return false to skip render",
+      "shouldComponentUpdate(nextProps, nextState){",
+      "",
+      "}",
+      "",
+      "// just before render(). return value is passed to componentDidUpdate.",
+      "getSnapshotBeforeUpdate(prevProps, prevState){",
+      "",
+      "}",
+      "componentDidUpdate(prevProps, prevState, snapshot){",
+      "",
+      "}",
+      "",
+      "render(){",
+      "    return <p>Hello world! State: {this.state.value}</p>$0",
+      "}"
+    ],
+    "description": "class react members"
+  }
+}

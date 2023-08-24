@@ -1,0 +1,285 @@
+{
+  "vim var pathSep": {
+    "prefix": "vim.var.pathsep",
+    "body": [
+      "local pathSep = jit.os == \"Linux\" and \"/\" or \"\\\\\""
+    ],
+    "description": "declare pathSep variable for fpaths"
+  },
+  "vim api log": {
+    "prefix": "vim.api.log",
+    "body": [
+      "vim.api.nvim_echo({",
+      "  { \"${1:text\\n}\", \"${4|Normal,WarningMsg,ErrorMsg,MoreMsg|}\" }",
+      "  $6",
+      "}, ${10:true}, { ${11: verbose = false } } )",
+      ""
+    ],
+    "description": "Log"
+  },
+  "vim log notify": {
+    "prefix": "vim.log",
+    "body": [
+      "vim.notify(\"${1:Message}\", vim.log.levels.${3|DEBUG,ERROR,INFO,TRACE,WARN,OFF|})"
+    ],
+    "description": "Log notify"
+  },
+  "vim log notify once": {
+    "prefix": "vim.log_once",
+    "body": [
+      "vim.notify_once(\"${1:Message}\", vim.log.levels.${3|DEBUG,ERROR,INFO,TRACE,WARN,OFF|})"
+    ],
+    "description": "Log notify once"
+  },
+
+  "vim log debug": {
+    "prefix": "debug",
+    "body": [
+      "print(vim.inspect(${1:{ $0 \\}}))"
+    ],
+    "description": "print inspect log"
+  },
+  "vim log debug + print": {
+    "prefix": "debug.prnt",
+    "body": [
+      "print((\"debug: %s: ${1}\"):format(debug.getinfo(1).source${3}))",
+      "print(vim.inspect(${1}${2}))"
+    ],
+    "description": "print debug log"
+  },
+  "debug date": {
+    "prefix": "debug.date",
+    "body": [
+      "print(vim.inspect({ os.date(\"%T\") ,${1:value} }))"
+    ],
+    "description": "debug date can be used to account value in a loop"
+  },
+  "vim log debug trace": {
+    "prefix": "debug.trace",
+    "body": [
+      "print(debug.traceback(\"debug: ${2:message}\"))"
+    ],
+    "description": "print debug trace log"
+  },
+  "vim buf pos": {
+    "prefix": "vim.buf.pos",
+    "body": [
+      "-- Use getpos() for current selection",
+      "local row, col = unpack(vim.api.nvim_win_get_cursor(0))",
+      "$0"
+    ],
+    "description": "Buffer: get current position"
+
+  },
+  "vim api feedkeys": {
+    "prefix": "vim.api.feedkeys",
+    "body": [
+      "key_${1:ESC} = vim.api.nvim_replace_termcodes(\"${2:<ESC>}\", true, false, true)",
+      "vim.api.nvim_feedkeys(M.key_${1}, \"${5|n,v,x,s,c|}\", false)",
+      "$0"
+    ],
+    "description": "Api: feedkeys"
+  },
+  "vim api autocmd aliass": {
+    "prefix": "vim.au.alias",
+    "body": [
+      "local augroup = vim.api.nvim_create_augroup",
+      "local autocmdClr = vim.api.nvim_clear_autocmds  -- by group name, pattern or event",
+      "local autocmdAdd = vim.api.nvim_create_autocmd",
+      "local autocmdDel = vim.api.nvim_del_autocmd -- by id",
+      "local usercmdAdd = vim.api.nvim_create_user_command",
+      "local usercmdDel = vim.api.nvim_del_user_command"
+    ],
+    "description": "Aliases for autocmd and augroup"
+  },
+  "vim autocmd": {
+    "description": "Api: new autocmd command",
+    "prefix": "vim.au",
+    "body": [
+      "vim.au.alias${1}",
+      "local auGroupID = augroup(\"${2:UserAugroupName}\", { clear = true })",
+      "${3:autocmdAdd}(vim.auspec$0)"
+    ]
+  },
+  "vim autocmd spec": {
+    "description": "Api: add autocmd spec",
+    "prefix": "vim.auspec",
+    "body": [
+      "{",
+      "\t\"${5|VimEnter,WinEnter,BufEnter,BufAdd,BufNew,BufNewFile,BufRead,FileType,LspAttach,LspDetach|}\"",
+      "},{",
+      "\t\tpattern  = \"*\",",
+      "\t\t-- buffer   = 0, -- do not use with pattern",
+      "\t\tonce     = false,",
+      "\t\tgroup    = auGroupID,",
+      "\t\tcallback = function(auEvent)",
+      "\t\t\tlocal bufnr = auEvent.buf",
+      "\t\t\tlocal event = vim.v.event$0",
+      "\t\t\tautocmdClr({ group = auGroupID })",
+      "\t\tend",
+      "}"
+    ]
+  },
+  "vim user command spec": {
+    "prefix": "vim.ucmdspec",
+    "body": [
+      "\"${1:COMMAND_NAME}\",",
+      "function(args)",
+      "\t$0",
+      "\tprint(vim.inspect(args))",
+      "end,",
+      "{",
+      "\tdesc  = \"User command\",",
+      "\tforce = true,",
+      "\tbar   = false,",
+      "\tnargs = \"${4|?,0,1,*,+|}\",",
+      "\tcomplete = function(lead, line, pos)",
+      "\t\tprint(vim.inspect(line))",
+      "\t\treturn { \"foo\", \"bar\", \"baz\" }",
+      "\t\tend",
+      "\t-- preview = function() end",
+      "}",
+      ""
+    ],
+    "description": "vim usercmd"
+  },
+  "vim buf line set": {
+    "prefix": "buf.line.set",
+    "body": [
+      "vim.fn.setbufline(${1:vim.fn.bufname()}, ${2:1}, \"${3:text}\")"
+    ],
+    "description": "Buffer: set line to text"
+  },
+  "vim map ext": {
+    "prefix": "vim.map.ext",
+    "body": [
+      "local ${1:output} = vim.tbl_extend(\"${2|error,keep,force|}\", ${3}, ${4})"
+    ],
+    "description": "Std: extend map"
+  },
+  "vim arr ext": {
+    "prefix": "vim.arr.ext",
+    "body": [
+      "local ${1:output} = vim.list_extend(${2}, ${3})"
+    ],
+    "description": "Std: extend array"
+  },
+  "vim arr map": {
+    "prefix": "vim.arr.map",
+    "description": "Std: map values to another set",
+    "body": [
+      "vim.tbl_map(function(${3:item})",
+      "\t${4:output} = ${3}",
+      "\treturn ${4}${5}",
+      "end, ${2:inputArray})"
+    ]
+  },
+  "vim string split": {
+    "prefix": "vim.str.split",
+    "scope": "lua",
+    "description": "Std: split string into array",
+    "body": [
+      "${3:output} = vim.split(${1:input}, \"${2:,}\")"
+    ]
+  },
+  "vim api timer": {
+    "prefix": "vim.uv.defer",
+    "body": [
+      "local timer = vim.uv.new_timer()",
+      "timer:start(${1:timeout ms}, ${2:repeat ms}, vim.schedule_wrap(function()",
+      "\t${0}",
+      "\ttimer:stop()",
+      "\ttimer:close()",
+      "end))",
+      ""
+    ],
+    "description": "Api: new uv.new_timer ... to postpone function execution"
+  },
+  "vim api defer": {
+    "prefix": "vim.defer",
+    "body": [
+      "vim.defer_fn(function()",
+      "\t${5:print(\"postponed!\")}",
+      "end, ${1:timeout ms})"
+    ],
+    "description": "Api: defer function call"
+  },
+  "vim api defer schedule": {
+    "prefix": "vim.defer2",
+    "body": [
+      "vim.schedule(function()",
+      "\t$0",
+      "end)",
+      ""
+    ],
+    "description": "vim api defer via schedule"
+  },
+  "vim plug ft add": {
+    "prefix": "vim.ft.add",
+    "body": [
+      "vim.filetype.add({",
+      "\textension = {",
+      "\t\t[\"${2:extensionName}\"] = function(path, bufnr)",
+      "\t\t\t-- set up file specific configs here",
+      "\t\t\tvim.opt_local.binary = false",
+      "\t\t\tvim.opt_local.filetype = \"json\"",
+      "\t\t\tvim.opt_local.formatprg = \"clang-format --assume-filename=.json\"",
+      "\t\t\t$0",
+      "\t\tend",
+      "\t}",
+      "\t, filename = {",
+      "\t}",
+      "\t, pattern = {",
+      "\t}",
+      "})"
+    ],
+    "description": "Add new filetype"
+  },
+  "vim match if version": {
+    "prefix": "if.ver",
+    "body": [
+      "vim.if.fn.has(\"nvim-${1|0.9.0,10.0.0|}\") then",
+      "\t$0",
+      "end"
+    ],
+    "description": "Match: check nvim version"
+  },
+  "vim match validate": {
+    "prefix": "vim.valid",
+    "body": [
+      "-- NOTE: THIS API IS DEPRECATED",
+      "-- last parameter: true to make nil valid ",
+      "vim.validate({",
+      "\t${1:optName} = { ${1}${2}, \"${3|table,string,number,boolean,function,nil,thread,userdata|}\", ${5|false,true|} }",
+      "})"
+    ],
+    "description": "Validate map of values"
+  },
+  "vim match ui yes no": {
+    "prefix": "vim.if.ui.yn",
+    "body": [
+      "vim.ui.input({ prompt = ${1}\"${2:Message}? (y/N)): \"}, function(input)",
+      "    if input == nil or input == \"\" or input:match(\"[nN]\") then",
+      "        return",
+      "    end",
+      "    vim.cmd(\"redraw\") -- clears cmdline output",
+      "    print(\"result\")$0",
+      "end)"
+    ],
+    "description": "vim.if ui yes no"
+  },
+  "vim fs file": {
+    "prefix": "vim.if.fs.f",
+    "body": [
+      "vim.uv = vim.uv or vim.loop",
+      "vim.uv.fs_stat(${1:FILE_PATH},function(err, stat)",
+      "\tif err then",
+      "\t\t$0",
+      "\t\treturn",
+      "\tend",
+      "\tprint(vim.inspect(stat))",
+      "end)"
+    ],
+    "description": "check if file exist, get stats"
+  }
+}

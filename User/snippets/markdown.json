@@ -1,0 +1,173 @@
+{
+  "comment": {
+    "prefix": "comment",
+    "description": "Inset standard HTML comment",
+    "body": [
+      "<!-- $1 -->"
+    ]
+  },
+  "img badge shields": {
+    "prefix": "img.badge.shields",
+    "body": [
+      "![${1:label}](https://img.shields.io/badge/-$1-100000?style=flat-square&logo=${2:$1})"
+    ],
+    "description": "Image icon (shields.io)"
+  },
+  "link": {
+    "prefix": "link",
+    "body": [
+      "[${2:${TM_SELECTED_TEXT}}](${1:href})$0"
+    ],
+    "description": "Inset link"
+  },
+  "link.html": {
+    "prefix": "link.html",
+    "body": [
+      "<a href=\"${1:href}\">${0:$TM_SELECTED_TEXT}</a>"
+    ],
+    "description": "Inset link"
+  },
+  "link.img": {
+    "prefix": "link.img",
+    "body": [
+      "[![${0:Link label}](${1:<imgUrl>})](${2:<targetUrl>})"
+    ],
+    "description": "Inset link image"
+  },
+  "link.reference": {
+    "prefix": "link.ref",
+    "body": [
+      "[${1:${TM_SELECTED_TEXT}}]: ${2:https://example.com} ${3:'Link title - optional'}"
+    ],
+    "description": "Inset reference link [](...)"
+  },
+  "sect": {
+    "prefix": "sect",
+    "body": [
+      "${1:#} ${2:TITLE}",
+      "",
+      "${3:Paragraph content}"
+    ],
+    "description": "new subsection"
+  },
+  "table 3x3": {
+      "prefix": "table",
+      "body": [
+          "| ${1:COLNAME1} | ${2:COLNAME2} | ${3:Description} |",
+          "|-|-|-|",
+          "| ${4:val} | ${5:N/A} | ${6:Desc} |"
+      ],
+      "description": "table 3x3"
+  },
+  "doc.toc": {
+    "prefix": "doc.toc",
+    "description": "Table Of Content",
+    "body": [
+      "* [${1:Menu 0}](${2:#link-name})",
+      "* [${3:Menu 1}](${4:#link-name})",
+      "* [${5:Menu 2}](${6:#link-name})",
+      "",
+      "<center>• • •</center>"
+    ]
+  },
+  "doc.support.disclaimer": {
+    "prefix": "doc.support.disclaimer",
+    "body": [
+      "## SUPPORT DISCLAIMER",
+      "[ps]: #production-status--support 'Production use disclaimer & support info'",
+      "",
+      "NO GUARANTEES UNTIL PAID. This project is supported solely by me and provided AS IS.",
+      "<br>If you want to become a **patron** or offer me a **support** please [follow here][auth].",
+      ""
+    ],
+    "description": "doc.disclaimer.support"
+  },
+  "doc contrib": {
+    "prefix": "doc.contrib",
+    "body": [
+      "${1:##} Open-Source, not Open-Contribution",
+      "${2:name} is open-source project, meaning that you can make as many copies of it as you want and do whatever you want with those copies, without limitation. But ${2:name} is not open-contribution. In order to keep ${2:name} in the public domain and ensure that the code does not become contaminated with proprietary or licensed content, the project does not accept patches from people who have not submitted an affidavit dedicating their contribution into the public domain."
+    ],
+    "description": "doc contrib"
+  },
+  "readme.new": {
+    "prefix": "readme.new",
+    "isFileTemplate": true,
+    "body": [
+      "# ${README} "
+    ],
+    "description": "New Markdown document"
+  },
+  "code": {
+    "prefix": "```",
+    "body": [
+      "```${1| ,bash,js,css,html,cpp,c,cmake|}",
+      "\t$0",
+      "```"
+    ],
+    "description": "code"
+  },
+  "img": {
+    "prefix": "img",
+    "body": [
+      "![${1:label}](${2:<href>})"
+    ],
+    "description": "img"
+  },
+  "img.html": {
+    "prefix": "img.html",
+    "body": [
+      "<img height=\"${1:14}\" src=\"${2:data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDMyMCAxODAiIHdpZHRoPSIzMjBweCIgaGVpZ2h0PSIxODBweCI+CiAgPGcgc3Ryb2tlPSIjZmY4YTNhIiBmaWxsPSJ0cmFuc3BhcmVudCIgc3Ryb2tlLXdpZHRoPSIzcHgiID4KICAgIDxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMTciIGhlaWdodD0iMTc3IiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxsaW5lIHgxPSIxIiB5MT0iMSIgeDI9IjMxOSIgeTI9IjE3OSIvPgogICAgPGxpbmUgeDE9IjEiIHkxPSIxNzkiIHgyPSIzMTkiIHkyPSIxIi8+CiAgPC9nPgo8ZGl2IHhtbG5zPSIiLz48L3N2Zz4K}\" />$0"
+    ],
+    "description": "Inset link image"
+  },
+  "github.quote": {
+    "prefix": "github.quote",
+    "body": [
+      "<!-- Github-only: https://github.com/orgs/community/discussions/16925 -->$0",
+      "> [!${1|NOTE,IMPORTANT,WARNING|}]",
+      "> ${2:Message}"
+    ],
+    "description": "github.warn"
+  },
+  "html.list.definitions": {
+    "prefix": "list.defs",
+    "description": "List defitions",
+    "body": [
+      "<dl>",
+      "\tlist.defs.def$1",
+      "</dl>"
+    ]
+  },
+  "html.list.definitions.def": {
+    "prefix": "list.defs.def",
+    "description": "A defintion",
+    "body": [
+      "<dt>${1:Knowledge}</dt>",
+      "<dd>${2|The only defense against the world is a thorough knowledge of it. - John Locke,No man’s knowledge here can go beyond his experience - John Locke|}</dd>"
+    ]
+  },
+  "html.details": {
+    "prefix": "details",
+    "body": [
+      "<details>",
+      "\t<summary>${2:${TM_SELECTED_TEXT}}</summary>",
+      "```sh",
+      "\tcodeblock",
+      "```",
+      "\t${0}",
+      "</details>"
+    ],
+    "description": "Add details tags"
+  },
+  "faq.question_answer": {
+    "prefix": "faq.qa",
+    "body": [
+      "Q: ***${1:Question}?***  ",
+      "A: ${2:Answer}",
+      ""
+    ],
+    "description": "faq.question_answer"
+  }
+
+}

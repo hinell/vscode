@@ -1,0 +1,111 @@
+{
+	"grpah": {
+		 "description": "A new graph"
+		,"prefix": "graph.new"
+		,"isFileTemplate": true
+		,"body": [
+			 "// Directed graphs should use -> instead of -- as edge operator"
+			,"${1:strict }${2|digraph,graph|} \"${3:$TM_FILENAME_BASE}\" {"
+			,"\tgraph ["
+			,"\t\tlabel=\"$3\""
+			,"\t\tcenter=true"
+			,"\t\trankdir=${4|TB,LR,BT,RL|}"
+			,"\t\tstylesheet=\"./$3.css\""
+			,"\t\t//bgcolor=\"#22262d\""
+			,"\t\tcolor=white"
+			,"\t\tfontcolor=white"
+			,"\t\tfontname=\"systemui,lato,Sans-serif\""
+			,"\t]"
+			,"\tnode  ["
+			,"\t\tshape=Mrecord"
+			,"\t\tfontcolor=white"
+			,"\t\tcolor=white"
+			,"\t\tfontname=\"systemui,lato,Sans-serif\""
+			,"\t]"
+			,"\tedge  ["
+			,"\t\tarrowtails=diamond"
+			,"\t\tfontcolor=white"
+			,"\t\tcolor=white"
+			,"\t\tfontname=\"systemui,lato,Sans-serif\""
+			,"\t]"
+			,"\tA -> B"
+			,"\tB -> C"
+			,"\tC -> D"
+			,"\t$0"
+			,"}"
+		]
+	},
+	"subgrpah": {
+		 "description": "A subgraph"
+		,"prefix": "graph.sub.new"
+		,"body": [
+			 "subgraph {"
+			,"\tlabel=\"$1\""
+			,"\trank=same;"
+			,"\t$0"
+			,"}"
+		]
+	}
+	,"subgrpah.cluster": {
+		 "description": "A subgraph-cluster"
+		,"prefix": "graph.sub.cluster.new"
+		,"body": [
+			 "subgraph cluster_${1:ID} {"
+			,"\tlabel=\"$1\""
+			,"\trank=same;"
+			,"\t$0"
+			,"}"
+		]
+	}
+	,"entity": {
+		 "description": "Node, edge or graph with attributes"
+		,"prefix": "entity.new"
+		,"body": [
+			"${1|node ,edge ,graph|} [ style=${2|invis,dashed,dotted,solid,bold|} $3]"
+			,"$0"
+		]
+	}
+	,"node.shapes": {
+		 "description": "Node shapes"
+		,"prefix": "node.shapes"
+		,"body": "${1|box,polygon,ellipse,oval,circle,point,egg,triangle,plaintext,plain,diamond,trapezium,parallelogram,house,pentagon,hexagon,septagon,octagon,doublecircle,doubleoctagon,tripleoctagon,invtriangle,invtrapezium,invhouse,Mdiamond,Msquare,Mcircle,rect,rectangle,square,star,none,underline,cylinder,note,tab,folder,box3d,component,promoter,cds,terminator,utr,primersite,restrictionsite,fivepoverhang,threepoverhang,noverhang,assembly,signature,insulator,ribosite,rnastab,proteasesite,proteinstab,rpromoter,rarrow,larrow,lpromoter|}"
+	}
+	,"arrow.shapes": {
+		 "description": "Arrow shapes"
+		,"prefix": "arrow.shapes"
+		,"body": "${1|box,crow,curve,icurve,diamond,dot,inv,none,normal,tee,vee|}"
+	}
+	,"node": {
+		 "description": "A node"
+		,"prefix": "node.new"
+		,"body": [
+			"${1:name} [ label=$1$2 ]"
+		]
+	}
+	,"node.genealogy": {
+		 "description": "A genealogy node"
+		,"prefix": "node.gen.new"
+		,"body": [
+			"${7:short}_$5_$6 [ label=\"${1:LastName} ${2:Name} ${3:Middle}.\\n(${4:Day}.${5:Month}.${6:year} - ${8:??}.${9:??}.${10:????} )\" ]"
+		]
+	},
+	 "node.record": {
+		 "description": ""
+		,"prefix": "node.record.new"
+		,"body":[
+			 "//node [ shape=record ]"
+			,"${1:name} ["
+			,"\tlabel = <{"
+			,"\t<b>Class: ${2:$1}</b>"
+			,"\t|+<b>public</b>  ${3:property}"
+			,"\t|+<b>static</b>  constructor($4)"
+			,"\t|+<b>static</b>  ${5:metod}() ${6|\\{ .. \\\\}|}<br/>..."
+			,"\t|{"
+			,"\t\t  Prop"
+			,"\t\t| Value"
+			,"\t}$0"
+			,"\t}>"
+			,"]"
+		]
+	}
+}

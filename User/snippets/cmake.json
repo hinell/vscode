@@ -1,0 +1,1079 @@
+  {
+  "cmake.docs.public": {
+    "description": "",
+    "prefix": "cmake.docs.public",
+    "body": [
+      "# The following explains relationship between PUBLIC/PRIVATE/INTERFACE keywords",
+      "# See file:///usr/share/doc/cmake-data/html/manual/cmake-buildsystem.7.html#transitive-usage-requirements",
+      "# See https://cmake.org/pipermail/cmake/2016-May/063400.html",
+      "#PRIVATE   - Do'nt export symbol, use internally only",
+      "#INTERFACE - Reexport imported symbols, api, etc., but not using internally",
+      "#PUBLIC    - Combines two previous "
+    ]
+  },
+  "cmake.version": {
+    "prefix": "cmake.version",
+    "description": "Insert a Cmake compatible semver version string (X.X.X etc)",
+    "body": "${1:1}.${2:0}.${3:0}${4| ,.-prerelease,.+build,.-prerelease+build|}"
+  },
+  "cmake.platform.name": {
+    "prefix": "cmake.platform.name",
+    "description": "Platform name",
+    "body": "${1|Linux,Windows,MSYS,Cygwin,MinGW,Darwin,Windows,FreeBSD,NetBSD,OpenBSD,SunOS,AIX,HP-UX,Haiku,BeOS,QNX,Tru64,RISCos,SINIX,UNIX_SV,BSDOS,MP-RAS,OSF1,SCO_SV,ULTRIX,Xenix,DOS,OS2,WNdows3x,VxWorks,Integrity178,Integrity,ADSP|}"
+  },
+  "cmake.platform": {
+    "prefix": "cmake.platform",
+    "description": "A platform variables set by CMake ",
+    "body": "${1|LINUX,WIN32,MINGW,ANDROID,UNIX,CYGWIN,APPLE,BORLAND,BSD,CMAKE_ANDROID_NDK_VERSION,CMAKE_CL_64,CMAKE_COMPILER_2005,CMAKE_HOST_APPLE,CMAKE_HOST_SOLARIS,CMAKE_HOST_SYSTEM,CMAKE_HOST_SYSTEM_NAME,CMAKE_HOST_SYSTEM_PROCESSOR,CMAKE_HOST_SYSTEM_VERSION,CMAKE_HOST_UNIX,CMAKE_HOST_WIN32,CMAKE_LIBRARY_ARCHITECTURE,CMAKE_LIBRARY_ARCHITECTURE_REGEX,CMAKE_OBJECT_PATH_MAX,CMAKE_SYSTEM,CMAKE_SYSTEM_NAME,CMAKE_SYSTEM_PROCESSOR,CMAKE_SYSTEM_VERSION,DRAGONFLYBSD,FREEBSD,GHSMULTI,IOS,MSVC,MSVC10,MSVC11,MSVC12,MSVC14,MSVC60,MSVC70,MSVC71,MSVC80,MSVC90,MSVC_IDE,MSVC_TOOLSET_VERSION,MSVC_VERSION,MSYS,NETBSD,OPENBSD,WINCE,WINDOWS_PHONE,WINDOWS_STORE,XCODE,XCODE_VERSION|}"
+  },
+  "cmake.configs": {
+    "prefix": "cmake.configs",
+    "description": "Insert Cmake configs options, see chapter on `Default And Custom Configurations`",
+    "body": "${1|Debug,Release,RelWithDebInfo,MinSizeRel|}"
+  },
+  "debug.setup": {
+    "prefix": "debug.setup",
+    "body": [
+      "include(CMakePrintHelpers)"
+    ],
+    "description": "debug.setup"
+  },
+  "debug.var": {
+    "prefix": "debug",
+    "description": "Debug variables",
+    "body": [
+      "include(CMakePrintHelpers)",
+      "message(\"$TM_FILENAME--------------------------------------DEBUG\")",
+      "cmake_print_variables(${1:${TM_SELECTED_TEXT}})"
+    ]
+  },
+  "debug.target": {
+    "prefix": "debug.target",
+    "description": "Debug variables",
+    "body": [
+      "# DEBUG",
+      "include(CMakePrintHelpers)",
+      "cmake_print_properties(${1|TARGETS,SOURCES,DIRECTORIES,TESTS,CACHE_ENTRIES|} ${2:Item1 Item2} PROPERTIES ${prop1} ${prop2})",
+      "# DEBUG"
+    ]
+  },
+  "debug.genexpr": {
+    "prefix": "debug.genexpr",
+    "body": [
+      "add_custom_target(genexdebug COMMAND \\${CMAKE_COMMAND} -E echo \"RESULT: ${3:<generatorExpression>}\")"
+    ],
+    "description": "debug.genexpr"
+  },
+  "match.if": {
+    "prefix": "if",
+    "body": [
+      "if(${1:VARNAME})",
+      "    $2",
+      "endif()"
+    ],
+    "description": "match.if"
+  },
+  "match.if.env": {
+    "prefix": "if.env",
+    "body": [
+      "if(${2:DEFINED }ENV{${1:ENV_VARNAME}})",
+      "    $3",
+      "endif()"
+    ],
+    "description": "match.if"
+  },
+  "match.if.platform": {
+    "prefix": "if.platform",
+    "body": [
+      "if(${1:cmake.platform})",
+      "\t${2:message(FATAL_ERROR \"THE '$1' PLATFORM IS NOT SUPPORTED}\")}",
+      "endif()"
+    ],
+    "description": "match.if"
+  },
+  "match.if.else": {
+    "prefix": "if.else",
+    "body": [
+      "if(${1:<VARNAME>})",
+      "  ${2}",
+      "elseif()",
+      "  $0",
+      "endif()"
+    ],
+    "description": "match.if.else"
+  },
+  "match.if.subproject": {
+    "prefix": "if.subproject",
+    "body": [
+      "# If wer are at the root of the project",
+      "if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_LIST_DIR)",
+      "  ${1:set(STATUS \"Top-level CMakeLists.txt\")}",
+      "else()",
+      "  ${2:message(STATUS \"Sub-project\")}",
+      "endif()"
+    ],
+    "description": "match.if.subproject"
+  },
+  "match.if.cmake.version": {
+    "prefix": "if.cmake.version",
+    "body": [
+      "cmake_minimum_required(VERSION ${1:\"3.12.0\"}${2:..\"3.14.0\"} ${3:FATAL_ERROR})"
+    ],
+    "description": "match.if.cmake.version"
+  },
+  "match.if.context": {
+    "prefix": "if.context",
+    "body": [
+      "get_property(CMAKE_ROLE GLOBAL PROPERTY CMAKE_ROLE)",
+      "if(CMAKE_ROLE STREQUAL ${1|PROJECT,SCRIPT,FIND_PACKAGE,CTEST,CPACK|})",
+      "  ${2:message(STATUS \"CURRENT CONTEXT: $1\")}",
+      "endif()"
+    ],
+    "description": "match.if.context"
+  },
+  "match.if.role": {
+    "prefix": "match.if.role",
+    "body": [
+      "if(\"${1|CMAKE_ROLE,$ENV{CMAKE_ROLE}|}\" STREQUAL \"${2|PROJECT,SCRIPT,FIND_PACKAGE,CTEST,CPACK|}\")",
+      "\tmessage(STATUS \"CURRENT CONTEXT: PROJECT\")",
+      "endif()"
+    ],
+    "description": "match.if.role"
+  },
+  "match.if.lang": {
+    "prefix": "if.lang",
+    "body": [
+      "get_property(PROJECT_LANGS GLOBAL PROPERTY ENABLED_LANGUAGES)",
+      "if(\"${1:project.languages}\" IN_LIST PROJECT_LANGS)",
+      "\tmessage(STATUS \"USING ${1}\")",
+      "endif()"
+    ],
+    "description": "match.if.lang"
+  },
+  "string.match.reg": {
+    "prefix": "string.match.reg",
+    "body": [
+      "string(REGEX MATCH \"${2:<match-regex>}\" ${3:<output>} ${1:<input>...})",
+      "cmake_print_variables($3)"
+    ],
+    "description": "string.match.reg"
+  },
+  "string.replace.regex": {
+    "prefix": "string.replace.regex",
+    "body": [
+      "string(REGEX REPLACE \"${2:<match-regex>}\" ${3:<replace-expr>} ${4:<output>} ${1:<input>...})",
+      "cmake_print_variables($4)"
+    ],
+    "description": "string.replace.reg"
+  },
+  "string.repalce": {
+    "prefix": "string.repalce",
+    "body": [
+      "string(REPLACE \"${2:<match-string>}\" ${3:<replace-string>} ${4:<output>} \"${1:<input>...}\")",
+      "cmake_print_variables($4)"
+    ],
+    "description": "string.repalce"
+  },
+  "prop.set": {
+    "prefix": "global.prop.set",
+    "body": [
+      "set_property(GLOBAL PROPERTY ${1:<name>} ${2:<value>})"
+    ],
+    "description": "cmake.global.prop.set"
+  },
+  "prop.get": {
+    "prefix": "global.prop.get",
+    "body": [
+      "get_property(${2:<outputVarName>} GLOBAL PROPERTY ${1:<name>})"
+    ],
+    "description": "cmake.global.prop.get"
+  },
+  "configfile.new": {
+    "prefix": "configfile.new",
+    "description": "Generate new configuration file",
+    "body": [
+      "configure_file(",
+      "\t\"${1:config.h.in}\" # Input config",
+      "\t\"${2:config.h}\"    # Output config",
+      "\t${3| ,NO_SOURCE_PERMISSIONS,USE_SOURCE_PERMISSIONS,FILE_PERMISSIONS ${4:permissions}|}",
+      "\t${5:COPYONLY} ${6:ESCAPE_QUOTES} @ONLY",
+      ")"
+    ]
+  },
+  "console.log": {
+    "prefix": "log",
+    "description": "message(type message)",
+    "body": [
+      "message(${1|STATUS,DEBUG,TRACE,NOTICE,WARNING,VERBOSE,SEND_ERROR,FATAL_ERROR,DEPRECATION,AUTHOR_WARNING|} \"${2:logging message}\")",
+      "$0"
+    ]
+  },
+  "console.log.fatal": {
+    "prefix": "log.fatal",
+    "description": "Log error and exits",
+    "body": [
+      "message(FATAL_ERROR \"${2:console.log.var}\")"
+    ]
+  },
+  "console.log.err": {
+    "prefix": "log.err",
+    "description": "Log and skip error",
+    "body": [
+      "message(SEND_ERROR \"${2:console.log.var}\")"
+    ]
+  },
+  "console.log.warn": {
+    "prefix": "log.warn",
+    "description": "Insert text VAR => \"${VAR}\"",
+    "body": [
+      "message(WARNING \"${2:console.log.var}\")"
+    ]
+  },
+  "console.log.deprecate": {
+    "prefix": "log.deprecate",
+    "description": "Insert text VAR => \"${VAR}\"",
+    "body": [
+      "message(DEPRECATION \"${2:console.log.var}\")"
+    ]
+  },
+  "macro": {
+    "description": "Declare function",
+    "prefix": "macro",
+    "body": [
+      "macro(${1:name} ${2:ARG1} ${3:ARG2})",
+      "\t$2",
+      "\t$3$0",
+      "endfunction()"
+    ]
+  },
+  "cmake.abort": {
+    "prefix": "abort",
+    "description": "Log error and exits",
+    "body": [
+      "log.fatal${1:Alias, hit the tab} "
+    ]
+  },
+  "cmake.exit": {
+    "prefix": "exit",
+    "description": "Log error and exits",
+    "body": [
+      "log.fatal${1:Alias, hit the tab} "
+    ]
+  },
+  "cmake.exec": {
+    "prefix": "cmake.exec",
+    "body": [
+      "execute_process(",
+      "              COMMAND ${1:\\${CMAKE_COMMAND\\}}",
+      "    WORKING_DIRECTORY \\${${3|CMAKE_SOURCE_DIR,CMAKE_CURRENT_LIST_DIR|}}",
+      "      RESULT_VARIABLE ${4:EXEC_EXIT_CODE}",
+      "       ERROR_VARIABLE ${5:EXEC_ERROR} ",
+      "      OUTPUT_VARIABLE ${6:EXEC_OUTPUT}",
+      "",
+      "    OUTPUT_STRIP_TRAILING_WHITESPACE",
+      "     ERROR_STRIP_TRAILING_WHITESPACE",
+      ")",
+      "",
+      "if(NOT ${4} EQUAL 0)",
+      "    ",
+      "    message(FATAL_ERROR \"\\${EXEC_ERROR}\")",
+      "    set(${10:OUTPUT} \"\\${${6}}\")",
+      "    $0",
+      "else()",
+      "    cmake_print_variables(EXEC_OUTPUT)",
+      "endif()",
+      "",
+      ""
+    ],
+    "description": "cmake.exec"
+  },
+  "cmake.lists.new": {
+    "prefix": "cmake.lists.new",
+    "isFileTemplate": true,
+    "body": [
+      "cmake_minimum_required(VERSION 3.16.3${1:...4.0} ${3:FATAL_ERROR})",
+      "project(",
+      "  ${8:UnnamedProject}",
+      "  DESCRIPTION  \"${10:TODO: Add description}\"",
+      "  HOMEPAGE_URL \"${11:TODO: Add homepage url}\"",
+      "  # Semver 2.0",
+      "  # VERSION # IMPORTED FROM A TOP-LEVEL PROJECT, SEE BELOW",
+      "  LANGUAGES project.languages$15",
+      ")",
+      "${16:cmake.project.version}",
+      "",
+      "#-----------------------------------------------------------Project-wide modules",
+      "list(APPEND CMAKE_MODULE_PATH \"cmake/\")",
+      "include_guard(${20|GLOBAL,DIRECTORY|})",
+      "include(CMakeFindDependencyMacro)",
+      "include(CMakeDependentOption)",
+      "include(GenerateExportHeader)",
+      "include(CMakePrintHelpers)",
+      "include(FeatureSummary)",
+      "if(UNIX)",
+      "  include(GNUInstallDirs)",
+      "endif()",
+      "",
+      "find_package(Doxygen REQUIRED dot OPTIONAL_COMPONENTS mscgen dia)",
+      "",
+      "#---------------------------------------------------------------------------Misc",
+      "# Enable GraphViz custom targets",
+      "file(WRITE",
+      "  \"\\${CMAKE_CURRENT_BINARY_DIR}/CMakeGraphVizOptions.cmake\"",
+      "  \"set(GRAPHVIZ_CUSTOM_TARGETS TRUE)\"",
+      ")",
+      "",
+      "#------------------------------------------------------------------------Targets",
+      "",
+      "set(PACKAGE_GROUP_NAME \"${${30:PROJECT_NAME}}\")",
+      "target.exec.new${31}",
+      "import.summary.print${0}"
+    ],
+    "description": "CMakeLists.txt.new"
+  },
+  "cmake.project.languages": {
+    "prefix": "project.languages",
+    "body": "${1|C CXX,CXX,C,CUDA,OBJC,OBJCXX,Fortran,HIP,ISPC,ASM|}",
+    "description": "\tproject(... LANGUAGES)"
+  },
+  "cmake.project.version.set": {
+    "prefix": "cmake.project.version",
+    "isFileTemplate": true,
+    "body": [
+      "# Set PROJECT_VERSION from a SOURCE which is expected to have",
+      "# project like suffixes: _MAJOR, _MINOR etc.",
+      "#",
+      "# @brief Set  PROJECT_VERSION from a SOURCE",
+      "# @param[in]  VERSION_SOURCE  - A variable name of version",
+      "# @param[out] PROJECT_VERSION  - Project",
+      "# @param[out] PROJECT_VERSION_(MINOR|MAJOR|PATCH|TWEAK)",
+      "function(project_version_set VERSION_SOURCE)",
+      "    if(NOT VERSION_SOURCE)",
+      "      # DEBUG",
+      "      include(CMakePrintHelpers)",
+      "      message(\"--------------------------------------DEBUG\")",
+      "      cmake_print_variables(VERSION_SOURCE)",
+      "      # DEBUG",
+      "      message(FATAL_ERROR \"Version source is not specified!\")",
+      "    endif()",
+      "    set(PROJECT_VERSION       \"${${VERSION_SOURCE}}\"       PARENT_SCOPE)",
+      "    set(PROJECT_VERSION_MAJOR \"${${VERSION_SOURCE}_MAJOR}\" PARENT_SCOPE)",
+      "    set(PROJECT_VERSION_MINOR \"${${VERSION_SOURCE}_MINOR}\" PARENT_SCOPE)",
+      "    set(PROJECT_VERSION_PATCH \"${${VERSION_SOURCE}_PATCH}\" PARENT_SCOPE)",
+      "    set(PROJECT_VERSION_TWEAK \"${${VERSION_SOURCE}_TWEAK}\" PARENT_SCOPE)",
+      "endfunction()",
+      "",
+      "# Set PROJECT_VERSION from CMAKE_PROJECT_VERSION",
+      "project_version_set()",
+      ""
+    ],
+    "description": "project.version.set"
+  },
+  "import.module": {
+    "description": "Import a CMakeLists script submodule",
+    "prefix": "import.module",
+    "body": [
+      "# WARNING: use cmake presets config instead",
+      "file(REAL_PATH \"${1:<path/dir/>}\" MODULES_PATH BASE_DIRECTORY \"\\${CMAKE_CURRENT_LIST_DIR}\")",
+      "list(APPEND CMAKE_MODULE_PATH \"\\${MODULES_PATH}\")",
+      "# RESULT - A path to the module, `NOTFOUND` otherwise",
+      "include(${2:<path>.cmake} ${3:OPTIONAL} ${4:RESULT_VARIABLE ${5:<varname>?}} ${6:NO_POLICY_SCOPE} )"
+    ]
+  },
+  "import.ifinclude": {
+    "prefix": "import.ifinclude",
+    "body": [
+      "function(ifinclude VARNAME MODULENAME OPTIONAL RESULT_VARIABLE PATHVARNAME NO_POLICY_SCOPE)",
+      "  if(VARNAME)",
+      "    include(${MODULENAME} ${OPTIONAL} ${RESULT_VARIABLE} ${PATHVARNAME} ${NO_POLICY_SCOPE})",
+      "  endif()",
+      "endfunction()"
+    ],
+    "description": "import.ifinclude"
+  },
+  "import.subproject": {
+    "description": "Import a CMakeLists subdirectory project",
+    "prefix": "import.subproject",
+    "body": [
+      "add_subdirectory(",
+      "\t${1:<path>}",
+      "\t${2:<path>} # BINARY_DIR for this subdir",
+      "\t# ${5| ,EXCLUDE_FROM_ALL|}",
+      ")"
+    ]
+  },
+  "import": {
+    "description": "Import a CMakeLists from system-installed libraries",
+    "prefix": "import",
+    "body": [
+      "find_package(",
+      "\t${1:<package name>} ${2:1.0.0} ${3|EXACT|} ${4|QUIET|} ${5|MODULE|} ${6:REQUIRED}",
+      "\t# ${9:COMPONENTS ${10:<name>}}",
+      "\t# OPTIONAL_COMPONENTS ${11:<name>}",
+      "\t# Requires CMake 3.24. Windows only",
+      "\t# REGISTRY_VIEW ${12|64,32,64_32,32_64,HOST,TARGET,BOTH|}",
+      "\t${15:GLOBAL}",
+      "\t# ${16:NO_POLICY_SCOPE}",
+      "\t#${17:BYPASS_PROVIDER}",
+      ")"
+    ]
+  },
+  "import.summary.set": {
+    "prefix": "import.summary.set",
+    "body": [
+      "set_package_properties(",
+      "\t${1:<name>}",
+      "\tPROPERTIES",
+      "\tDESCRIPTION\t${2:<description> }",
+      "\t# URL\t\t\t\t${3:<url> }",
+      "\t# TYPE\t\t\t\t${4|RUNTIME,OPTIONAL,RECOMMENDED,REQUIRED|}",
+      "\t# PURPOSE\t\t${5:<purpose>}",
+      ")"
+    ],
+    "description": "import.summary.set"
+  },
+  "import.summary.print": {
+    "prefix": "import.summary.print",
+    "body": [
+      "# Put this at the bottom of the CMakeLists.txt",
+      "feature_summary(",
+      "\tWHAT ENABLED_FEATURES",
+      "\tINCLUDE_QUIET_PACKAGES",
+      "\tDESCRIPTION \"Imported packages:\"",
+      ")"
+    ],
+    "description": "Display on imported packages"
+  },
+  "target.exec.new": {
+    "prefix": "target.exec.new",
+    "body": [
+      "#----------------------------------------------------------------------$1",
+      "add_executable(${1:targetName} ${2| ,EXCLUDE_FROM_ALL|} ${3:sourceFile})",
+      "target.exec.properties.set${4:#$1}",
+      "target.attribs${5:#$1}"
+    ],
+    "description": "New executable"
+  },
+  "target.exec.imported.new": {
+    "prefix": "target.exec.imported.new",
+    "body": [
+      "#-------------------------------------------------------------------------$1",
+      "add_executable(${1:targetName} IMPORTED${2:| ,GLOBAL|})$0",
+      "set_target_properties(${1} PROPERTIES",
+      "\tINSTALL_RPATH_USE_LINK_PATH TRUE",
+      "\tIMPORTED_LOCATION ${4:pathToProgram})"
+    ],
+    "description": "This is created automatically by cmake package config system"
+  },
+  "target.exec.alias.new": {
+    "prefix": "target.exec.alias.new",
+    "body": [
+      "add_executable(${1:targetNameAlias} ALIAS ${2:toTargetName})$0"
+    ],
+    "description": "New executable alias"
+  },
+  "target.lib.shared.new": {
+    "prefix": "target.lib.shared.new",
+    "description": "Library: Shared",
+    "body": [
+      "#-------------------------------------------------------------------------$1",
+      "add_library(${1:targetName} SHARED ${3| , EXCLUDE_FROM_ALL|})",
+      "target.attribs${5:#$1}",
+      "target.lib.properties.set$8",
+      "$0"
+    ]
+  },
+  "target.lib.static.new": {
+    "prefix": "target.lib.static.new",
+    "description": "Library: Static",
+    "body": [
+      "#-------------------------------------------------------------------------$1",
+      "add_library(${1:targetName} STATIC ${2| ,EXCLUDE_FROM_ALL|})",
+      "target.attribs${5:#$1}",
+      "target.lib.properties.set$8",
+      "$0"
+    ]
+  },
+  "target.lib.module.new": {
+    "prefix": "target.lib.module.new",
+    "description": "Library: Module",
+    "body": [
+      "#-------------------------------------------------------------------------$1",
+      "add_library(${1:targetName} MODULE ${3| , EXCLUDE_FROM_ALL|})",
+      "target.attribs${5:#$1}",
+      "target.lib.properties.set$8",
+      "$0"
+    ]
+  },
+  "target.lib.interface.new": {
+    "prefix": "target.lib.interface.new",
+    "description": "Library: Interface",
+    "body": [
+      "#------------------------------------------------------------------------$1",
+      "add_library(${1:targetName} INTERFACE)",
+      "target_sources($1 PRIVATE ${2src/main.cc src/main.hh})",
+      "target.attribs${5:#$1}",
+      "target.lib.properties.set$8",
+      "$0"
+    ]
+  },
+  "target.lib.object.new": {
+    "prefix": "target.lib.object.new",
+    "description": "Library: Object",
+    "body": [
+      "#-------------------------------------------------------------------------$1",
+      "add_library(${1:targetName} OBJECT ${3:source})",
+      "target.attribs${5:#$1}",
+      "target.lib.properties.set$8",
+      "$0"
+    ]
+  },
+  "target.lib.imported": {
+    "prefix": "target.lib.imported.new",
+    "description": "Library: Imported",
+    "body": [
+      "#-------------------------------------------------------------------------$1",
+      "add_library(${1:targetName} ${2|STATIC,SHARED,MODULE,UNKNOWN|} IMPORTED${3| ,GLOBAL|})",
+      "set_target_properties(${1} PROPERTIES",
+      "\tIMPORTED_LOCATION ${4:pathToProgram})"
+    ]
+  },
+  "target.lib.alias.new": {
+    "prefix": "target.lib.alias.new",
+    "body": [
+      "add_library(${1:targetNameAlias} ALIAS ${2:toTargetName})"
+    ],
+    "description": "Library: Alias"
+  },
+  "target.custom.new": {
+    "prefix": "target.custom.new",
+    "body": [
+      "# TODO: add description",
+      "add_custom_target(",
+      "\t${1:<target name>} ${2| ,ALL|} ${4:<command>}",
+      "\tCOMMENT \"${5:A custom target $1}\"",
+      "\tDEPENDS ${6:<files>}",
+      "\t# BYPRODUCTS ${7:<files>}",
+      "\tWORKING_DIRECTORY \\\\${${8|CMAKE_CURRENT_SOURCE_DIR,CMAKE_CURRENT_LIST_DIR|}}",
+      "\t# JOB_POOL ${9:3}",
+      "\tVERBATIM ",
+      "\t# USES_TERMINAL",
+      "\t# This can be used for cmake-generators",
+      "\t# COMMAND_EXPAND_LISTS${10}",
+      "\t# SOURCES ${11:src}",
+      ")"
+    ],
+    "description": "Create new custom target depending on a command"
+  },
+  "target.command.bind": {
+    "prefix": "target.command.bind",
+    "body": [
+      "# Bind command to a target",
+      "# TODO: Add description of a custom command",
+      "add_custom_command(",
+      "\tTARGET\t\t${1:<target>}",
+      "\tCOMMENT\t\t\"${2:A custom target $1}\"",
+      "\t${3|PRE_BUILD,PRE_LINK,POST_BUILD|}",
+      "\tCOMMAND\t\t${5:<command args>}",
+      "\tBYPRODUCTS\t${7:<files>}",
+      "\tVERBATIM",
+      "\t# USES_TERMINAL",
+      "\t# This can be used for cmake-generators",
+      "\t# COMMAND_EXPAND_LISTS${10}",
+      "\tWORKING_DIRECTORY \\${${11|CMAKE_CURRENT_SOURCE_DIR,CMAKE_CURRENT_LIST_DIR|}}",
+      ")",
+      ""
+    ],
+    "description": "target.custom.command"
+  },
+  "target.custom.source": {
+    "prefix": "target.custom.source",
+    "body": [
+      "# Bind output to a command",
+      "add_custom_command(",
+      "\tOUTPUT\t\t\t\t${1:<path> <path2> ...}",
+      "\tCOMMAND\t\t\t\t${2:<command>}",
+      "\tCOMMENT\t\t\t\t${3:\"Building files ...\"}",
+      "\tMAIN_DEPENDENCY\t\t${4:<dependcy path or target>}",
+      "\t# DEPENDS\t\t\t${5:<path or target>}",
+      "\t# BYPRODUCTS\t\t${5:<files>}",
+      "\t# IMPLICIT_DEPENDS\t${6:<lang1>} ${7:depend}",
+      "\t# DEPFILE\t\t\t\t${8:<path>}",
+      "\t# JOB_POOL\t\t\t\t${10:3}",
+      "\tVERBATIM${11}",
+      "\t# USES_TERMINAL${12}",
+      "\tCOMMAND_EXPAND_LISTS${13}",
+      "\tWORKING_DIRECTORY\t\\\\${${14|CMAKE_CURRENT_SOURCE_DIR,CMAKE_CURRENT_LIST_DIR|}}",
+      ")"
+    ],
+    "description": "target.custom.command"
+  },
+  "target.docs": {
+    "prefix": "target.docs",
+    "description": "Add doxygen documentation target",
+    "body": [
+      "doxygen_add_docs(",
+      "\t${1:<target>}-doc",
+      "\tCOMMENT \"${2:Doxygen documentation for  $1 target}\"",
+      "\t\\$<TARGET_PROPERTY:${1},SOURCES>",
+      "\t#${3:ALL}",
+      "\tUSE_STAMP_FILE",
+      "\t# WORKING_DIRECTORY ${4||CMAKE_CURRENT_SOURCE_DIR,CMAKE_CURRENT_LIST_DIR||}",
+      ")"
+    ]
+  },
+  "target.attribs": {
+    "description": "Required stuff for a given target.",
+    "prefix": "target.attribs",
+    "body": [
+      "target.option$1",
+      "target.compile.options$2",
+      "target.compile.features$3",
+      "target.sources.set$6",
+      "target.headers.precompile${7:.reuse}",
+      "target.headers.export$8",
+      "target.import.targets$9",
+      "target.headers.import$10",
+      "target.docs$11",
+      "target.install.attribs$12",
+      "target.test$13",
+      "target.package$14"
+    ]
+  },
+  "target.install.attribs": {
+    "description": "Required stuff for a given target.",
+    "prefix": "target.install.attribs",
+    "body": [
+      "#------------------------------------------------------------------------Install",
+      "targets.install.package$9",
+      "targets.package.install.config$10"
+    ]
+  },
+  "target.option": {
+    "description": "Create an option for build-configuration",
+    "prefix": "option",
+    "body": [
+      "option(${1:OPTIONNAME} \"${2:Description}\" ${3| ,ON,OFF|})"
+    ]
+  },
+  "target.option.depends": {
+    "description": "Create an option for build-configuration",
+    "prefix": "option.depends",
+    "body": [
+      "option_depends(${1:${TM_SELECTED_TEXT:OPTIONNAME}} \"${3:description}\" ${4|TRUE,FALSE|} \"${5:NOT DEPEND;DEPENDENCY}\" ${7| ,ON,OFF|})"
+    ]
+  },
+  "target.option.advanced": {
+    "description": "Create an option for build-configuration",
+    "prefix": "option.advanced",
+    "body": [
+      "option(${1:OPTIONNAME} \"${2:Description}\" ${3| ,ON,OFF|})",
+      "mark_as_advanced(${4| ,CLEAR,FORCE|} ${1} )"
+    ]
+  },
+  "target.option.multiple": {
+    "prefix": "option.multiple",
+    "body": [
+      "set(${1:OPTIONNAME} ${3|DEFAULT_VALUE|} CACHE STRING \"${2:Option description}\")",
+      "set_property(CACHE $1 PROPERTY STRINGS $3 ${8:OTHERVALUE} ${9:OTHERVALUE})"
+    ],
+    "description": "target.option.multiple"
+  },
+  "target.compile.options": {
+    "description": "Create an option for build-configuration",
+    "prefix": "target.compile.options",
+    "body": [
+      "target_compile_options(",
+      "\t${1:targetName} ${2| ,BEFORE|}",
+      "\t# TODO: use 'mold' linker instead",
+      "\t${3|PRIVATE,INTERFACE,PUBLIC|} $<IF:$<COMPILE_LANGUAGE:CXX>,-ftime-trace,>",
+      "\t#${5|PRIVATE,INTERFACE,PUBLIC|} ${6:flagName}",
+      "\t-fsanitize-address-use-after-return=runtime",
+      ")"
+    ]
+  },
+  "cmake.c.features": {
+    "prefix": "cmake.c.features",
+    "description": "CMake compile features",
+    "body": "${1|c_std_90,c_std_99,c_std_11,c_std_17,c_std_23,c_function_prototypes,c_restrict,c_static_assert,c_variadic_macros|}"
+  },
+  "cmake.cxx.features": {
+    "prefix": "cmake.cxx.features",
+    "description": "CMake compile features",
+    "body": "${1|cxx_std_98,cxx_std_11,cxx_std_14,cxx_std_17,cxx_std_20,cxx_std_23,cxx_template_template_parameters,cxx_alias_templates,cxx_alignas,cxx_alignof,cxx_attributes,cxx_auto_type,cxx_constexpr,cxx_decltype_incomplete_return_types,cxx_decltype,cxx_default_function_template_args,cxx_defaulted_functions,cxx_defaulted_move_initializers,cxx_delegating_constructors,cxx_deleted_functions,cxx_enum_forward_declarations,cxx_explicit_conversions,cxx_extended_friend_declarations,cxx_extern_templates,cxx_final,cxx_func_identifier,cxx_generalized_initializers,cxx_inheriting_constructors,cxx_inline_namespaces,cxx_lambdas,cxx_local_type_template_args,cxx_long_long_type,cxx_noexcept,cxx_nonstatic_member_init,cxx_nullptr,cxx_override,cxx_range_for,cxx_raw_string_literals,cxx_reference_qualified_functions,cxx_right_angle_brackets,cxx_rvalue_references,cxx_sizeof_member,cxx_static_assert,cxx_strong_enums,cxx_thread_local,cxx_trailing_return_types,cxx_unicode_literals,cxx_uniform_initialization,cxx_unrestricted_unions,cxx_user_literals,cxx_variadic_macros,cxx_variadic_templates,cxx_aggregate_default_initializers,cxx_attribute_deprecated,cxx_binary_literals,cxx_contextual_conversions,cxx_decltype_auto,cxx_digit_separators,cxx_generic_lambdas,cxx_lambda_init_captures,cxx_relaxed_constexpr,cxx_return_type_deduction,cxx_variable_templates|}"
+  },
+  "target.compile.features": {
+    "description": "Config compilation features for the target",
+    "prefix": "target.compile.features",
+    "body": [
+      "target_compile_features(",
+      "\t${1:targetName}",
+      "\t${3|PRIVATE,INTERFACE,PUBLIC|}",
+      "\t\t${4:cxx_std_17 cxx_attributes cxx_auto_type cxx_constexpr cxx_decltype}",
+      "\t\tcmake.cxx.features$5",
+      "\t\tcmake.c.features$6",
+      "\t$0",
+      ")"
+    ]
+  },
+  "targets.uninstall": {
+    "prefix": "targets.uninstall",
+    "description": "TODO: add uninstall",
+    "body": "TODO: add uninstall"
+  },
+  "target.type": {
+    "prefix": "target.type",
+    "description": "Type of the target",
+    "body": "${1|RUNTIME,LIBRARY,OBJECTS,ARCHIVE,PRIVATE_HEADER,PUBLIC_HEADER,FRAMEWORK,BUNDLE,RESOURCE,FILE_SET <set-name>|}"
+  },
+  "target.install.destination": {
+    "prefix": "target.install.destination",
+    "description": "Type of the target",
+    "body": "$0\\${CMAKE_INSTALL_PREFIX}/\\${CMAKE_INSTALL_${1|BIN,LIB,INCLUDE,DATA,DATAROOT,INFO,MAN,DOC,LOCALE,SYSCONF,SHAREDSTATE,LOCALSTATE,RUNSTATE|}DIR\\}/\\${PACKAGE_GROUP_NAME\\}"
+  },
+  "targets.package.install": {
+    "prefix": "targets.package.install",
+    "description": "Add code to install specified targets both into build and system install directories for specific groups",
+    "body": [
+      "",
+      "#============================================================",
+      "# Generate package config file for a group of targets",
+      "#============================================================",
+      "if(NOT DEFINED $PACKAGE_GROUP_NAME)",
+      "\tmessage(FATAL_ERROR \"Please, define PACKAGE_GROUP_NAME!\")",
+      "endif()",
+      "# These are automatically loaded by find_package(...)",
+      "# Config *Targets.cmake install paths",
+      "install(",
+      "\tTARGETS ${1:TARGETS_NAMES}",
+      "\tEXPORT \\${PACKAGE_GROUP_NAME}",
+      "\t#CONFIGURATIONS ${3:cmake.configs}",
+      "\t#COMPONENT ${4|CLI,GUI,DATA,DEV,DOCS,LOCALE|}",
+      "\t#Define desination for every type of target!",
+      "\ttarget.type${5}\tDESTINATION \"${6:target.install.destination}-\\${PROJECT_VERSION_MAJOR}/\"",
+      "\t#target.type\tDESTINATION \"target.install.destination-\\${PROJECT_VERSION_MAJOR}/\"",
+      "\t#OPTIONAL${8}",
+      ")",
+      "# Install *Targets.cmake to <system>",
+      "#\t<prefix>/<platform_dir>/<group_name>-<version>/<group_name>Targets.cmake",
+      "install(",
+      "\tEXPORT \\${PACKAGE_GROUP_NAME}",
+      "\tFILE \"\\${PACKAGE_GROUP_NAME}Targets.cmake\"",
+      "\t#COMPONENT ${4}",
+      "\t#NAMESPACE \"${10:\\${PROJECT_NAME\\}::}\"",
+      "\tDESTINATION \"${11:target.install.destination}-\\${PROJECT_VERSION_MAJOR}/cmake/\"",
+      "\tINCLUDES DESTINATION \"${14:target.install.destination}-\\${PROJECT_VERSION_MAJOR}/cmake/\"",
+      ")",
+      "# Install *Targets.cmake to <binary_dir>",
+      "#\t<prefix>/<platform_dir>/<group_name>-<version>/<group_name>Targets.cmake",
+      "if(NOT \"\\$CMAKE_CURRENT_BINARY_DIR\" IN_LIST \"\\$CMAKE_PREFIX_PATH\")",
+      "\tlist(APPEND \\$CMAKE_PREFIX_PATH \\$CMAKE_CURRENT_BINARY_DIR)",
+      "endif()",
+      "export(",
+      "\tEXPORT \\${PACKAGE_GROUP_NAME}",
+      "\tFILE \"\\${PACKAGE_GROUP_NAME}Targets.cmake\"",
+      "\t#NAMESPACE \"${10}\"",
+      ")"
+    ]
+  },
+  "targets.package.install.config": {
+    "prefix": "targets.package.install.config",
+    "body": [
+      "",
+      "# Install *Config.cmake for a group of targets",
+      "#    <prefix>/<platform_dir>/<group_name>-<version>/<group_name>Config.cmake",
+      "set(PACKAGE_CONFIG_PATH  \"\\${CMAKE_CURRENT_BINARY_DIR}/\\${PACKAGE_GROUP_NAME}Config.cmake\")",
+      "set(PACKAGE_VERSION_PATH \"\\${CMAKE_CURRENT_BINARY_DIR}/\\${PACKAGE_GROUP_NAME}ConfigVersion.cmake\")",
+      "file(WRITE \"\\${PACKAGE_CONFIG_PATH}.in\" \"",
+      "# THIS FILE WAS AUTOMATICALLY GENERATED BY CMakeListst.txt script",
+      "# FOR THE @PROJECT_NAME@ @PROJECT_VERSION@ by al.neodim@gmail.com",
+      "",
+      "################################################################################",
+      "add_dependencies(${1:dependencyTargetName} ${2:1.0.0})$0",
+      "include(\\\"\\\\\\${CMAKE_CURRENT_LIST_DIR}/@PACKAGE_GROUP_NAME@Targets.cmake\\\")",
+      "# Please see set_package_properties from FeatureSummary cmake built-in module for package set-up",
+      "@PACKAGE_INIT@\"",
+      ")",
+      "",
+      "include(CMakePackageConfigHelpers)",
+      "configure_package_config_file(",
+      "  \"\\${PACKAGE_CONFIG_PATH}.in\"",
+      "  \"\\${PACKAGE_CONFIG_PATH}\"",
+      "  INSTALL_DESTINATION",
+      "    \"${4:target.install.destination}-\\${PROJECT_VERSION_MAJOR}/cmake/\"",
+      ")",
+      "write_basic_package_version_file(",
+      "  \"\\${PACKAGE_VERSION_PATH}\"",
+      "  COMPATIBILITY ${5|AnyNewerVersion,SameMajorVersion,SameMinorVersion,ExactVersion|}",
+      ")",
+      "# Copy produced files into system dir",
+      "install(",
+      "  FILES",
+      "    \"\\${PACKAGE_CONFIG_PATH}\"",
+      "    \"\\${PACKAGE_VERSION_PATH}\"",
+      "  DESTINATION",
+      "    \"${4}-\\${PROJECT_VERSION_MAJOR}/cmake/\"",
+      ")",
+      "unset(PACKAGE_GROUP_NAME)",
+      ""
+    ],
+    "description": "targets.package.install.config2"
+  },
+  "target.headers.export.attibs": {
+    "prefix": "target.headers.export.attibs",
+    "description": "Produce helper-header with symbol-visibility-attributes macro",
+    "body": [
+      "# Produce helper-header with symbol-visibility-attributes macro",
+      "message(WARNING \"Don't forget to use '#include <${1/(.*)/${1:/downcase}/}ExportAttributes.h>' in your public API!\")",
+      "# Note: this is for libraries only",
+      "generate_export_header(${1:${TM_SELECTED_TEXT}}  ${2:PREFIX_NAME  ${3:targetNameCapitalLetters}_} ${4:EXPORT_FILE_NAME \"${1/(.*)/${1:/downcase}/}ExportAttributes.h\"})"
+    ]
+  },
+  "target.headers.precompile": {
+    "prefix": "target.headers.precompile",
+    "description": "Executable: Imported",
+    "body": [
+      "target_precompile_headers(",
+      "\t${1:${TM_SELECTED_TEXT:targetName}}",
+      "\t${5|PUBLIC,INTERFACE,PRIVATE|} ${6:./${1}.hh}",
+      ")"
+    ]
+  },
+  "target.headers.precompiled.reuse": {
+    "prefix": "target.headers.precompile.reuse",
+    "description": "Executable: Imported",
+    "body": [
+      "target_precompile_headers(${1:targetName}} REUSE_FROM ${2:targetName})"
+    ]
+  },
+  "target.sources.set": {
+    "prefix": "target.sources.set",
+    "description": "Executable: Imported",
+    "body": [
+      "target_sources(",
+      "\t${1:${TM_SELECTED_TEXT:targetName}}",
+      "\t${5|PRIVATE,INTERFACE,PUBLIC|} ${6:./*/*.{cc,hh\\}}",
+      ")"
+    ]
+  },
+  "target.exec.properties.set": {
+    "prefix": "target.exec.properties.set",
+    "description": "Set target properties",
+    "body": [
+      "set_target_properties(",
+      "\t${1:${TM_SELECTED_TEXT:targetName}}",
+      "\tPROPERTIES",
+      "\t\tWIN32_EXECUTABLE      $<IF:$<PLATFORM_ID:Windows>,TRUE,FALSE>",
+      "\t\tMACOSX_BUNDLE         $<IF:$<PLATFORM_ID:Darwin>,TRUE,FALSE>",
+      "\t\tCXX_COMPILER_LAUNCHER ccache",
+      "\t\tC_COMPILER_LAUNCHER   ccache",
+      "\t\tLINKER_LANGUAGE       ${4:project.languages}",
+      "\t\tENABLE_EXPORTS        ${9|FALSE,TRUE|}",
+      "\t\t#RESOURCE             \"${10:list;of;files}\"",
+      "",
+      "\t\t# BUILD_WITH_INSTALL_RPATH  $<IF:$<INSTALL_INTERFACE>,TRUE,FALSE>",
+      "\t\tINSTALL_RPATH_USE_LINK_PATH TRUE",
+      "\t\tINSTALL_RPATH \"${11:target.install.destination}-\\${PROJECT_VERSION_MAJOR}\"",
+      ")"
+    ]
+  },
+  "target.lib.properties.set": {
+    "prefix": "target.lib.properties.set",
+    "description": "Set target properties",
+    "body": [
+      "set_target_properties(",
+      "\t${1:${TM_SELECTED_TEXT:targetName}}",
+      "\tPROPERTIES",
+      "\t\t# Current version",
+      "\t\tVERSION \"\\${PROJECT_VERSION}\"",
+      "\t\t# Compatibility version",
+      "\t\tSOVERSION ${3|\"${PROJECT_VERSION}\",cmake.version|}",
+      "\t\t# Use ccache",
+      "\t\tCXX_COMPILER_LAUNCHER\tccache",
+      "\t\tC_COMPILER_LAUNCHER\tccache",
+      "\t\t# This is only for compilable targets",
+      "\t\tLINKER_LANGUAGE ${4:project.languages}",
+      "\t\t# File generated by generate_export_header",
+      "\t\t# Used for  MacOS FRAMEWORK or for install(TARGETS...)",
+      "\t\t#PUBLIC_HEADER $<$<PLATFORM_ID:Darwin>:\"${5:\\${CMAKE_CURRENT_BINARY_DIR}/include/${1}.hh}\">",
+      "\t\t${6:project.languages}_VISIBILITY_PRESET ${7|hidden,default,internal,protected|}",
+      "\t\t#Hide inline functions",
+      "\t\tVISIBILITY_INLINES_HIDDEN ${8|ON,OFF|}",
+      "\t\t# List of files to be installed with target",
+      "\t\t#RESOURCE ${10:list;of;files}",
+      ")"
+    ]
+  },
+  "target.import.targets": {
+    "prefix": "target.import.targets",
+    "description": "Executable: Imported",
+    "body": [
+      "# DEPENDENCY is any of: target name, library name (e.g. zlib),",
+      "target_link_libraries(",
+      "\t${1:${TM_SELECTED_TEXT:targetName}}",
+      "\t${2|PRIVATE,INTERFACE,PUBLIC|} ${3:dependencyTargetName}",
+      "\t${4|PRIVATE,INTERFACE,PUBLIC|} ${5:dependencyTargetName}",
+      ")",
+      "$0"
+    ]
+  },
+  "target.headers.import": {
+    "prefix": "target.headers.import",
+    "description": "Executable: Imported",
+    "body": [
+      "target_include_directories(",
+      "\t${1:${TM_SELECTED_TEXT:targetName}}",
+      "\t${2| ,SYSTEM|} ${3| ,BEFORE,AFTER|}",
+      "\t${5|PRIVATE,INTERFACE,PUBLIC|}",
+      "\t\t$<BUILD_INTERFACE:\\${CMAKE_CURRENT_SOURCE_DIR}>/${6:include}",
+      "\t\t$<INSTALL_INTERFACE:/${7:target.install.destination}}>",
+      ")"
+    ]
+  },
+  "function.args.parse.fn": {
+    "prefix": "fn",
+    "body": [
+      "include(CMakePrintHelpers)",
+      "",
+      "# @breif ${3}",
+      "# @param[in]\t- TODO: Add parameter description",
+      "# @param[out]\t$8 - Return value",
+      "function(${1:functionName})",
+      "  # Lists of arguments to parse",
+      "  set(_OPTIONAL\t\t${4:<arg>})",
+      "  set(_SINGLE\t\t\t${5:<arg>})",
+      "  set(_MULTI\t\t\t${6:<arg>})",
+      "  cmake_parse_arguments(",
+      "    ${2:ARGS}",
+      "    \"\\${_OPTIONAL}\"",
+      "    \"\\${_SINGLE}\"",
+      "    \"\\${_MULTI}\"",
+      "    \\${ARGN}",
+      "  )",
+      "  # Accessing passed variables",
+      "  cmake_print_variables(${2}_UNPARSED_ARGUMENTS)",
+      "  cmake_print_variables(${2}_KEYWORDS_MISSING_VALUES)",
+      "",
+      "  # WARN if extra arguments are",
+      "  if(NOT \"\\${${2}_UNPARSED_ARGUMENTS}\" STREQUAL \"\")",
+      "    message(WARNING \"$1: Extra args are passed, see usage\")",
+      "  endif()",
+      "",
+      "",
+      "  set(${8:OUT} PARENT_SCOPE)",
+      "",
+      "  # Clean up all function variables",
+      "  foreach(ARGNAME IN LISTS _OPTIONAL _SINGLE _MULTI)",
+      "    cmake_print_variables(${2}_\\${ARGNAME})",
+      "    unset(${2}_\\${ARGNAME})",
+      "  endforeach()",
+      "endfunction()",
+      "",
+      "# Call a function",
+      "$1($5 $0)",
+      ""
+    ],
+    "description": "function.args.parsefn"
+  },
+  "cli.args.to.list": {
+    "prefix": "fn.args.to.list",
+    "body": [
+      "separate_arguments(${5:OUTPUT_LIST} ${4| ,UNIX_COMMAND,WINDOWS_COMMAND,NATIVE_COMMAND|} ${2:PROGRAM ${3:SEPARATE_ARGS}} ${1:INPUT_STRING})"
+    ],
+    "description": "function.args.to.list"
+  },
+  "compiler.check.file": {
+    "prefix": "compiler.check.file",
+    "body": [
+      "include(CheckIncludeFiles)",
+      "include(CheckIncludeFileCXX)",
+      "check_include_files(${1:strings.h} ${2:HAVE_$1})",
+      "check_include_files_cxx(${1:strings.h} ${2:HAVE_$1})"
+    ],
+    "description": "compiler.check.file"
+  },
+  "compiler.check.fn": {
+    "prefix": "compiler.check.fn",
+    "body": [
+      "include(CheckFunctionExists)",
+      "check_function_exists(${1:strings.h} ${2:HAVE_$1})"
+    ],
+    "description": "compiler.check.fn"
+  },
+  "compiler.check.symbol": {
+    "prefix": "compiler.check.symbol",
+    "body": [
+      "include(CheckSymbolExists)",
+      "check_symbol_exists(${1:<symbol name>} \"${2:<header name.h>}\" ${3:HAVE_$1})"
+    ],
+    "description": "compiler.check.symbol"
+  },
+  "loops.for": {
+    "prefix": "for",
+    "body": [
+      "# set(${1} ${3:FOO BAR BAZ}) ",
+      "foreach(${2:ITEM} IN LISTS ${1:LIST_NAME})",
+      "  $0",
+      "  cmake_print_variables(${2})",
+      "endforeach()"
+    ],
+    "description": "loops.for"
+  },
+  "cpack.new": {
+    "prefix": "cpack.new",
+    "description": "",
+    "body": [
+      "include(CPack)",
+      "include(InstallRequiredSystemLibraries)",
+      "set(CPACK_PACKAGE_INSTALL_DIRECTORY     ${1:\\$PROJECT_NAME})",
+      "set(CPACK_PROJECT_NAME                  \\${PROJECT_NAME})",
+      "set(CPACK_PACKAGE_VERSION_MAJOR         \\${PROJECT_VERSION_MAJOR})",
+      "set(CPACK_PACKAGE_VERSION_MINOR         \\${PROJECT_VERSION_MINOR})",
+      "set(CPACK_PACKAGE_VERSION_PATCH         \\${PROJECT_VERSION_PATCH})",
+      "set(CPACK_PACKAGE_VENDOR                ${3:Open Source Software})",
+      "#-------------------------------------Debian specific",
+      "set(CPACK_PACKAGE_HOMEPAGE_URL          ${4:URL})",
+      "set(CPACK_RESOURCE_FILE_LICENSE         \"${CMAKE_SOURCE_DIR}/LICENSE\")",
+      "set(CPACK_RESOURCE_FILE_README          \"${CMAKE_SOURCE_DIR}/README.md\")",
+      "set(CPACK_SOURCE_IGNORE_FILES",
+      "\t\\node_modules/",
+      "\t\\.git/",
+      "\t.dist/",
+      "\t.build/",
+      "\tdist/",
+      "\tbuild/",
+      "\t\".*~$\"",
+      ")",
+      "#------------------------------------------------------Package generators config",
+      "set(CPACK_GENERATOR ${10:\"TGZ;\"})"
+    ]
+  },
+  "file.find": {
+    "prefix": "file.find",
+    "body": [
+      "find_file (",
+      "    ${1:<OUTPUTVAR>} NAMES ${2:<fileName>}",
+      "    PATHS ${3:path} ${4|ENV ${5:<ENVVAR>}|}",
+      "    # REGISTRY_VIEW ${6|64,32,64_32,32_64,HOST,TARGET,BOTH|}",
+      "    # PATH_SUFFIXES ${7:<sub/folder>} $8",
+      "    # VALIDATOR ${8:<function>}",
+      "    DOC \"${10:<description>}\"",
+      "    # ${11:NO_CACHE}",
+      "    # ${12:REQUIRED}",
+      "    ${13:NO_DEFAULT_PATH}",
+      "    ${14:NO_PACKAGE_ROOT_PATH}",
+      "    ${15:NO_CMAKE_PATH}",
+      "    ${16:NO_CMAKE_ENVIRONMENT_PATH}",
+      "    ${17:NO_SYSTEM_ENVIRONMENT_PATH}",
+      "    ${18:NO_CMAKE_SYSTEM_PATH}",
+      "    ${19:NO_CMAKE_INSTALL_PREFIX}",
+      "    ${20|NO_CMAKE_FIND_ROOT_PATH,ONLY_CMAKE_FIND_ROOT_PATH,CMAKE_FIND_ROOT_PATH_BOTH|}",
+      ")",
+      "",
+      "if($1)",
+      "    message(STATUS \"$1\")",
+      "endif()"
+    ],
+    "description": "file.find"
+  }
+}

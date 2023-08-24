@@ -1,0 +1,18 @@
+{
+
+  "Element new": {
+      "prefix": "el.new",
+      "body": [
+          "let ${1}${2} = document.createElement(\"${1|div,table,article,section,nav,aside|}\")"
+      ],
+      "description": "HTML element new"
+  },
+  "Element bind": {
+      "prefix": "el.bind",
+      "body": [
+          "${1:element}.addEventListener(\"${2|DOMContentLoaded,load,click,blur,keydown,keypress,keyup,mousedown,mouseenter,mouseleave,mousemove,mouseover,mouseout,mouseup|}\", ${3:callback})"
+      ],
+      "description": "Element bind"
+  }
+
+}

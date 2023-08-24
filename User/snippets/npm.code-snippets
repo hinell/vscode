@@ -1,0 +1,263 @@
+{
+  "npm.package.cfg.comittizen": {
+    "scope": "json",
+    "prefix": "npm.package.cfg.cz",
+    "body": [
+      "\"commitizen\": {",
+      "  \"path\": \"cz-conventional-changelog\",",
+      "  \"maxHeaderWidth\": 100,",
+      "  \"maxLineWidth\": 100,",
+      "  \"defaultType\": \"refactor\",",
+      "  \"defaultScope\": \"\",",
+      "  \"defaultSubject\": \"\",",
+      "  \"defaultBody\": \"\",",
+      "  \"defaultIssues\": \"\",",
+      "  \"types\": {",
+      "    \"feat\": {",
+      "      \"description\": \"Adds feature\",",
+      "      \"title\": \"Features\"",
+      "    },",
+      "    \"bug\": {",
+      "      \"description\": \"Fixes bug\",",
+      "      \"title\": \"Bug Fixes\"",
+      "    },",
+      "    \"docs\": {",
+      "      \"description\": \"Documentation related changes\",",
+      "      \"title\": \"Documentation\"",
+      "    },",
+      "    \"style\": {",
+      "      \"description\": \"Cosmetic changes, formatting: tabs, white-space, missing semi-colons, commas, etc\",",
+      "      \"title\": \"Styles\"",
+      "    },",
+      "    \"refactor\": {",
+      "      \"description\": \"Code refactoring\",",
+      "      \"title\": \"Refactoring\"",
+      "    },",
+      "    \"perf\": {",
+      "      \"description\": \"Improves performance\",",
+      "      \"title\": \"Performance Improvements\"",
+      "    },",
+      "    \"test\": {",
+      "      \"description\": \"Adds, removes or fixes tests\",",
+      "      \"title\": \"Tests\"",
+      "    },",
+      "    \"ci\": {",
+      "      \"description\": \"Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)\",",
+      "      \"title\": \"Continuous Integrations\"",
+      "    },",
+      "    \"tool\": {",
+      "      \"description\": \"Update tools config, scripts etc.\",",
+      "      \"title\": \"Tooling\"",
+      "    },",
+      "    \"revert\": {",
+      "      \"description\": \"Reverts a previous commit\",",
+      "      \"title\": \"Reverts\"",
+      "    }",
+      "  }",
+      "}"
+    ]
+  },
+  "npm.package.new": {
+    "scope": "json",
+    "prefix": "npm.package.new",
+    "isFileTemplate": true,
+    "body": [
+      "{",
+      "\tnpm.package.head${1:}",
+      "\tnpm.package.platform${2:}",
+      "\tnpm.package.scripts ${3:}",
+      "\tnpm.package.metadata${4:}",
+      " \"dependencies\": {",
+      "   ${27}",
+      "  },",
+      "  \"devDependencies\": {",
+      "    \"semver\": \"\",",
+      "    \"depcheck\": \"\",",
+      "    \"rimraf\": \"\",",
+      "    \"eslint\": \"\",",
+      "    \"cross-env\": \"\",",
+      "    \"commitizen\": \"\",",
+      "    \"depcheck\": \"\",",
+      "    \"knip\": \"\",",
+      "    \"cz-conventional-changelog\": \"\",",
+      "     devDeps.ts${37}",
+      "     devDeps.esbuild${38}",
+      "     devDeps.webpack${39}",
+      "     devDeps.webpack${40}",
+      "     devDeps.webpack.express${41}",
+      "     devDeps.webpack.web${42}",
+      "  },",
+      "  \"workspaces\": [",
+      "      \"./packages/*\"",
+      "  ],",
+      "  \"config\": {",
+      "     npm.package.cfg.cz${50}",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "npm.package.new"
+  },
+  "npm.package.head": {
+    "scope": "json",
+    "prefix": "npm.package.head",
+    "body": [
+      "\"name\": \"${1:@scope/}${2:packageName}\",",
+      "\"private\": ${3|false,true|},",
+      "\"version\": \"${4:1.0.0}\",",
+      "\"description\": \"${5:TODO: Add description}\",",
+      "\"main\": \"${7:build/index.js}\",",
+      "\"bin\": {",
+      "  \"$2\":\"${8:bin/cli.js}\"",
+      "},",
+      "\"type\": \"module\",",
+      "\"exports\": {",
+      "  \"import\": \"$7\",",
+      "  \"require\": \"${7/(.*)\\.js$/${1}.cjs/}\"",
+      "},"
+    ],
+    "description": "npm.package.head"
+  },
+  "npm.package.platform": {
+    "scope": "json",
+    "prefix": "npm.package.platform",
+    "body": [
+      "\"packageManager\": \"${1|pnpm,npm,yarn|}\",",
+      "\"engines\": {",
+      "   \"node\": \">=${2|19.0.0,18.8.0,16.17.0,14.19.0|}\",",
+      "   \"vscode\": \">=${3|1.70,1.5|}\"",
+      "},",
+      "\"os\": [",
+      "  ${5:\"win32\",\"Darwin\",\"linux\"}",
+      "],",
+      "\"cpu\": [",
+      "  \"x64\"",
+      "],"
+    ],
+    "description": "npm.package.platform"
+  },
+  "npm.package.scripts": {
+    "scope": "json",
+    "prefix": "npm.package.scripts",
+    "body": [
+      "\"scripts\": {",
+      "  \"build:dev\": \"\",",
+      "  \"build:dev:watch\": \"\",",
+      "  \"build:rel\": \"\",",
+      "  \"build:rel:watch\": \"\",",
+      "  \"test\": \"echo \\\"TODO: Add test command\\\"\",",
+      "  \"lint\": \"eslint\",",
+      "  \"clean\": \"rimraf ./build/\",",
+      "  \"moorepo-fixmismatch\": \"syncpack fix-mismatches -p -w --source ./packages/**/* \",",
+      "  \"preinstall\": \"\",",
+      "  \"postinstall\": \"\"",
+      "},"
+    ],
+    "description": "npm.package.platform"
+  },
+  "npm.package.metadata": {
+    "scope": "json",
+    "prefix": "npm.package.metadata",
+    "body": [
+      "\"homepage\": \"https://${1|gihub,gitlab,bitbucket|}.com/${2:hinell}/${3:repo}.git#readme\",",
+      "\"repository\": {",
+      "   \"type\": \"git\"",
+      "  ,\"url\": \"https://${1|gihub,gitlab,bitbucket|}.com/${2:hinell}/${3:repo}.git\"",
+      "  ,\"directory\": \"${5:packages/subdirIfMonorepo}\"",
+      "},",
+      "\"bugs\": {",
+      "   \"email\": \"al.neodim@gmail.com\"",
+      "  ,\"url\": \"https://${1|gihub,gitlab,bitbucket|}.com/${2:hinell}/${3:repo}/issues\"",
+      "},",
+      "\"keywords\": [",
+      "  \"${6}\"",
+      "],",
+      "\"funding\": [",
+      "  {",
+      "    \"type\" : \"PayPal\",",
+      "    \"url\" : \"https://www.paypal.com/paypalme/biteofpie\"",
+      "  }",
+      "],",
+      "\"contributors\": [",
+      "  \"Alexander A. Davronov} <al.neodim@gmail.com>\"",
+      "]",
+      ",\"license\": \"SEE LICENSE IN LICENSE\","
+    ],
+    "description": "npm.package.metadata"
+  },
+  "npm.package.devDeps.esbuild": {
+    "scope": "json",
+    "prefix": "npm.package.devDeps.esbuild",
+    "body": [
+      "\"esbuild\": \"\",",
+      "\"esbuild-plugin-alias\": \"\""
+    ],
+    "description": "Esbuild based project devDeps"
+  },
+  "npm.package.devDeps.node.ts": {
+    "scope": "json",
+    "prefix": "npm.package.devDeps.node.ts",
+    "body": [
+      "\"@types/node\": \"latest\",",
+      "\"typescript\": \"latest\",",
+      "\"@typescript-eslint/eslint-plugin\": \"latest\",",
+      "\"@typescript-eslint/parser\": \"latest\",",
+      "\"typedoc\": \"latest\","
+    ],
+    "description": "TypeScript based project devDeps"
+  },
+  "npm.package.devDeps.webpack": {
+    "scope": "json",
+    "prefix": "npm.package.devDeps.webpack",
+    "body": [
+      "\"webpack\"                : \"latest\",",
+      "\"webpack-cli\"            : \"latest\",",
+      "\"ts-loader\"              : \"latest\",",
+      "\"to-string-loader\"       : \"latest\","
+    ],
+    "description": "npm.package.devDeps.webpack"
+  },
+  "npm.package.devDeps.webpack.express": {
+    "scope": "json",
+    "prefix": "npm.package.devDeps.webpack.express",
+    "body": [
+      "\"webpack-dev-middleware\" : \"latest\",",
+      "\"webpack-hot-middleware\" : \"latest\",",
+      "\"webpack-node-externals\" : \"latest\",",
+      ""
+    ],
+    "description": "npm.package.devDeps.webpack.express"
+  },
+  "npm.package.devDeps.webpack.web": {
+    "scope": "json",
+    "prefix": "npm.package.devDeps.webpack.web",
+    "body": [
+      "npm.package.devDeps.webpack.web",
+      "\"style-loader\"           : \"latest\",",
+      "\"css-loader\"             : \"latest\",",
+      "\"sass-loader\"            : \"latest\",",
+      "",
+      "// Deprecated, see https://webpack.js.org/guides/asset-modules/#inlining-assets",
+      "\"file-loader\"            : \"latest\",",
+      "\"raw-loader\"             : \"latest\",",
+      "\"url-loader\"             : \"latest\","
+    ],
+    "description": "npm.package.devDeps.webpack.web"
+  },
+
+    ".npmrc": {
+      "prefix": "npmrc.new",
+      "body": [
+        "# Syncrhonize with scuffold!",
+        "viewer=browser ; for npm docs",
+        "browser=true   ; view in browser",
+        "description=true",
+        "global=${4|false,true|} ; whether to install packages globally",
+        "# Prefix for version dependencies",
+        "save-prefix=>",
+        "pack-destination=./dist/"
+      ],
+      "scope": "all",
+      "description": "npmrc"
+    }
+}

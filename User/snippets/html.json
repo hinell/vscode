@@ -1,0 +1,82 @@
+
+{
+  "list.definitions": {
+    "prefix": "html.list.defs",
+    "description": "List defitions",
+    "body": [
+      "<dl>",
+      "\tlist.defs.def$1",
+      "</dl>"
+    ]
+  },
+  "list.definitions def": {
+    "prefix": "list.defs.def",
+    "description": "A defintion",
+    "body": [
+      "<dt>${1:Knowledge}</dt>",
+      "<dd>${2|The only defense against the world is a thorough knowledge of it. - John Locke,No man’s knowledge here can go beyond his experience - John Locke|}</dd>"
+    ]
+  },
+  "img": {
+    "prefix": "html.img",
+    "body": [
+      "<img",
+      "  clsas=\"\"",
+      "  alt=\"${2:}\"",
+      "  src=\"${1:<url>}\"",
+      "  srcset=\"$1\"",
+      "  ${3;sizes=\"(max-height: 420px) 1024px\"} <!-- The size of the viewport -->",
+      "  height=\"${4:512px}\"",
+      "  width=\"${5:512px}\"",
+      "  usemap=\"${6:#mapName}\"",
+      "  crossorigin=\"${7|anonymous,use-credentials|}\"",
+      "  loading=${8|eager,lazy|}",
+      "  decoding=${9|auto,sync,async|}",
+      "  referrerpolicy=${10|no-referrer,no-referrer-when-downgrade,origin,origin-when-cross-origin,same-origin,strict-origin,strict-origin-when-cross-origin,unsafe-url|}",
+      "/>",
+      "  "
+    ],
+    "description": "img"
+  },
+  "document.html5.new": {
+    "prefix": "html5.doc.new",
+    "isFileTemplate": true,
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"en\">",
+      "<head>",
+      "\t<meta charset=\"UTF-8\">",
+      "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">",
+      "\t<meta name=\"viewport\" content=\"width=${1:device-width}, initial-scale=${2:1.0}\">",
+      "\t<title>${3:Document name}</title>",
+      "\t<style>",
+      "\t</style>",
+      "</head>",
+      "<body>",
+      "\t<div>",
+      "\t\t<header>",
+      "\t\t</header>",
+      "\t\t<article>",
+      "\t\t\t$0",
+      "\t\t</article>",
+      "\t\t<footer>",
+      "\t\t</footer>",
+      "\t</div>",
+      "</body>",
+      "</html>"
+    ],
+    "description": "new HTML 5 Document"
+  },
+  "details.html": {
+    "prefix": "details",
+    "body": [
+      "<details>",
+      "    <summary>${2:${SELECTION:Summary text}}</summary>",
+      "    <p>",
+      "        ${3:Content}",
+      "    </p>",
+      "</details>"
+    ],
+    "description": "Add details tags"
+  }
+}

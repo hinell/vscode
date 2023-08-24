@@ -1,0 +1,570 @@
+{
+  "var new": {
+    "prefix": "var",
+    "body": [
+      "${1|this.,var ,let ,const |}${2:varname} = ${3:value}"
+    ],
+    "description": "var new"
+  },
+
+  "var or": {
+    "prefix": "var.or",
+    "body": [
+      "${1|this.,var ,let ,const |}${2:varname} = ${2} || ${3:default}"
+    ],
+    "description": "var or"
+  },
+  "std log": {
+    "prefix": "log",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "console.log(${1})"
+    ],
+    "description": "Log value via standard output"
+  },
+  "std log debug": {
+    "prefix": "log",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "console.log(\"${1:debug: message}\")",
+      "console.log(${2})"
+    ],
+    "description": "Log value via standard output (debug)"
+  },
+  "ecma array typed": {
+    "prefix": "ecma.classes.typed",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "${1|Int8Array,Uint8Array,Uint8ClampedArray,Int16Array,Uint16Array,Int32Array,Uint32Array,Float32Array,Float64Array,BigInt64Array,BigUint64Array|}"
+    ],
+    "description": "array typed"
+  },
+  "ecma classes": {
+    "prefix": "ecma.classes",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "${1|Array,Object,Number,String,Boolean,Function,Map,Set,Error,TypedError|}"
+    ],
+    "description": "global ecma classes"
+  },
+  "ecma versions": {
+    "prefix": "ecma.versions",
+    "scope": "json,javascript,javascriptreact,typescript,typescriptreact,html",
+    "body": [
+      "${1|none,commonjs,amd,umd,system,es2015,es2016,es2017,es2018,es2020,es2022,esnext,node16,nodenext|}"
+    ]
+  },
+  "ecma global extend function proxy": {
+    "prefix": "ecma.extend.function.proxy",
+    "body": [
+      "/* Proxy call to this function instance */",
+      "instance__ = this.call.bind(this)",
+      "instance__.__proto__ = this.constructor.prototype;",
+      "instance__.constructor = this.constructor;",
+      "return instance__;"
+    ],
+    "description": "ecma global extend function proxy"
+  },
+  "help": {
+    "description": "These are snippets common to TypeScript and JavaScript and ECMA Scripts",
+    "prefix": "",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": ""
+  },
+  "debugger": {
+    "description": "debugger",
+    "prefix": "dbg",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "debugger"
+    ]
+  },
+  "perf bench profile": {
+    "prefix": "perf.profile",
+    "body": [
+      "// Only avalable in the Profiles devtools panel",
+      "console.profile(\"${1:label}\");",
+      "  $0",
+      "console.profileEnd(\"${1}\");"
+    ],
+    "description": "perf bench profile"
+  },
+  "perf bench": {
+    "prefix": "perf.bench",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "console.time(`${1:label}`);",
+      "${2:code}",
+      "console.timeEnd(`${1}`);"
+    ],
+    "description": "Benchmark code"
+  },
+  "perf observer": {
+    "prefix": "perf.observe",
+    "body": [
+      "${1:import {",
+      "\tperformance as perf,",
+      "\tPerformanceMeasure,",
+      "\tPerformanceObserver",
+      "\\} from 'node:perf_hooks';}",
+      "",
+      "// Log performance measures",
+      "var perfObserver = new PerformanceObserver(",
+      "    (items, observer) => {",
+      "      let entries = Array.from(items.getEntries());",
+      "      for (let i = 0; i < entries.length; i++) {",
+      "        const entry = entries[i];",
+      "        console.log(entry.name, ` took `, entry.duration, ` ms`)",
+      "        ",
+      "      }",
+      "    });",
+      "    perfObserver.observe({ entryTypes: [\"${8|measure, mark, node, gc, function, http2, http|}\"] })",
+      "    ${10:perf.measure}"
+    ],
+    "description": "Use PerformanceObserver to log added entries"
+  },
+  "perf measure": {
+    "prefix": "perf.measure",
+    "body": [
+      "let perfMeasure${5:: PerformanceMeasure};",
+      "let duration${6:: number};",
+      "    perf.mark(\"${2}\");",
+      "    ${6:setTimeout()}",
+      "    perf.mark(\"${3}\");",
+      "    perfMeasure = perf.measure(\"${4:${2:start} to ${3:end}}\", \"$2\", \"$3\");",
+      "    duration    = Math.ceil(perfMeasure.duration * 100)/100;",
+      "    console.log(\"${4} took: \", duration, \"ms\");",
+      "",
+      "//  perf.clearMarks();",
+      "//  perf.clearMeasures();"
+    ],
+    "description": "Measure time between two events"
+  },
+  "match if": {
+    "prefix": "if",
+    "body": [
+      "if (${1:condition}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "match if"
+  },
+  "match if defined": {
+    "prefix": "if.defined",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "if(typeof ${TM_SELECTED_TEXT:${1| ,instance,window,globalThis|}} ${2|!==,==`|} \"undefined\") {",
+      "  $0",
+      "}"
+    ],
+    "description": "match.if.defined"
+  },
+  "match if defined in": {
+    "prefix": "if.defined.in",
+    "body": [
+      "if(\"${1:property}\" in ${2|window,globaThis,instance|}){",
+      "    $0",
+      "}"
+    ],
+    "description": "match if defined in"
+  },
+  "match if version": {
+    "prefix": "if.version",
+    "body": [
+      "import semverCoerce from \"semver/functions/coerce.js\"",
+      "import semver${1/(.*)/${1:/capitalize}/}     from \"semver/functions/${1|gt,gte,lt,lte,satisfies|}.js\"",
+      "",
+      "if (semver${1/(.*)/${1:/capitalize}/}(semverCoerce(${2:currentVersion}), \"${3:expectedVersion}\")) {",
+      "    console.warn(\"\\x1B[;38;2;255;200;0m0m⚠ Warning: Incompatible version of ${2} is detected:\\x1B[0m\");",
+      "    console.warn(\"$3 ${4|or later,or less|} version is expected, normal working is not guaranteed!\");",
+      "}"
+    ],
+    "description": "match if version"
+  },
+  "match if option.assign": {
+    "prefix": "if.assign",
+    "body": [
+      "${1:options.value} ${3|&&,\\|\\||} (this.${1} = ${4:${1}})"
+    ],
+    "description": "if true/false then y = z (objects)"
+  },
+  "match if throw": {
+    "prefix": "if.throw",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "if (${1:${TM_SELECTED_TEXT}})",
+      "{",
+      "\tthrow new ${2|this.constructor.IATE,TypeError,Error|}(`${Error: something went wrong}`)",
+      "}$0"
+    ],
+    "description": "if (...) { throw ... }"
+  },
+  "match if type wrong throw": {
+    "prefix": "if.type.throw",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "if (!(new Object(${1:${TM_SELECTED_TEXT:arg0}}).constructor === ${2:ecma.classes}))",
+      "{",
+      "\tthrow${3}",
+      "}$0"
+    ],
+    "description": "if (Object(in..).constructor != ...) { throw ... }"
+  },
+  "match if path exists": {
+    "prefix": "if.path.exists",
+    "body": [
+      "let dirName${1:: string}, dirExists${2:: boolean};",
+      "    dirName       = path.dirname(${3:path});",
+      "    dirNameExists = fs.existsSync(dirName);",
+      "    if (!dirExists) {",
+      "        fs.mkdirSync(dirName)",
+      "    }",
+      "",
+      "    fs.writeFileSync($3);$0"
+    ],
+    "description": "If path dir is not found, make one"
+  },
+  "match if assert": {
+    "prefix": "if.assert",
+    "description": "match if assert",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "console.assert(${1:condition}, \"${2:messageIfFalse}\",${3:optionalObjectToOutput})",
+      ""
+    ]
+  },
+  "match switch case": {
+    "description": "case: ... break;",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "prefix": "switch.case",
+    "body": [
+      "case ${1}:",
+      "${2}",
+      "break;$0"
+    ]
+  },
+  "match switch": {
+    "prefix": "switch",
+    "body": [
+      "switch (${1:input}) {",
+      "\tcase ${2:valueToMatch}:",
+      "\t\tconsole.log($2, \" - got match!\");$0",
+      "\t\tbreak;",
+      "\tdefault:",
+      "\t\tconsole.log(\"nothing matched\");",
+      "}"
+    ],
+    "description": "match switch"
+  },
+  "function iife": {
+    "description": "(function(){...})()",
+    "prefix": "fn.iife",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "(${2:async }function ($1) {",
+      "\tconsole.log(${1/(.*):(.*)/${1}/});$0",
+      "})(${1/(.*):(.*)/${1}/});"
+    ]
+  },
+  "function": {
+    "description": "export let fn() {...} - expression",
+    "prefix": "fn",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "",
+      "//---------------------------------------------------------------${2}",
+      "export ${1|let,var|} ${2:${TM_SELECTED_TEXT:name}} = ${3:fn.cb}"
+    ]
+  },
+  "function callback": {
+    "description": "fn() {...} - expression",
+    "prefix": "fn.cb",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "function (${4})${3|: void, |}",
+      "{",
+      "\tconsole.log(${4/^(.*):(.*)$/${1}/i});$0",
+      "}"
+    ]
+  },
+  "function callback short": {
+    "description": "() => {...} - expression",
+    "prefix": "fn.=>",
+    "body": [
+      "($1) => {$2}$0"
+    ]
+  },
+  "class options set": {
+    "prefix": "class.opt.set",
+    "body": [
+      "this.options = options || {};"
+    ],
+    "description": "class options set"
+  },
+  "class members": {
+    "prefix": "class.members",
+    "body": [
+      "${10|class.c,class.m,class.m.alias,class.m.t,class.m.d|}"
+    ],
+    "description": "class members snippet hints"
+  },
+  "class": {
+    "description": "New class",
+    "prefix": "class.new",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "",
+      "//----------------------------------------------------------------------------------${2}",
+      "class ${2:${TM_SELECTED_TEXT:Foo}} extends ${4|ecma.classes,Component|}${5}",
+      "{",
+      "\tclass.members${6}",
+      "",
+      "}"
+    ]
+  },
+  "ecma script class new": {
+    "description": "New ECMA file",
+    "prefix": "ecma.script.class.new",
+    "isFileTemplate": true,
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "import ${1: * as ${2:foo}} from \"${2}${3}\"",
+      "class.new${10}"
+    ]
+  },
+  "class constructor": {
+    "prefix": "class.c",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "",
+      "${3};",
+      "${4};",
+      "${5};",
+      "constructor(${3:arg0: object}, ${4:arg1: string}, ${5:options?: any}) {",
+      "\tsuper($10)",
+      "\t${5/options.*/class.opt.set/}${6}",
+      "\tconsole.log(${3/^(.*):(.*)/${1}/});$0",
+      "\tconsole.log(${4/^(.*):(.*)/${1}/});",
+      "} // DEFAULT CONSTRUCTOR END",
+      ""
+    ],
+    "description": "Class constructor"
+  },
+  "class method": {
+    "prefix": "class.m",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "${3|static , async , static async |}${1:${TM_SELECTED_TEXT:method}}(${5:arg0: any})${2| ,: void|}",
+      "{",
+      "    this.${10/^(.*):(.*)/${1}/} = ${10/^(.*):(.*)/${1}/};$11",
+      "    console.log(${10/^(.*):(.*)/${1}/});",
+      "    return ${2}",
+      "}"
+    ],
+    "description": "class method"
+  },
+  "class method typed": {
+    "description": "New class method() with typed parameters",
+    "prefix": "class.m.t",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "",
+      "${3/^(.*):(.*)/${2:+private}\t${1}:${2}\t= {}/}",
+      "${4/^(.*):(.*)/${2:+private}\t${1}:${2}\t= {}/}",
+      "//-----------------------------------------------------------------------------${2|--------,---------------|}-$1",
+      "${1:${TM_SELECTED_TEXT:method}}(${3:arg0: any}, ${4:arg1: any})",
+      "{",
+      "\tthis.${3/^(.*):(.*)/${1}/}$10",
+      "\tthis.${4/^(.*):(.*)/${1}/}$0",
+      "\treturn this",
+      "}"
+    ]
+  },
+  "class method alias": {
+    "prefix": "class.m.alias",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "/* Alias to $2 */",
+      "${3|static , async , static async |}${1:${TM_SELECTED_TEXT:aliasMethod}}(){ return ${2|this.call,this.init|}.apply(this, arguments); }"
+    ],
+    "description": "Class: proxy call to a target function"
+  },
+  "class property deprecate": {
+    "description": "Deprecate property",
+    "prefix": "class:p:deprecate",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "",
+      "//------------------------------------------------------------------------------",
+      "// TODO:REMOVE",
+      "// ${2:property} property is DEPRECATED",
+      "Object.defineProperty(${1:targetObject}, `${2:property}`, {",
+      "    writable    : false,",
+      "    enumerable  : false,",
+      "    configurable: true,",
+      "    get(){ throw new Error(`${2:property} field is deprecated`) },",
+      "    set(){ this.revision }",
+      "})"
+    ]
+  },
+  "array reduce": {
+    "description": "arr.reduce(function (){....}",
+    "prefix": "arr.reduce",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "let ${1:output} = ${2:${TM_SELECTED_TEXT:input_array}}.reduce(${3:function} (${4|out: any,out|}, ${5|val: any,val|}, ${7|i: number,i|}, ${1}) ${8| ,=>|} {",
+      "\tlet ${9:value} = ${4/^(.*):(.*)/${1}/};",
+      "\t    console.log(${9});$0",
+      "\t    return ${9}",
+      "})"
+    ]
+  },
+  "array forEach": {
+    "prefix": "arr.forEach",
+    "description": "see arr.eval instead",
+    "body": [
+      "// see arr.eval"
+    ]
+  },
+  "array map": {
+    "prefix": "arr.map",
+    "body": [
+      "let ${3:item} = ${1:targetArray}[0];",
+      "let out = ${4|[],{}|}",
+      "for (let ${5:i} = 0; ${5} < ${1}; ${5}++) {",
+      "\t${3} = ${1}[${5}]",
+      "\tconsole.log(${3})",
+      "\tout$0",
+      "}",
+      "console.log(out)"
+    ],
+    "description": "arr.map"
+  },
+  "for index": {
+    "prefix": "for.i",
+    "body": [
+      "for (${1|let,var,const|} ${2|i,j,k,l|} = 0; ${2} ${4|<,<=,=>,>|} ${3:upperLimit}; ${2}++) {",
+      "\tlet ${7:item} = ${6:arr}[$2];",
+      "\tconsole.log(item)",
+      "\t$0",
+      "}"
+    ],
+    "description": "for loop"
+  },
+  "array for of loop": {
+    "prefix": "forof",
+    "body": [
+      "// Very slow",
+      "for (const ${1:item:type} of ${3:array}) {",
+      "\tconsole.log($1);",
+      "\t$0",
+      "}"
+    ],
+    "description": "array for of loop"
+  },
+  "arr intersect": {
+    "prefix": "arr.intersect",
+    "body": [
+      "// clang-format off",
+      "/**",
+      " * Returns an array of common elements for this and anArray",
+      " * @template T",
+      " * @return {Array<T>}",
+      " **/",
+      "Array.prototype.intersect =\tfunction(anArray, SetC = Set) {",
+      "\t// clang-format on",
+      "\tlet anArrayIn1 = this;",
+      "\tlet anArrayIn2 = anArray;",
+      "\tlet anArrayOut = new SetC();",
+      "",
+      "\tfor (let iIn1 = 0; iIn1 < anArrayIn1.length; iIn1++) {",
+      "\t\tfor (let iIn2 = 0; iIn2 < anArrayIn2.length; iIn2++) {",
+      "\t\t\tif (anArrayIn1[iIn1] == anArrayIn2[iIn2])",
+      "\t\t\t\tanArrayOut.add(anArrayIn2[iIn2]);",
+      "\t\t}",
+      "\t}",
+      "\treturn Array.from(anArrayOut);",
+      "}"
+    ],
+    "description": "arr.intersect"
+  },
+  "string html tags strip slow": {
+    "prefix": "str.html.tags.strip.slow",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "description": "Strip html tags from a string (VERY SLOW)",
+    "body": [
+      "// Probably very slow",
+      "${1:targetString}.replace(/<[^>]*>/gi, ``)$0"
+    ]
+  },
+  "string parse html": {
+    "prefix": "str.parse.html",
+    "body": [
+      "let  = new DOMParser().parseFromString(${1:`<div><p>Hello world!</p></div>`}, 'text/html').body.textContent || '';",
+      "${10:document}"
+    ],
+    "description": "Parse HTML from a string"
+  },
+  "error throw": {
+    "prefix": "throw",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "throw new ${Error}(`${Errro: something went wrong}`)$0"
+    ],
+    "description": "Insert throw new Error(...)"
+  },
+  "webpack import": {
+    "prefix": "webpack.import",
+    "body": [
+      "await import(/* webpackChunkName: \"${1:chunkname}\" */ `$2${1:chunkname}`)",
+      "$3"
+    ],
+    "description": "Webpack import"
+  },
+  "JSDoc Func return": {
+    "prefix": "@return",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "* @returns {${1:object}} - ${3:bar}"
+    ],
+    "description": "@returns ..."
+  },
+  "JSDoc Func param": {
+    "prefix": "@param",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "* @param {${2:object}} ${1} - ${3:bar}"
+    ],
+    "description": " @param {...} ... - ..."
+  },
+  "JSDoc Func params": {
+    "prefix": "@params",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "* @param {Object} ${1:foo} -",
+      "* @param {${3:Object}} ${1}.${2:bar} - Object parameter",
+      "* @param {${5:Object}} ${4:baz} -",
+      "@return${0}"
+    ],
+    "description": " @param ... @param ... "
+  },
+  "JSDoc Object define": {
+    "prefix": "@def",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "* @typedef  {Object} ${1:XYZ} -",
+      "* @property {string} ${2:foo} -",
+      "* @property {string} ${3:bar} -",
+      "* @property {string} ${4:baz} -"
+    ],
+    "description": "@typedef {...} ... - "
+  },
+  "JSDoc TypeDef": {
+    "prefix": "@typedef",
+    "scope": "typescript,javascript,javascriptreact,typescriptreact,html",
+    "body": [
+      "@def"
+    ],
+    "description": "See JSDoc Object define"
+  }
+}

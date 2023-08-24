@@ -1,0 +1,65 @@
+{
+    "log info": {
+        "prefix": "log.info",
+        "description": "log info message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 5),$(tput setab 5),${TERM_SET_AF_5}|} info ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}.\"$0"
+        ]
+    },
+    "log i": {
+        "prefix": "log.i",
+        "description": "log  ! message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 5),$(tput setab 5),${TERM_SET_AF_5}|}  ! ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}.\"$0"
+        ]
+    },
+    "log skip": {
+        "prefix": "log.skip",
+        "description": "log  ! message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 5),$(tput setab 5),${TERM_SET_AF_5}|}  ! ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}. $(tput bold setaf 3)skipping ~$(tput sgr0)\"$0"
+        ]
+    },
+    "log ok": {
+        "prefix": "log.ok",
+        "description": "log ok message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 2),$(tput setab 2),${TERM_SET_AF_2}|} ok ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}.\"$0"
+        ]
+    },
+    "log done": {
+        "prefix": "log.done",
+        "description": "log done message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 2),$(tput setab 2),${TERM_SET_AF_2}|} done ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:done!} ✔\"$0"
+        ]
+    },
+    "log warn": {
+        "prefix": "log.warn",
+        "description": "log warn message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 3),$(tput setab 3),${TERM_SET_AF_3}|} warn ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}.\"$0"
+        ]
+    },
+    "log error": {
+        "prefix": "log.error",
+        "description": "log error message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 1),$(tput setab 1),${TERM_SET_AF_1}|} error ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}. Aborting.\" ${6:>&2 ;}$0"
+        ]
+    },
+    "log fatal": {
+        "prefix": "log.fatal",
+        "description": "log fatal message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 1),$(tput setab 1),${TERM_SET_AF_1}|} fatal ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}. Aborting.\" ${6:>&2 ;}$0"
+        ]
+    },
+    "log abort": {
+        "prefix": "log.abort",
+        "description": "log aborting message",
+        "body": [
+            "echo -e \"\\${0}:${1|$(tput setaf 5),$(tput setab 5),${TERM_SET_AF_5}|} aborting ${2|$(tput sgr0),${TERM_SET_OP}|} ${5:message}.\"$0"
+        ]
+    }
+}

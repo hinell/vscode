@@ -1,0 +1,92 @@
+{
+    "cc feat": {
+        "prefix": "cc.feat",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:feat}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc fix": {
+        "prefix": "cc.fix",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:fix}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc refactor": {
+        "prefix": "cc.refactor",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:refactor}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc chore": {
+        "prefix": "cc.chore",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:chore}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc ci": {
+        "prefix": "cc.ci",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:ci}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc docs": {
+        "prefix": "cc.docs",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:docs}(${2|*,README.md,DEVELOPMENT.md|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc perf": {
+        "prefix": "cc.perf",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:perf}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc style": {
+        "prefix": "cc.style",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:style}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc test": {
+        "prefix": "cc.test",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:test}(${2|*|}): ${3}",
+            "",
+            "$0"
+        ]
+    },
+    "cc feat !": {
+        "prefix": "cc.feat!",
+        "description": "Conventional commits message",
+        "body": [
+            "${1:feat}(${2|*|})!: ${3}",
+            "",
+            "BREAKING CHANGE: $0"
+        ]
+    }
+}

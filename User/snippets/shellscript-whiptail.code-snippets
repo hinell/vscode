@@ -1,0 +1,100 @@
+{
+  "match.if.whiptail.input": {
+    "prefix": "if.whiptail.input",
+    "body": [
+      "local ${1:OUTPUT}=\\$(whiptail \\",
+      "\t--title \"\\$0 ${2:title}\" \\",
+      "\t--inputbox \"${3:Text for the input box}\" \\",
+      "\t8 40 \\",
+      "\t\"${4:Default value} \" \\",
+      "\t3>&1 1>&2 2>&3)",
+      "",
+      "if [[ -z \"\\$${1}\" ]];",
+      "then",
+      "\techo \"\\$${1}${0} empty\"",
+      "else",
+      "\techo \"\\$${1}${0}\"",
+      "fi"
+    ],
+    "description": "Whiptail input"
+  },
+  "match.if.whiptail.yn": {
+    "prefix": "if.whiptail.yn",
+    "body": [
+      "if (whiptail \\",
+      "\t--title \"\\$0 ${2:title}\" \\",
+      "\t--yesno  \"${3: Question?}\" \\",
+      "\t${4:--defaultno}\\",
+      "\t8 40 );",
+      "then",
+      "\techo true $0",
+      "else",
+      "\techo false",
+      "fi"
+    ],
+    "description": "Whiptail yes/no dialog"
+  },
+  "match.if.whiptail.menu": {
+    "prefix": "if.whiptail.menu",
+    "body": [
+      "local ${1:OTUPUT}=($(whiptail \\",
+      "\t--menu \"${3:Select an entry}\" \\",
+      "\t20 40 10 \\",
+      "\ttag1 \"${4}\" \\",
+      "\ttag2 \"${5:entry2}\" \\",
+      "\t3>&1 1>&2 2>&3",
+      "))",
+      "",
+      "[[ -z \"\\${${1}\\}\" ]] && {",
+      "\techo -e \"\\$0: nothing is selected. Aborting.\";",
+      "\treturn 1;",
+      "} ",
+      "",
+      "declare -p ${1}"
+    ],
+    "description": "match.if.whiptail.menu"
+  },
+  "match.if.whiptail.checkboxes": {
+    "prefix": "if.whiptail.checkboxes",
+    "body": [
+      "local ${1:OUTPUT_ARRAY}=(\\$(whiptail \\",
+      "\t--title \"\\$0 ${2:title}\" \\",
+      "\t--checklist \"${3:Text for the input box}\" \\",
+      "\t--no${4|tags,item|} \\",
+      "\t20 80 4 \\",
+      "\t\"OPT1\" \"${6:Question 1?}\" 1 \\",
+      "\t\"OPT2\" \"${8:Question 2?}\" 0 \\",
+      "\t\"OPT3\" \"${10:Question 3?}\" 1 \\",
+      "\t3>&1 1>&2 2>&3",
+      "))",
+      "",
+      "if [[ \\${#${1}[@]} -eq 0 ]];",
+      "then",
+      "\techo -e \"\\$0: nothing is selected. Aborting.\";",
+      "fi ",
+      "arr.contains$0"
+    ],
+    "description": "if.whiptail.checkboxes"
+  },
+  "match.if.whiptail.radiolist": {
+    "prefix": "if.whiptail.radiolist",
+    "body": [
+      "local ${1:OUTPUT}=\\$(whiptail \\",
+      "    --title \"\\$0 ${2:title}\" \\",
+      "    --radiolist \"${3:Text for the input box}\" \\",
+      "    --no${4|tags,item|} \\",
+      "    20 78 4 \\",
+      "    \"OPT1\" \"${6:Question 1?}\" 1 \\",
+      "    \"OPT2\" \"${8:Question 2?}\" 0 \\",
+      "    \"OPT3\" \"${10:Question 3?}\" 0 \\",
+      "    3>&1 1>&2 2>&3",
+      ")",
+      "[[ -z \"\\${${1}\\}\" ]] && {",
+      "\techo -e \"\\$0: nothing is selected. Aborting.\";",
+      "\treturn 1;",
+      "} ",
+      "\techo \"Selection\"$0"
+    ],
+    "description": "if.whiptail.radiolist"
+  }
+}

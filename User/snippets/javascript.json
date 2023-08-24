@@ -1,0 +1,59 @@
+{
+    "array eval": {
+        "prefix": "arr.eval",
+        "body": [
+            "let ${3:outputArray} = ${1:${TM_SELECTED_TEXT:inputArray}}.${2|forEach,map|}(${4:function} (${6:v}, ${7:i}, ${8:arr})${5| , => |}{",
+            "\t\tconsole.log($6);$0",
+            "\t\treturn ${6}",
+            "\t});"
+        ],
+        "description": "array.eval"
+    },
+    "array while": {
+        "prefix": "arr.while",
+        "body": [
+            "while (${1:condition}) {",
+            "  $0",
+            "}"
+        ],
+        "description": "array.while"
+    },
+    "tests test": {
+        "prefix": "tests.test",
+        "body": [
+            "${testType}(`${testName}`, function (${done}) {",
+            "\t${body}$0",
+            "})"
+        ],
+        "description": "insert describe(..., fun () { it(..) })"
+    },
+    "tests suit": {
+        "prefix": "tests.suit",
+        "body": [
+            "describe(`${testsName}`, function () {",
+            "\tit(`${testName}`, function (done) {",
+            "\t\t${body}$0",
+            "\t})",
+            "})"
+        ],
+        "description": "insert describe(..., fun () { it(..) })"
+    },
+    "typescript directive": {
+        "prefix": "ts.directive",
+        "body": [
+            "/// <reference path=\"$1\" />",
+            "$0"
+        ],
+        "description": "TypeScript refererence directive"
+    },
+    "workspace doc open": {
+        "prefix": "doc.open.content",
+        "body": [
+            "workspace.openTextDocument({",
+            "    content : ${1:\"File content\"},",
+            "    language: \"${2|javascript,typescript,texmate.snippet|}\"",
+            "});"
+        ],
+        "description": "Open vs code workspace document"
+    }
+}

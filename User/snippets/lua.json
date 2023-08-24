@@ -1,0 +1,508 @@
+{
+  "std log": {
+    "prefix": "log",
+    "body": [
+      "print((\"%s: ${3:message} %s\"):format(${5:debug.getinfo(1).source}${6}))"
+    ],
+    "description": "print (print, error)"
+  },
+  "std error": {
+    "prefix": "log.err",
+    "body": [
+      "error(\"${3}\", 2)"
+    ],
+    "description": "print error"
+  },
+  "var": {
+      "prefix": "var",
+      "body": [
+          "local ${2:varName} = ${4:value}"
+      ],
+      "description": "var declare"
+  },
+  "var or": {
+      "prefix": "var.or",
+      "body": [
+          "${1:varname} = ${1} or ${2:value ifFalse}"
+      ],
+      "description": "var or"
+  },
+  "var and": {
+      "prefix": "var.and",
+      "body": [
+          "${1:varname} = ${1} and ${3:ifTrue} or ${2:ifFalse}"
+      ],
+      "description": "var and"
+  },
+  "var import module": {
+    "prefix": "var.imp",
+    "description": "var = require(...)",
+    "body": [
+      "local ${1}${2} = require(\"${1:mod}\")$0"
+    ]
+  },
+  "var import module path": {
+    "prefix": "var.imp.path",
+    "body": [
+        "package.path_ = package.path",
+        "local DATA_HOME = vim.env.XDG_DATA_HOME or vim.env.HOME .. \"/.local/share\"",
+        "package.path = (\"%s%s;\"):format(",
+        "\tpackage.path,",
+        "\tDATA_HOME .. \"/nvim/site/${1:PLUGIN_NAME}/lua/?.lua\"$0",
+        ")",
+        "",
+        "package.path = package.path_"
+    ],
+    "description": "var = require(...), change package.path"
+  },
+  "var assert call": {
+      "prefix": "var.pcall.assert",
+      "body": [
+          "local ${3}Ok, ${3:modOrError} = assert(pcall(${1:require}, \"${2:${TM_SELECTED_TEXT}}\"))",
+          "${3}$0"
+      ],
+      "description": "pcall(...) - Assert a function invokation"
+  },
+  "var pcall": {
+      "prefix": "var.pcall",
+      "description": "var v = pcall(...) - safely invoke function and catch errors",
+      "body": [
+          "local ${3}Ok, ${3:modOrError} = pcall(${1:require}, \"${2:${TM_SELECTED_TEXT}}\")",
+          "assert(${3}Ok, \"${3} is not found\")",
+          "if ${3}Ok then",
+          "\t${3}${0}",
+          "end"
+      ]
+  },
+  "str.split": {
+    "prefix": "str.split",
+    "body": [
+      "local ${2:outputArray}={}",
+      "for match in (${1:InputString}):gmatch(\"${3:%s+}\") do",
+      "\ttable.insert(${2}, match)",
+      "end"
+    ],
+    "description": "str.split"
+  },
+  "match std assert": {
+    "prefix": "if.assert",
+    "body": [
+      "assert(${1:condition},(\"[[%s]]: %s \"):format(\"${2:scope}\", \"${3:Message if fails}\"))"
+    ],
+    "description": "std assert"
+  },
+  "match if": {
+    "prefix": "if",
+    "description": "if .. then .. end",
+    "body": [
+      "if ${2:${TM_SELECTED_TEXT}} then",
+      "\t${0}",
+      "end"
+    ]
+  },
+  "match if type": {
+    "prefix": "if.type",
+    "description": "If type ... then",
+    "body": [
+      "if type(${1}) ${2|~=,==|} \"${3|table,number,string,boolean,nil,function|}\" then",
+      "\terror(\"${4:arg1}: ${3} is expected$0\", 2)",
+      "end"
+    ]
+  },
+  "match if return": {
+    "prefix": "if.return",
+    "body": [
+      "if ${1:true} then return end"
+    ],
+    "description": "If return"
+  },
+  "match if root": {
+    "prefix": "if.root",
+    "body": [
+      "Implement!"
+    ],
+    "description": "If root"
+  },
+  "match if short": {
+    "prefix": "if.short",
+    "body": [
+      "local ${10:OUTPUT} = ${1:CONDITION} and ${2:IFTRUE} or ${3:IFFALSE}",
+      ""
+    ],
+    "description": "If short"
+  },
+  "std match platform": {
+    "prefix": "if.os",
+    "body": [
+      " if jit.os == \"${1|Linux,Windows,OSX,BSD,POSIX,Other|}\" then",
+      "     print(\"This is $1\")$0",
+      " end",
+      ""
+    ],
+    "description": "Std if platform"
+  },
+  "var function": {
+    "prefix": "var.fn",
+    "description": "local ... = function() ... end",
+    "body": [
+      "--- TODO [${CURRENT_MONTH_NAME} $CURRENT_DATE, $CURRENT_YEAR]: add description",
+      "--- @param ${3} ${4:type}",
+      "--- @return ${5:type}",
+      "${2:local }${1:name} = function (${3:self})",
+      "\t${0}",
+      "end",
+      "${1}()"
+    ]
+  },
+  "function": {
+    "prefix": "fn",
+    "description": "function() ... end",
+    "body": [
+      "--- ${0}TODO: Add description [${CURRENT_MONTH_NAME} $CURRENT_DATE, $CURRENT_YEAR]${6}",
+      "--- @param ${3} ${4:type}",
+      "--- @return ${5:type}",
+      "$function ${2:name}(${3:self})",
+      "\t${0}",
+      "end"
+    ]
+  },
+  "function callback": {
+    "prefix": "fn.cb",
+    "description": "function() ... end - expression",
+    "body": [
+      "function($1)",
+      "\tprint(#arg) -- for variadic args",
+      "\t${0:}",
+      "end"
+    ]
+  },
+  "sys fs open": {
+    "prefix": "fs.open",
+    "description": "File system: open a file",
+    "body": [
+      "local ${3:file} = io.open(\"${1:log.txt}\", \"${2|r,w,a,r+,w+,a+|}\")",
+      "${7:result = }${3}:${6|read,write|}(${5})",
+      "${3}:flush()",
+      "${3}:close()"
+    ]
+  },
+  "array eval": {
+    "prefix": "arr.eval",
+    "body": [
+      "for ${4:k}, ${5:v} in ${1}pairs(${2:target}) do",
+      "\tprint(${4}, ${5})$0",
+      "end"
+    ],
+    "description": "Array for each"
+  },
+  "array eval indexed": {
+    "prefix": "arr.eval.i",
+    "body": [
+      "local ${2:item} = nil",
+      "for i = 1, #${1:targetArray} do",
+      "    ${2} = ${1}[i]",
+      "    $0",
+      "    print(${2})",
+      "end",
+      ""
+    ],
+    "description": "arr eval indexed"
+  },
+  "array slice": {
+    "prefix": "arr.slice",
+    "body": [
+      "local ${2:output} = { unpack(${1:input}, ${2:length}, #${1}) }"
+    ],
+    "description": "Array slice into a subset"
+  },
+  "array concat": {
+    "prefix": "arr.concat",
+    "body": [
+      "---DEPERECATED",
+      "--local ${3} = { unpack(${1:inputA}), unpack(${1:inputB}) }"
+    ],
+    "description": "arr.concat"
+  },
+  "array while": {
+    "prefix": "arr.while",
+    "body": [
+      "while ${1:condition} do",
+      "  $0",
+      "end"
+    ],
+    "description": "array while"
+  },
+  "array merge polyfill": {
+    "prefix": "_array.merge",
+    "body": [
+      "--- Merge two tables recursively into a new one",
+      "-- @param vl {table} - table on the left",
+      "-- @param vr {table} - table on the right",
+      "-- @return table",
+      "merge = function(vl, vr)",
+      "\tlocal merge1 = vl and (type(vl) == \"table\" or #vl ~= 0)",
+      "\tlocal merge2 = vr and (type(vr) == \"table\" or #vr ~= 0)",
+      "\tlocal new_tbl = {}",
+      "\tif merge1 and merge2 then",
+      "\t\tfor k, v in pairs(vl) do",
+      "\t\t\tif vl[k] and (type(vl[k]) == \"table\") then",
+      "\t\t\t\tnew_tbl[k] = merge(vl[k], v)",
+      "\t\t\telse",
+      "\t\t\t\tnew_tbl[k] = v",
+      "\t\t\tend",
+      "\t\tend",
+      "\t\tfor k, v in pairs(vr) do",
+      "\t\t\tif vr[k] and (type(vr[k]) == \"table\") then",
+      "\t\t\t\tnew_tbl[k] = merge(vr[k], v)",
+      "\t\t\telse",
+      "\t\t\t\tnew_tbl[k] = v",
+      "\t\t\tend",
+      "\t\tend",
+      "\t\treturn new_tbl",
+      "\telse",
+      "\t\treturn vl or lr",
+      "\tend",
+      "end",
+      ""
+    ],
+    "description": "Merge tables recursively (Polyfill)"
+  },
+  "array merge polyfill 2": {
+    "prefix": "table.merge",
+    "body": [
+      "--- Merge two tables non-recursively into a new one",
+      "-- NOTE: You can use vim.tbl_extend",
+      "-- @param table vl",
+      "-- @param table vr",
+      "-- @return table",
+      "${1}merge = function(v1, v2)",
+      "    local v1_t = type(v1)",
+      "    local v2_t = type(v2)",
+      "",
+      "    if v1_t  ~= \"table\" or v2_t ~= \"table\" then",
+      "        error(\"merge: TypeError: tables are expected, \" .. v1_t .. \" and \" .. v2_t .. \" are provided instead!\")",
+      "    end",
+      "",
+      "    local out = v1",
+      "    for k, v in pairs(v2) do",
+      "        out[k] = v",
+      "    end",
+      "    return out",
+      "end",
+      ""
+    ],
+    "description": "Merge tables recursively (Polyfill)"
+  },
+  "string format": {
+    "prefix": "str.fmt",
+    "body": [
+      "(\"%s ${1}\"):format(${0})"
+    ],
+    "description": "string format"
+  },
+  "class static method subclass": {
+    "prefix": "class.sm.sub",
+    "body": [
+      "-- TODO: don't forget to inherit STATIC methods",
+      "--- Inherit a base class. Returns a table with :new(...) method",
+      "--- @usage ...:subclass(function(self, super, ...) return super:new(...) end)",
+      "--- @param function A constructor function",
+      "--- @return table",
+      "function ${1:ClassName}:subclass (constructor)",
+      "\tlocal super = self",
+      "\tassert(constructor, \"subclass: constructor is missing, please provide a function!\")",
+      "\tassert(type(constructor) == \"function\", \"subclass: constructor should be function type!\")",
+      "",
+      "\tlocal class = {}",
+      "\tclass.subclass = self.subclass",
+      "\tclass.prototype = self.prototype or {}",
+      "\tfor k,v in pairs(self) do",
+      "\t\tclass[k] = self[k]",
+      "\tend",
+      "\tclass._mt = self._mt",
+      "\tclass._new = constructor or function() end",
+      "\tclass.super = super",
+      "\tclass.prototype.constructor = class",
+      "\tclass.new = function(self, ...)",
+      "\t\tlocal  instance = self:_new(self.super, ...)",
+      "\t\t\t   instance = instance or {}",
+      "\t\t\t   instance.constructor = self",
+      "\t\t\t   setmetatable(instance, self._mt)",
+      "\t\treturn instance",
+      "\tend",
+      "",
+      "\treturn class",
+      "end"
+    ],
+    "description": "Declare class static subclass method"
+  },
+  "class static method new": {
+    "prefix": "class.new",
+    "body": [
+      "-- Prototype is a set of functions and variables that are accessible on the",
+      "-- class's instance. It allows to set instance members in one place.",
+      "-- Borrowed heavily from ECMAScript",
+      "--- ${5:TODO: [${CURRENT_MONTH_NAME} ${CURRENT_DATE}, ${CURRENT_YEAR}] Describe the class}",
+      "--- @diagnostic disable-next-line: missing-fields",
+      "${1:ClassName} = { prototype = { constructor = ${1} } }",
+      "${1}._mt = { ",
+      "\t__index = function(table, key)",
+      "\t\tif key == \"constructor\" then return ${1} end",
+      "\t\treturn table.constructor.prototype[key]",
+      "\t\t\tor\ttable.constructor.super",
+      "\t\t\tand table.constructor.super.prototype[key]",
+      "\tend",
+      "}",
+      "",
+      "--- Creates new instance static method)",
+      "--- @param self any",
+      "--- @param ${2} ${3:paramType}",
+      "--- @return ${1}Instance",
+      "function ${1:ClassName}:new (${2:paramName})",
+      "\tlocal instance = {}",
+      "\tinstance.${2} = ${2}",
+      "\tinstance.constructor = self",
+      "\tsetmetatable(instance, self._mt)",
+      "\treturn instance",
+      "end",
+      "",
+      "",
+      "class.sub${10}",
+      "class.m${11}",
+      "class.ins${12}"
+    ],
+    "description": "declare class static method new"
+  },
+  "class instance method": {
+    "prefix": "class.m",
+    "body": [
+      "--- ${6:Description}",
+      "--- @param self ${2}${1:M.Class}Instance",
+      "function ${1}.prototype:${3:methodName}(${4:param})",
+      "\tlocal val = self${0}",
+      "\tprint(${3})",
+      "end"
+    ],
+    "description": "class instance method"
+  },
+  "class instance instanceof": {
+    "prefix": "class.instof",
+    "body": [
+      "--- I'm checking whether given instance is a part of class chain",
+      "--- @usage ...:instanceOf(Class)",
+      "--- @param table A class (table)",
+      "--- @return boolean",
+      "function ${1:className}.prototype:instanceof(aClass)",
+      "\tlocal errMessage = \"\"",
+      "\t.. \"[[...:instanceof(...):]]\"",
+      "\t.. \"invalid argument: table is expected\"",
+      "\t.. \"got instead: \" \t.. type(aClass)",
+      "\tassert(type(aClass) == \"table\", errMessage)",
+      "",
+      "\tlocal constructor = self.constructor",
+      "\twhile constructor do",
+      "\t\tif constructor == aClass then",
+      "\t\t\treturn true",
+      "\t\telse",
+      "\t\t\tconstructor = constructor.super",
+      "\t\tend",
+      "\tend",
+      "\treturn false",
+      "end"
+    ],
+    "description": "declare a method to check whether class instance is instanceof of a class"
+  },
+  "class new instance": {
+    "prefix": "class.ins",
+    "body": [
+      "local ${2:instance} = ${1:className}:new(${args})",
+      "${2}${0}"
+    ],
+    "description": "instantiate a class"
+  },
+  "clpass instance prop": {
+    "prefix": "class.ip",
+    "body": [
+      "${1:instance}.${2:key} = ${2}$0"
+    ],
+    "description": "clpass instance prop"
+  },
+  "class inherit new subclass": {
+    "prefix": "class.inh",
+    "body": [
+      "--- ${10:TODO: [${CURRENT_MONTH_NAME} ${CURRENT_DATE}, ${CURRENT_YEAR}] Describe the class}",
+      "--- @class ${4}",
+      "${3:local }${4:childClassName} = ${5:baseClassName}:subclass(function(${4}, Super, ${6:arg1})",
+      "\tlocal instance = super:new(${6})",
+      "\t$0",
+      "\treturn instance",
+      "end)"
+    ],
+    "description": "class inherit new subclass"
+  },
+  "lua std modules": {
+    "prefix": "lua.mod",
+    "description": "Lua built-in modules list",
+    "body": [
+      "${1|table,string,io,os,math,debug,bit32|}"
+    ]
+  },
+  "module new user config": {
+    "prefix": "mod.new.user",
+    "body": [
+      "-- ${3:TODO: [$CURRENT_MONTH_NAME $CURRENT_DATE, $CURRENT_YEAR] Add module description}",
+      "local ${2|M,exports|} = {}",
+      "${2:M}.init = function(${4:self,} pm)",
+      "\tlocal use = pm.use",
+      "\tuse({",
+      "\t\t\"$5\",",
+      "\t\tconfig = function()",
+      "\t\t\tlocal ${7:module} = require(\"${5}${6}\")",
+      "\t\t\tlocal legendaryIsOk, legendary = pcall(require, \"legendary\")",
+      "\t\t\tif legendaryIsOk then",
+      "\t\t\t\tlocal ${10:keymaps} = {",
+      "\t\t\t\t\t{}$0",
+      "\t\t\t\t}",
+      "\t\t\t\tlegendary.keymaps(${10})",
+      "\t\t\tend",
+      "\t\tend",
+      "\t})",
+      "",
+      "end",
+      "return ${2}"
+    ],
+    "description": "module new"
+  },
+  "scope do": {
+    "prefix": "do",
+    "body": [
+      "do",
+      "   $0",
+      "end"
+    ],
+    "description": "do ... end"
+  },
+  "lua formatter lf": {
+    "prefix": "formatter.lf",
+    "body": [
+      "-- LuaFormatter ${1|off,on|}"
+    ],
+    "description": "LuaFormatter enable/disable local formatting"
+  },
+  "lua formatter stylua": {
+    "prefix": "formatter.sl",
+    "body": [
+      "-- stylua: ignore ${1|start,end|}"
+    ],
+    "description": "Stylua enable/disable local formatting"
+  },
+  "test": {
+    "prefix": "test",
+    "body": [
+      "${1|describe,it|}(\"${3:Describing heading}\", function()",
+      "\tassert.$0",
+      "end)"
+    ],
+    "description": "describe(...) or it(...)"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "directive check": {
+    "prefix": "directive.check",
+    "body": [
+      "// @ts-${1| ,no|}check"
+    ],
+    "description": "@ts-check"
+  },
+  "directive refpath": {
+    "prefix": "directive.refpath",
+    "body": [
+      "/// <reference path=\"$1\" />",
+      "// Reference external file",
+      "$0"
+    ],
+    "description": "<reference path ... >"
+  },
+  "declaration import custom": {
+    "prefix": "modules.import.custom",
+    "description": "Import non-modules, like .css, .txt etc",
+    "body": [
+      "// Put this only into declaration files!",
+      "// The following should be put into d.ts",
+      "// And imported or referenced as usual modula",
+      "// Fixes imports of non-modules",
+      "// See https://github.com/microsoft/TypeScript/issues/2709",
+      "declare module '*.${1|txt,css,scss,svg,png,jpg|}';"
+    ]
+  },
+"declaration modules require custom ": {
+  "prefix": "modules.require.custom ",
+  "body": [
+    "// Put this only into declaration files!",
+    "declare var require: {",
+    "  <T>(path: string): T;",
+    "  (paths: string[], callback: (...modules: any[]) => void): void;",
+    "  ensure: (",
+    "    paths: string[],",
+    "    callback: (require: <T>(path: string) => T) => void",
+    "  ) => void;",
+    "};"
+  ],
+  "description": "declaration require custom "
+},
+  "array.eval": {
+    "prefix": "arr.eval",
+    "body": [
+      "${1:${TM_SELECTED_TEXT:array}}.${2|forEach,map|}(${3:function} (${5:v: any}, ${6:i: number}, ${7:arr: Array<any>})${4| , => |}{",
+      "\t\tconsole.log(${5/(.*):(.*)/${1}/});$0",
+      "\t\treturn ${5/(.*):(.*)/${1}/}",
+      "\t});"
+    ],
+    "description": "array.eval"
+  },
+  "tests test": {
+    "prefix": "tests.test",
+    "body": [
+      "${testType}(`${testName}`, function (${done}) {",
+      "\t${body}",
+      "})",
+      "$0"
+    ],
+    "description": "insert describe(..., fun () { it(..) })"
+  },
+  "tests suit": {
+    "prefix": "tests.suit",
+    "body": [
+      "describe(`${testsName}`, function () {",
+      "\tit(`${testName}`, function (done) {",
+      "\t\t${body}",
+      "\t})",
+      "})",
+      "$0"
+    ],
+    "description": "insert describe(..., fun () { it(..) })"
+  }
+}

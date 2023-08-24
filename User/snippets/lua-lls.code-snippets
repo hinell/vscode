@@ -1,0 +1,58 @@
+{
+  "lls doc head": {
+    "prefix": "lls.head",
+    "body": [
+      "------------",
+      "-- ${1:Module description}",
+      "-- @module ${2:moduleName}",
+      "-- @alias ${2}",
+      "-- @author ${3:Hinell}",
+      "-- @license ${4|MIT,FOSSIL|}",
+      "-- @copyright ${CURRENT_YEAR}- (C) Alex Davronov <al.neodim@gmail.com>"
+    ],
+    "description": "lua-cats doc: describe file"
+  },
+  "lls type alias": {
+      "prefix": "lls.al",
+      "body": [
+          "--- @alias ${1:name} ${2|nil,boolean,number,string,table|} ${3:TODO [${CURRENT_MONTH_NAME} $CURRENT_DATE, $CURRENT_YEAR]: add description}"
+      ],
+      "description": "lua-cats doc: type alias"
+  },
+  "lls field": {
+      "prefix": "lls.f",
+      "body": [
+          "--- @field ${1:name} ${2|nil,boolean,number,string,table|} ${3:TODO: [${CURRENT_MONTH_NAME} $CURRENT_DATE, $CURRENT_YEAR] add description}"
+      ],
+      "description": "lua-cats doc: field"
+  },
+  "lls field fn": {
+      "prefix": "lls.f.fn",
+      "body": [
+          "--- @field new fun(${1:ar1}: ${2|nil,boolean,number,string,table|}): ${0|nil,boolean,number,string,table|}"
+      ],
+      "description": "lua-cats doc: function field"
+  },
+  "lls table": {
+    "prefix": "lls.t",
+    "body": [
+      "--- @class ${1:Foo}",
+      "--- @field ${0}"
+    ],
+  "description": "lua-cats doc: describe class + instance"
+  },
+ "lls class": {
+    "prefix": "lls.c",
+    "body": [
+      "--- @class ${1:Foo}Instance${2::Base}Instance",
+      "--- @field constructor ${1}",
+      "--- @field ${3:prop} ${4|table,string,boolean,number|} ${5:description}",
+      "--- @field ${6:methodName} fun(self: ${1}Instance, param1): any",
+      "",
+      "--- @class ${1:Foo}${2::Base}",
+      "--- @field new fun(self, arg: arg1): ${1}Instance",
+      "--- @field prototype ${1}Instance"
+    ],
+    "description": "lua-cats doc: describe class + instance"
+  }
+}

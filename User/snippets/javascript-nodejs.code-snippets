@@ -1,0 +1,132 @@
+{
+  "buffer.ncoding": {
+    "prefix": "buf.encoding",
+    "body": [
+      "\"${1|utf8,utf16le,latin1,base64,base64url,hex,ascii|}\""
+    ],
+    "description": "Buffer encoding"
+  },
+  "import.sys.fs": {
+    "prefix": "import.sys.fs",
+    "scope": "javascript,typescript",
+    "body": [
+      "import * as fs   from \"node:fs\"",
+      "import * as path from \"node:path\""
+    ],
+    "description": "import sys fs"
+  },
+  "match.if.platform ": {
+    "prefix": "if.platform",
+    "body": [
+      "switch (process.platform) {",
+      "    case 'aix'    : ${1}break;",
+      "    case 'darwin' : break;",
+      "    case 'freebsd': break;",
+      "    case 'linux'  : break;",
+      "    case 'openbsd': break;",
+      "    case 'sunos'  : break;",
+      "    case 'win32'  : break;",
+      "    default: break;",
+      "}"
+    ],
+    "description": "match if platform "
+  },
+  "sys.stdin.read": {
+    "prefix": "sys.stdin",
+    "body": [
+      "let source${1:: Object} = process.stdin;",
+      "let inputBuffer${2:: string}  = \"\";",
+      "    source.setEncoding(\"${4|utf8,buf.encoding|}\");",
+      "    source.on(\"data\", (chunk${2}) => {",
+      "      inputBuffer+=chunk;",
+      "    });",
+      "",
+      "    source.on('end', () => {",
+      "      console.log(\"Your stdin is:\");",
+      "      console.log(inputBuffer);$0",
+      "    });"
+    ],
+    "description": "sys stdin"
+  },
+  "sys fs stream file in": {
+  "prefix": "fs.stream.file.in",
+  "body": [
+    "import { create${7} } from 'node:fs';",
+    "import * as fs from 'node:fs/promises';",
+    "",
+    "let stats${2|:fs.Stats, |};",
+    "try {",
+    "            await fs.access(\"${3|input.txt|}\", fs.constants.${4|F_OK,R_OK,W_OK|});",
+    "    stats = await fs.stat(\"${3}\");",
+    "} catch (err) {",
+    "    console.error(process.argv[0], \" has failed! aborting\");",
+    "    console.error(err.message);",
+    "    process.exit(1);",
+    "}",
+    "",
+    "let inputBuffer${6:: string}  = \"\";",
+    "let source${8:: fs.$7} = create${7|ReadStream,WriteStream|}(\"$3\", { encoding: \"${5|utf8,buf.encoding|}\" });",
+    "    source.on(\"data\", (${10:chunk}) => {",
+    "      inputBuffer+=${10:chunk};",
+    "    });",
+    "",
+    "    source.on('end', () => {",
+    "      console.log(\"Your stdin is:\");",
+    "      console.log(inputBuffer);",
+    "    });"
+  ],
+  "description": "sys fs stream file in"
+},
+  "sys.env.app. path": {
+    "prefix": "sys.env.app.path",
+    "body": [
+      "let APPDATA = process.env.APPDATA || '';",
+      "let HOME    = process.env.HOME    || '';",
+      "let APPPATH = path.join(${1|APPDATA,HOME|}, \".config\", \"Code\", \"User\")"
+    ],
+    "description": "sys app path"
+  },
+  "sys.cli.parse": {
+    "prefix": "sys.cli.parse",
+    "scope": "javascript,typescript",
+    "body": [
+      "let cli = { options: {} }",
+      "",
+      "    for (let i = 2; i < process.argv.length; i++) {",
+      "        const flag = process.argv[i];",
+      "        switch (flag) {",
+      "            case \"-w\":",
+      "            case \"--watch\":",
+      "                cli.options.watch = true;$3",
+      "                break;",
+      "",
+      "            case \"-h\":",
+      "            case \"--help\":",
+      "                console.log(`${1:$TM_FILENAME} [-w|--watch] [-h|--help]`)$2;",
+      "                process.exit(0);",
+      "                break;",
+      "            default: break;",
+      "        }",
+      "        ",
+      "    }$0"
+    ],
+    "description": "cli parse"
+  },
+  "module.cjs.globals": {
+    "prefix": "globals.cjs.module",
+    "scope": "typescript,javascript",
+    "body": [
+      "// Current module pathname & dirname, NOT available in ES Modules",
+      "${1|__filename , __dirname|}"
+    ],
+    "description": "CommonJS module globals"
+  },
+  "module.ejs.globals": {
+    "prefix": "globals.ejs.module",
+    "scope": "typescript,javascript",
+    "body": [
+      "${1|module.globalPaths,module.builtinModules,import.meta.url|}"
+    ],
+    "description": "ES module globals"
+  }
+}

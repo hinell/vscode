@@ -1,0 +1,53 @@
+{
+	"name": "hinell-snippets",
+	"contributes": {
+		"snippets": [
+			  { "language": [ "all" ], "path": "./meta.code-snippets" }
+			, { "language": [ "all" ], "path": "./meta-licenses.code-snippets" }
+			, { "language": [ "all" ], "path": "./files.code-snippets" }
+			, { "language": [ "all" ], "path": "./npm.code-snippets" }
+
+			, { "language": [ "gitcommit" ], "path": "./gitcommit.code-snippets" }
+
+			, { "language": [ "lua" ], "path": "./lua.json" }
+			, { "language": [ "lua" ], "path": "./lua-nvim.code-snippets" }
+			, { "language": [ "lua" ], "path": "./lua-lls.code-snippets" }
+			, { "language": [ "lua" ], "path": "./json-lualsp.code-snippets" }
+
+			, { "language": [ "javascript", "javascriptreact", "typescript", "typescriptreact", "html" ], "path": "./vscode.code-snippets" }
+			, { "language": [ "javascript", "javascriptreact", "typescript", "typescriptreact", "html" ], "path": "./ecmascript.code-snippets" }
+			, { "language": [ "javascript", "javascriptreact", "typescript", "typescriptreact", "html" ], "path": "./react.code-snippets" }
+			, { "language": [ "javascript", "javascriptreact", "typescript", "typescriptreact", "html" ], "path": "./javascript-nodejs.code-snippets" }
+			, { "language": [ "javascript", "javascriptreact", "typescript", "typescriptreact", "html" ], "path": "./html-javascript.code-snippets" }
+
+			, { "language": [ "javascript", "html" ], "path": "./javascript.json" }
+			, { "language": [ "javascript" ], "path": "./esbuild.code-snippets" }
+
+			, { "language": [ "cmake" ], "path": "./cmake.json" }
+			, { "language": [ "cmake" ], "path": "./cmake.code-snippets" }
+			, { "language": [ "shellscript" , "sh", "zsh", "bash" ], "path": "./shellscript.json" }
+			, { "language": [ "shellscript" , "sh", "zsh", "bash" ], "path": "./shellscript-log.code-snippets" }
+            , { "language": [ "shellscript" , "sh", "zsh", "bash" ], "path": "./shellscript-whiptail.code-snippets" }
+
+			, { "language": [ "json" ], "path": "./json.json" }
+			, { "language": [ "json" ], "path": "./npm.code-snippets" }
+			, { "language": [ "json" ], "path": "./json-lualsp.code-snippets" }
+
+			, { "language": [ "json" ], "path": "./files.code-snippets" }
+			, { "language": [ "yaml" ], "path": "./files.code-snippets" }
+			, { "language": [ "editorconfig" ], "path": "./editorconfig.json" }
+
+			, { "language": [ "markdown" ], "path": "./markdown.json" }
+			, { "language": [ "html" ], "path": "./html.json" }
+
+			, { "language": [ "yaml" ], "path": "./clang-tools.json" }
+			, { "language": [ "yaml" ], "path": "./github.code-snippets" }
+
+			, { "language": [ "cpp" ], "path": "./cpp.json" }
+			, { "language": [ "make" ], "path": "./makefile.json" }
+
+            , { "language": [ "css" ], "path": "./css.json" }
+            , { "language": [ "svg" ], "path": "./svg.code-snippets" }
+		]
+	}
+}

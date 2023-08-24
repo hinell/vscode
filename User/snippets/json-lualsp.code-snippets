@@ -1,0 +1,41 @@
+{
+  "lua.lsp.luarc": {
+    "prefix": "luarc.new",
+    "body": [
+      "{",
+      "\t\"\\$schema\": \"https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json\",",
+      "\t\"runtime\": {",
+      "\t\t\"version\": \"LuaJIT\",",
+      "\t\t\"path\": [",
+      "\t\t\"lua/?.lua\",",
+      "\t\t\"lua/?/init.lua\"${0}",
+      "\t\t]",
+      "\t},",
+      "\t\"workspace\": {",
+      "\t\t\"library\": [",
+      "\t\t\t\"/usr/local/share/nvim/runtime/lua/\"",
+      "\t\t],",
+      "\t\t\"checkThirdParty\" : false,",
+      "\t\t\"userThirdParty\": [",
+      "\t\t]",
+      "\t},",
+      "\t\"diagnostics\": {",
+      "\t\t\"disable\": [",
+      "\t\t\t\"unused-local\",",
+      "\t\t\t\"unused-vararg\"",
+      "\t\t]",
+      "\t},",
+      "\t\"format.enable\": false",
+      "}"
+    ],
+    "description": "lua.lsp.luarc"
+  },
+  "@diagnostic": {
+    "prefix": "@diag",
+    "scope": "lua",
+    "body": [
+      "@diagnostic ${1|disable-next-line,disable-line,disable,enable|}${2::<diagnostic-type>}"
+    ],
+    "description": "Lua-language-server (LLS): @diagnostic to disable warnings"
+  }
+}

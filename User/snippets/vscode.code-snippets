@@ -1,0 +1,21 @@
+{
+    "vsc log": {
+        "scope": "javascript, typescript",
+        "prefix": "vsc.log",
+        "body": [
+            "vscode.window.show${1|Information,Warning,Error|}Message(\"${2:$1 message}\");"
+        ],
+        "description": "Vscode log"
+    },
+    "vsc open text": {
+        "prefix": "vsc.open.text",
+        "scope": "javascript, typescript",
+        "body": [
+            "workspace.openTextDocument({",
+            "    content : ${1:\"Lorem impsum\"},",
+            "    language: \"${2|javascript,typescript,texmate.snippet|}\"",
+            "});"
+        ],
+        "description": "vscode open text"
+    }
+}
